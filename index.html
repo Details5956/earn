@@ -1,388 +1,440 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="mainstyles.css">
-    <title>Earn kub lak na</title>
-    <style>
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('image/earn.png');
-            background-size: cover;
-            background-position: center;
-            height: 1300px;
-            display: flex;  
-            align-items: center;
-            justify-content: center;
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="mainstyles.css">
+        <title>Earn kub lak na</title>
+        <style>
+            .hero {
+                background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('image/earn.png');
+                background-size: cover;
+                background-position: center;
+                height: 1300px;
+                display: flex;  
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                color: white;
+            }
+
+            .hero-content h1 {
+                font-size: 64px;
+                font-weight: 300;
+                letter-spacing: 3px;
+                margin-bottom: 20px;
+                text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            }
+
+            .hero-content p {
+                font-size: 20px;
+                font-weight: 300;
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+                margin-bottom: 30px;
+            }
+        .valentine-animated {
+            /* 1. ตั้งค่าฟอนต์และขนาด */
+            font-family: 'Arial', sans-serif;
+            font-size: 60px;
+            font-weight: bold;
             text-align: center;
-            color: white;
+            display: block;
+            margin: 20px 0;
+
+            /* 2. ตั้งค่าการวิ่งสี (Gradient) */
+            background: linear-gradient(90deg, #ff0000, #ff69b4, #ff1493, #ff0000, #ff69b4, #ff1493);
+            background-size: 300% auto; /* ขยายพื้นหลังให้กว้างเพื่อให้สีไหลได้ */
+            -webkit-background-clip: text; /* บังคับให้สีอยู่ในตัวอักษร */
+            background-clip: text;         /* สำหรับ Firefox และมาตรฐานใหม่ */        
+            -webkit-text-fill-color: transparent; /* ทำให้สีปกติของตัวอักษรใส */
+            
+            /* 3. สั่งให้ทำงาน: วิ่งสี (flow) และ เต้น (beat) พร้อมกัน */
+            animation: flow 3s linear infinite, beat 1.2s infinite ease-in-out;
         }
 
-        .hero-content h1 {
-            font-size: 64px;
-            font-weight: 300;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        /* กฎการวิ่งสี */
+        @keyframes flow {
+            0% { background-position: 0% center; }
+            100% { background-position: 100% center; }
         }
 
-        .hero-content p {
-            font-size: 20px;
-            font-weight: 300;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-            margin-bottom: 30px;
+        /* กฎการเต้น */
+        @keyframes beat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.05); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
-    .valentine-animated {
-        /* 1. ตั้งค่าฟอนต์และขนาด */
-        font-family: 'Arial', sans-serif;
-        font-size: 60px;
-        font-weight: bold;
-        text-align: center;
-        display: block;
-        margin: 20px 0;
 
-        /* 2. ตั้งค่าการวิ่งสี (Gradient) */
-        background: linear-gradient(90deg, #ff0000, #ff69b4, #ff1493, #ff0000, #ff69b4, #ff1493);
-        background-size: 300% auto; /* ขยายพื้นหลังให้กว้างเพื่อให้สีไหลได้ */
-        -webkit-background-clip: text; /* บังคับให้สีอยู่ในตัวอักษร */
-        background-clip: text;         /* สำหรับ Firefox และมาตรฐานใหม่ */        
-        -webkit-text-fill-color: transparent; /* ทำให้สีปกติของตัวอักษรใส */
-        
-        /* 3. สั่งให้ทำงาน: วิ่งสี (flow) และ เต้น (beat) พร้อมกัน */
-        animation: flow 3s linear infinite, beat 1.2s infinite ease-in-out;
-    }
-
-    /* กฎการวิ่งสี */
-    @keyframes flow {
-        0% { background-position: 0% center; }
-        100% { background-position: 100% center; }
-    }
-
-    /* กฎการเต้น */
-    @keyframes beat {
-        0% { transform: scale(1); }
-        25% { transform: scale(1.05); }
-        50% { transform: scale(1); }
-        75% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-    }
-
-.featured-section {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr); /* แบ่งเป็น 3 คอลัมน์เท่าๆ กัน */
-        gap: 20px; /* ช่องว่างระหว่างรูป */
-        padding: 40px 5%;
-        background-color: #ffffff;
-    }
-
-    .featured-item {
-        position: relative;
-        overflow: hidden;
-        border-radius: 15px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        aspect-ratio: 3/4; /* บังคับให้ทุกรูปมีสัดส่วนเท่ากัน */
-    }
-
-    .featured-item img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* ทำให้รูปไม่บี้เบี้ยว */
-        transition: transform 0.5s;
-    }
-
-    .featured-item:hover img {
-        transform: scale(1.1); /* ขยายรูปเมื่อเอาเมาส์วาง */
-    }
-
-    .featured-item-content {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        padding: 20px;
-        background: linear-gradient(transparent, rgba(0,0,0,0.7)); /* ใส่เงาดำให้ตัวหนังสืออ่านง่าย */
-        color: white;
-    }
-
-    /* 📱 คำสั่งสำหรับ "โทรศัพท์มือถือ" (หน้าจอเล็กกว่า 768px) */
-    @media (max-width: 768px) {
-        .featured-section {
-            grid-template-columns: 1fr; /* เปลี่ยนเป็น 1 คอลัมน์ (เรียงเดี่ยว) */
-            gap: 30px; /* เพิ่มช่องว่างระหว่างรายการ */
-            padding: 20px 5%;
+    .featured-section {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* แบ่งเป็น 3 คอลัมน์เท่าๆ กัน */
+            gap: 20px; /* ช่องว่างระหว่างรูป */
+            padding: 40px 5%;
+            background-color: #ffffff;
         }
 
         .featured-item {
-            aspect-ratio: auto; /* ในมือถือให้สูงตามรูปจริง หรือตั้งค่าคงที่ */
-            height: 400px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            aspect-ratio: 3/4; /* บังคับให้ทุกรูปมีสัดส่วนเท่ากัน */
         }
+
+        .featured-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* ทำให้รูปไม่บี้เบี้ยว */
+            transition: transform 0.5s;
+        }
+
+        .featured-item:hover img {
+            transform: scale(1.1); /* ขยายรูปเมื่อเอาเมาส์วาง */
+        }
+
+        .featured-item-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7)); /* ใส่เงาดำให้ตัวหนังสืออ่านง่าย */
+            color: white;
+        }
+
+        /* 📱 คำสั่งสำหรับ "โทรศัพท์มือถือ" (หน้าจอเล็กกว่า 768px) */
+        @media (max-width: 768px) {
+            .featured-section {
+                grid-template-columns: 1fr; /* เปลี่ยนเป็น 1 คอลัมน์ (เรียงเดี่ยว) */
+                gap: 30px; /* เพิ่มช่องว่างระหว่างรายการ */
+                padding: 20px 5%;
+            }
+
+            .featured-item {
+                aspect-ratio: auto; /* ในมือถือให้สูงตามรูปจริง หรือตั้งค่าคงที่ */
+                height: 400px;
+            }
+            
+            .featured-item-content h3 {
+                font-size: 24px;
+            }
+        }
+
+            .about-section {
+                background-color: #f9f9f9;
+                padding: 80px 20px;
+                text-align: center;
+            }
+
+            .about-section h2 {
+                font-size: 42px;
+                margin-bottom: 20px;
+                font-weight: 400;
+                letter-spacing: 2px;
+            }
+
+            .about-section p {
+                font-size: 16px;
+                max-width: 800px;
+                margin: 0 auto 30px;
+                line-height: 1.8;
+                color: #555;
+            }
+
+            .cta-button {
+                display: inline-block;
+                background-color: #d32f2f;
+                color: white;
+                padding: 15px 40px;
+                text-decoration: none;
+                font-weight: bold;
+                border-radius: 4px;
+                transition: background-color 0.3s;
+                margin: 10px;
+            }
+
+            .cta-button:hover {
+                background-color: #b71c1c;
+                transform: translateY(-3px); 
+                box-shadow: 0 10px 20px rgba(211, 47, 47, 0.3);
+            }
         
-        .featured-item-content h3 {
-            font-size: 24px;
+        .featured-section {
+            display: grid;
+            /* ทำให้เรียง 3 คอลัมน์ในหน้าจอคอม */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 20px;
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
+
+        .featured-item img {
+            width: 100%;
+            height: 300px; /* ปรับความสูงให้พอดีกับ 3 คอลัมน์ */
+            object-fit: cover;
+            display: block;
+        }
+
+    /* สไตล์พื้นฐาน */
+    html { scroll-behavior: smooth; }
+
+    /* ปุ่ม 3 ขีด (Hamburger) */
+    .hamburger {
+        display: none; /* ซ่อนในคอม */
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 8px 10px;
+        border: 1px solid rgba(0, 0, 0, 0.2); /* กรอบสี่เหลี่ยมมน */
+        border-radius: 8px;
+        z-index: 2001;
     }
 
-        .about-section {
+    .hamburger span {
+        display: block;
+        width: 22px;
+        height: 1px;
+        background-color: #333; /* สีของขีด 3 ขีด */
+    }
+
+        /* ตั้งค่าสำหรับหน้าจอปกติ (คอมพิวเตอร์) */
+        .responsive-section {
+            display: flex;
+            flex-direction: row; /* เรียงซ้ายขวา */
+            align-items: stretch;
+            width: 100%;
+            min-height: 500px;
             background-color: #f9f9f9;
-            padding: 80px 20px;
-            text-align: center;
+            margin: 40px 0;
+            overflow: hidden;
         }
 
-        .about-section h2 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            font-weight: 400;
-            letter-spacing: 2px;
+        /* ตั้งค่าพิเศษสำหรับ "มือถือ" (หน้าจอเล็กกว่า 768px) */
+        @media (max-width: 768px) {
+            .responsive-section {
+                flex-direction: column; /* เปลี่ยนเป็นเรียง บน-ล่าง */
+                min-height: auto;
+            }
+
+            .video-container, .text-container {
+                flex: none;
+                width: 100%; /* ให้กว้างเต็มจอทั้งคู่ */
+            }
+
+            .video-container video {
+                height: 300px; /* ปรับความสูงวิดีโอในมือถือให้พอดี */
+            }
+            
+            .text-container {
+                padding: 30px 20px; /* ลดช่องว่างขอบในมือถือ */
+                text-align: center; /* จัดตัวหนังสือให้อยู่กลางหน้าจอเพื่อความสวยงาม */
+            }
+
+            .text-container iframe {
+                width: 100%; /* ให้แผนที่กว้างเต็มจอมือถือ */
+                height: 300px;
+            }
+        /* ใช้ Class เดิมที่สร้างไว้ก่อนหน้า */
+        .responsive-section {
+            display: flex;
+            align-items: stretch;
+            width: 100%;
+            min-height: 500px;
+            margin: 80px 0;
+            overflow: hidden;
         }
 
-        .about-section p {
-            font-size: 16px;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            line-height: 1.8;
-            color: #555;
+        .row-reverse { flex-direction: row-reverse; } /* สำหรับคอม: วิดีโออยู่ขวา */
+
+        @media (max-width: 768px) {
+            .responsive-section {
+                flex-direction: column !important; /* ในมือถือ: บังคับให้เป็น บน-ล่าง เสมอ */
+            }
+            .video-side, .text-side {
+                width: 100% !important;
+                flex: none;
+            }
+            .video-side video {
+                width: 100% !important; /* ในมือถือให้วิดีโอกว้างเต็มจอเพื่อความชัดเจน */
+                height: auto !important;
+            }
+            .text-side {
+                padding: 40px 20px !important;
+                text-align: center;
+            }
+            .text-side img {
+                width: 80px; /* ปรับขนาดรูปหัวใจในมือถือ */
+            }
+        }       
+        /* สไตล์สำหรับทุกหน้าจอ */
+        .mobile-friendly-section {
+            display: flex;
+            flex-wrap: wrap; /* ยอมให้ข้อความตกลงมาข้างล่างได้ถ้าพื้นที่ไม่พอ */
+            width: 100%;
+            margin: 40px 0;
+            background-color: #f9f9f9;
+            overflow: hidden;
         }
 
-        .cta-button {
-            display: inline-block;
-            background-color: #d32f2f;
-            color: white;
-            padding: 15px 40px;
-            text-decoration: none;
-            font-weight: bold;
-            border-radius: 4px;
-            transition: background-color 0.3s;
-            margin: 10px;
+        .video-part, .text-part {
+            flex: 1; /* แบ่งครึ่งซ้ายขวาในคอม */
+            min-width: 350px; /* ถ้าหน้าจอแคบกว่า 350px ให้แยกแถวทันที */
         }
 
-        .cta-button:hover {
-            background-color: #b71c1c;
-            transform: translateY(-3px); 
-            box-shadow: 0 10px 20px rgba(211, 47, 47, 0.3);
+        /* คำสั่งพิเศษสำหรับมือถือ (หน้าจอเล็กกว่า 768px) */
+        @media (max-width: 768px) {
+            .mobile-friendly-section {
+                flex-direction: column !important; /* บังคับเรียง บน-ล่าง */
+            }
+            .video-part, .text-part {
+                width: 100% !important;
+                min-width: 100%;
+            }
+            .text-part {
+                padding: 30px 20px !important; /* ลดระยะขอบในมือถือ */
+                text-align: center; /* จัดตัวหนังสือไว้ตรงกลางในมือถือ */
+            }
         }
-    
-    .featured-section {
-        display: grid;
-        /* ทำให้เรียง 3 คอลัมน์ในหน้าจอคอม */
-        grid-template-columns: repeat(3, 1fr); 
-        gap: 20px;
-        padding: 40px 20px;
+    .navbar {
+        width: 100%;
+        background-color: #fff;
+        padding: 10px 0;
+        position: fixed;
+        top: 0;
+        z-index: 2000;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+        display: flex;
+        justify-content: space-between; /* ดันซ้ายและขวาออกจากกัน */
+        align-items: center;
         max-width: 1200px;
         margin: 0 auto;
+        padding: 0 20px;
     }
 
-    .featured-item img {
-        width: 100%;
-        height: 300px; /* ปรับความสูงให้พอดีกับ 3 คอลัมน์ */
-        object-fit: cover;
-        display: block;
-    }
-
-/* สไตล์พื้นฐาน */
-html { scroll-behavior: smooth; }
-
-/* ปุ่ม 3 ขีด (Hamburger) */
-.hamburger {
-    display: none; /* ซ่อนในคอม */
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 8px 10px;
-    border: 1px solid rgba(0, 0, 0, 0.2); /* กรอบสี่เหลี่ยมมน */
-    border-radius: 8px;
-    z-index: 2001;
-}
-
-.hamburger span {
-    display: block;
-    width: 22px;
-    height: 1px;
-    background-color: #333; /* สีของขีด 3 ขีด */
-}
-
-    /* ตั้งค่าสำหรับหน้าจอปกติ (คอมพิวเตอร์) */
-    .responsive-section {
+    .nav-right-wrapper {
         display: flex;
-        flex-direction: row; /* เรียงซ้ายขวา */
-        align-items: stretch;
-        width: 100%;
-        min-height: 500px;
-        background-color: #f9f9f9;
-        margin: 40px 0;
-        overflow: hidden;
+        align-items: center;
+        gap: 15px;
     }
 
-    /* ตั้งค่าพิเศษสำหรับ "มือถือ" (หน้าจอเล็กกว่า 768px) */
+    /* ตั้งค่าปุ่ม 3 ขีดในมือถือ */
     @media (max-width: 768px) {
-        .responsive-section {
-            flex-direction: column; /* เปลี่ยนเป็นเรียง บน-ล่าง */
-            min-height: auto;
+        .desktop-only {
+            display: none; /* ซ่อนปุ่ม Go down ในมือถือเพื่อให้คลีน */
         }
 
-        .video-container, .text-container {
-            flex: none;
-            width: 100%; /* ให้กว้างเต็มจอทั้งคู่ */
+        .hamburger {
+            display: flex !important; /* แสดงปุ่ม 3 ขีด */
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
         }
 
-        .video-container video {
-            height: 300px; /* ปรับความสูงวิดีโอในมือถือให้พอดี */
-        }
-        
-        .text-container {
-            padding: 30px 20px; /* ลดช่องว่างขอบในมือถือ */
-            text-align: center; /* จัดตัวหนังสือให้อยู่กลางหน้าจอเพื่อความสวยงาม */
+        .hamburger span {
+            width: 25px;
+            height: 2px;
+            background-color: #333;
         }
 
-        .text-container iframe {
-            width: 100%; /* ให้แผนที่กว้างเต็มจอมือถือ */
-            height: 300px;
+        /* จัดการเมนูที่ซ่อนอยู่ */
+        .nav-menu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            background: white;
+            flex-direction: column;
+            padding: 20px 0;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
         }
-    /* ใช้ Class เดิมที่สร้างไว้ก่อนหน้า */
-    .responsive-section {
-        display: flex;
-        align-items: stretch;
-        width: 100%;
-        min-height: 500px;
-        margin: 80px 0;
-        overflow: hidden;
-    }
 
-    .row-reverse { flex-direction: row-reverse; } /* สำหรับคอม: วิดีโออยู่ขวา */
-
-    @media (max-width: 768px) {
-        .responsive-section {
-            flex-direction: column !important; /* ในมือถือ: บังคับให้เป็น บน-ล่าง เสมอ */
-        }
-        .video-side, .text-side {
-            width: 100% !important;
-            flex: none;
-        }
-        .video-side video {
-            width: 100% !important; /* ในมือถือให้วิดีโอกว้างเต็มจอเพื่อความชัดเจน */
-            height: auto !important;
-        }
-        .text-side {
-            padding: 40px 20px !important;
-            text-align: center;
-        }
-        .text-side img {
-            width: 80px; /* ปรับขนาดรูปหัวใจในมือถือ */
-        }
-    }       
-    /* สไตล์สำหรับทุกหน้าจอ */
-    .mobile-friendly-section {
-        display: flex;
-        flex-wrap: wrap; /* ยอมให้ข้อความตกลงมาข้างล่างได้ถ้าพื้นที่ไม่พอ */
-        width: 100%;
-        margin: 40px 0;
-        background-color: #f9f9f9;
-        overflow: hidden;
-    }
-
-    .video-part, .text-part {
-        flex: 1; /* แบ่งครึ่งซ้ายขวาในคอม */
-        min-width: 350px; /* ถ้าหน้าจอแคบกว่า 350px ให้แยกแถวทันที */
-    }
-
-    /* คำสั่งพิเศษสำหรับมือถือ (หน้าจอเล็กกว่า 768px) */
-    @media (max-width: 768px) {
-        .mobile-friendly-section {
-            flex-direction: column !important; /* บังคับเรียง บน-ล่าง */
-        }
-        .video-part, .text-part {
-            width: 100% !important;
-            min-width: 100%;
-        }
-        .text-part {
-            padding: 30px 20px !important; /* ลดระยะขอบในมือถือ */
-            text-align: center; /* จัดตัวหนังสือไว้ตรงกลางในมือถือ */
+        .nav-menu.active {
+            display: flex;
         }
     }
+/* --- ปรับปรุง Navbar ให้ใสและจัดวางใหม่ --- */
 .navbar {
     width: 100%;
-    background-color: #fff;
-    padding: 10px 0;
+    background-color: rgba(255, 255, 255, 0.1); /* พื้นหลังใส */
+    backdrop-filter: blur(10px); /* เอฟเฟกต์กระจกฝ้า */
+    -webkit-backdrop-filter: blur(10px);
+    padding: 15px 0;
     position: fixed;
     top: 0;
     z-index: 2000;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: 0.3s;
+}
+
+/* เมื่อเลื่อนจอลงมา หรือเปิดเมนู ให้เข้มขึ้นนิดนึงเพื่อให้เห็นตัวอักษร */
+.navbar.active-bg {
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
 .nav-container {
     display: flex;
-    justify-content: space-between; /* ดันซ้ายและขวาออกจากกัน */
+    justify-content: space-between; /* หัวใจซ้าย - เมนู/3ขีดขวา */
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-.nav-right-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-/* ตั้งค่าปุ่ม 3 ขีดในมือถือ */
+/* --- ระบบกดขยายรูปใน Featured Section (สำหรับมือถือ) --- */
 @media (max-width: 768px) {
-    .desktop-only {
-        display: none; /* ซ่อนปุ่ม Go down ในมือถือเพื่อให้คลีน */
+    .featured-section {
+        grid-template-columns: 1fr; 
+        padding: 40px 10%;
     }
 
-    .hamburger {
-        display: flex !important; /* แสดงปุ่ม 3 ขีด */
-        flex-direction: column;
-        gap: 5px;
+    .featured-item {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         cursor: pointer;
     }
 
-    .hamburger span {
-        width: 25px;
-        height: 2px;
-        background-color: #333;
+    /* เมื่อกดที่รูป (คลาสนี้จะถูกเพิ่มด้วย JS) */
+    .featured-item.expanded {
+        transform: scale(1.08); /* ขยายใหญ่ขึ้น */
+        z-index: 10;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
     }
-
-    /* จัดการเมนูที่ซ่อนอยู่ */
-    .nav-menu {
-        display: none;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        width: 100%;
-        background: white;
-        flex-direction: column;
-        padding: 20px 0;
-        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-    }
-
-    .nav-menu.active {
-        display: flex;
-    }
-}
-    }
-
     
-</style>
-</head>
-<body>
-    <!-- Navigation Bar -->
+    .featured-item.expanded img {
+        filter: brightness(1.1);
+    }
+
+    .nav-menu {
+        background: rgba(255, 255, 255, 0.98);
+    }
+}    
+        }
+
+        
+    </style>
+    </head>
+    <body>
+        <!-- Navigation Bar -->
 <nav class="navbar">
     <div class="nav-container">
         <div class="logo">
             <a href="index.html">
-                <img src="image/heart.png" alt="earn">
+                <img src="image/heart.png" alt="earn" style="width: 40px;">
             </a>
         </div>
 
-        <ul class="nav-menu" id="nav-menu"> 
-            <li><a href="#">Home</a></li>
-            <li><a href="gallery.html" target="_blank">Gallery</a></li>
-        </ul>
+        <div class="nav-right-wrapper" style="display: flex; align-items: center; gap: 20px;">
+            <ul class="nav-menu" id="nav-menu"> 
+                <li><a href="#">Home</a></li>
+                <li><a href="gallery.html" target="_blank">Gallery</a></li>
+            </ul>
 
-        <div class="nav-right-wrapper">
-            <div class="nav-right desktop-only">
-                <a href="#contact" class="view-menu-btn">Go down</a>
-            </div>
             <div class="hamburger" id="hamburger">
                 <span></span>
                 <span></span>
@@ -392,201 +444,225 @@ html { scroll-behavior: smooth; }
     </div>
 </nav>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-        <h1 class="valentine-animated">Valentine Day</h1>   
-            <p>You are the best thing that ever happened to me..</p>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+            <h1 class="valentine-animated">Valentine Day</h1>   
+                <p>You are the best thing that ever happened to me..</p>
+            </div>
+        </section>
+
+    <section class="featured-section">
+        <div class="featured-item">
+            <img src="image/earn3.jpg" alt="earn3">
+            <div class="featured-item-content">
+                <h3>13 / 9 / 68</h3>
+                <p>Cinema at terminal 21</p>
+            </div>
+        </div>
+
+        <div class="featured-item">
+            <img src="image/earn2.jpg" alt="earn2">
+            <div class="featured-item-content">
+                <h3>21 / 11 / 68</h3>
+                <p>สถานีขนส่งผู้โดยสาร หมอชิต2</p>
+            </div>
+        </div>
+
+        <div class="featured-item">
+            <img src="image/earn4.jpg" alt="earn4">
+            <div class="featured-item-content">
+                <h3>10 / 12 / 68</h3>
+                <p>Central marina</p>
+            </div>
         </div>
     </section>
 
-<section class="featured-section">
-    <div class="featured-item">
-        <img src="image/earn3.jpg" alt="earn3">
-        <div class="featured-item-content">
-            <h3>13 / 9 / 68</h3>
-            <p>Cinema at terminal 21</p>
-        </div>
-    </div>
 
-    <div class="featured-item">
-        <img src="image/earn2.jpg" alt="earn2">
-        <div class="featured-item-content">
-            <h3>21 / 11 / 68</h3>
-            <p>สถานีขนส่งผู้โดยสาร หมอชิต2</p>
-        </div>
-    </div>
-
-    <div class="featured-item">
-        <img src="image/earn4.jpg" alt="earn4">
-        <div class="featured-item-content">
-            <h3>10 / 12 / 68</h3>
-            <p>Central marina</p>
-        </div>
-    </div>
-</section>
-
-
-<section class="responsive-section">
-    
-    <div class="video-container" style="flex: 1; display: flex; align-items: center; justify-content: center; background: #000;">
-        <video autoplay loop muted playsinline 
-               style="width: 100%; height: 100%; object-fit: cover; display: block;">
-            <source src="image/earn.mp4" type="video/mp4">
-            เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
-        </video>
-    </div>
-
-    <div class="text-container" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 5%;">
-        <h2 class="valentine-animated" style="font-size: 32px; margin-bottom: 20px; font-weight: 400; letter-spacing: 2px;">
-            เราเจอกันที่ไหนครั้งแรก?
-        </h2>
-        <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 30px;">
-            ตอนนั้นเดินมาขอ IG ตรงใต้ตึกกำลังจะเดินกลับตึกเรียนเลย จากนั้นก็ทักมาจีบเลยน้าา
-        </p>
-        <div style="width: 100%;">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5590241617497!2d100.91427162487737!3d12.936039656959467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3102958d7edd01b9%3A0x608348d619abd694!2z4LmC4Lij4LiH4LmA4Lij4Li14Lii4LiZ4Liq4Lin4LmI4Liy4LiH4Lia4Lij4Li04Lia4Li54Lij4LiT4LmM4Lin4Li04LiX4Lii4Liy!5e0!3m2!1sth!2sth!4v1769266951526!5m2!1sth!2sth" 
-                    width="100%" height="300" style="border:0; border-radius: 15px;" 
-                    allowfullscreen="" loading="lazy"></iframe>
-        </div>
-    </div>
-
-</section>
-    
-<section class="responsive-section row-reverse" style="background-color: #ffffff; clear: both;">
-    
-    <div class="video-side" style="flex: 1; display: flex; align-items: center; justify-content: center;">
-        <video autoplay loop muted playsinline 
-               style="width: 80%; height: 80%; object-fit: cover; display: block; border-radius: 20px;">
-            <source src="image/earn2.mp4" type="video/mp4">
-            เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
-        </video>
-    </div>
-
-    <div class="text-side" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 5%;">
-        <h2 style="font-size: 42px; margin-bottom: 20px; font-weight: 400; letter-spacing: 2px; color: #d32f2f;">
-            รักใครที่สุดในโลกนี่?
-        </h2>
-        <p style="font-size: 18px; line-height: 1.8; color: #555; margin-bottom: 30px;">
-            รักเอิร์นที่สุดในโลกเลยยย ยอมทุกอย่างจริงๆ รักมากอยากดูแลเอิร์นไปตลอดชีวิตเลย 
-        </p>
-        <div>
-            <img src="image/heart.png" alt="Heart Icon" style="width: 100px; height: auto;">
-        </div>
-    </div>
-
-</section>
-    
-<section class="mobile-friendly-section" style="background-color: #f9f9f9; text-align: center; padding: 40px 0;">
-    
-    <div class="video-part" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
-        <video autoplay loop muted playsinline 
-               style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: block;">
-            <source src="image/earn3.mp4" type="video/mp4">
-            เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
-        </video>
-    </div>
-
-    <div class="text-part" style="max-width: 600px; margin: 30px auto 0; padding: 0 20px;">
-        <h3 style="font-family: 'Courier New', monospace; font-size: 28px; font-weight: bold; margin-bottom: 15px; color: #333;">
-            รูปของเรา
-        </h3>
-        <p style="font-family: 'Courier New', monospace; font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 30px;">
-            ความทรงจำดีดีทำให้เราคิดถึงกัน <br>
-            บรรยากาศที่สร้างมาเพื่อความสบายและการพูดคุยที่แสนพิเศษ
-        </p>
+    <section class="responsive-section">
         
-        <a href="gallery.html" 
-           style="display: inline-block; background-color: #d32f2f; color: white; padding: 14px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);">
-            View Gallery
-        </a>
+        <div class="video-container" style="flex: 1; display: flex; align-items: center; justify-content: center; background: #000;">
+            <video autoplay loop muted playsinline 
+                style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                <source src="image/earn.mp4" type="video/mp4">
+                เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
+            </video>
+        </div>
+
+        <div class="text-container" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 5%;">
+            <h2 class="valentine-animated" style="font-size: 32px; margin-bottom: 20px; font-weight: 400; letter-spacing: 2px;">
+                เราเจอกันที่ไหนครั้งแรก?
+            </h2>
+            <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 30px;">
+                ตอนนั้นเดินมาขอ IG ตรงใต้ตึกกำลังจะเดินกลับตึกเรียนเลย จากนั้นก็ทักมาจีบเลยน้าา
+            </p>
+            <div style="width: 100%;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5590241617497!2d100.91427162487737!3d12.936039656959467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3102958d7edd01b9%3A0x608348d619abd694!2z4LmC4Lij4LiH4LmA4Lij4Li14Lii4LiZ4Liq4Lin4LmI4Liy4LiH4Lia4Lij4Li04Lia4Li54Lij4LiT4LmM4Lin4Li04LiX4Lii4Liy!5e0!3m2!1sth!2sth!4v1769266951526!5m2!1sth!2sth" 
+                        width="100%" height="300" style="border:0; border-radius: 15px;" 
+                        allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+
+    </section>
+        
+    <section class="responsive-section row-reverse" style="background-color: #ffffff; clear: both;">
+        
+        <div class="video-side" style="flex: 1; display: flex; align-items: center; justify-content: center;">
+            <video autoplay loop muted playsinline 
+                style="width: 80%; height: 80%; object-fit: cover; display: block; border-radius: 20px;">
+                <source src="image/earn2.mp4" type="video/mp4">
+                เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
+            </video>
+        </div>
+
+        <div class="text-side" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 5%;">
+            <h2 style="font-size: 42px; margin-bottom: 20px; font-weight: 400; letter-spacing: 2px; color: #d32f2f;">
+                รักใครที่สุดในโลกนี่?
+            </h2>
+            <p style="font-size: 18px; line-height: 1.8; color: #555; margin-bottom: 30px;">
+                รักเอิร์นที่สุดในโลกเลยยย ยอมทุกอย่างจริงๆ รักมากอยากดูแลเอิร์นไปตลอดชีวิตเลย 
+            </p>
+            <div>
+                <img src="image/heart.png" alt="Heart Icon" style="width: 100px; height: auto;">
+            </div>
+        </div>
+
+    </section>
+        
+    <section class="mobile-friendly-section" style="background-color: #f9f9f9; text-align: center; padding: 40px 0;">
+        
+        <div class="video-part" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
+            <video autoplay loop muted playsinline 
+                style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: block;">
+                <source src="image/earn3.mp4" type="video/mp4">
+                เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ
+            </video>
+        </div>
+
+        <div class="text-part" style="max-width: 600px; margin: 30px auto 0; padding: 0 20px;">
+            <h3 style="font-family: 'Courier New', monospace; font-size: 28px; font-weight: bold; margin-bottom: 15px; color: #333;">
+                รูปของเรา
+            </h3>
+            <p style="font-family: 'Courier New', monospace; font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 30px;">
+                ความทรงจำดีดีทำให้เราคิดถึงกัน <br>
+                บรรยากาศที่สร้างมาเพื่อความสบายและการพูดคุยที่แสนพิเศษ
+            </p>
+            
+            <a href="gallery.html" 
+            style="display: inline-block; background-color: #d32f2f; color: white; padding: 14px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);">
+                View Gallery
+            </a>
+        </div>
+
+    </section>
+
+        <!-- Contact Section -->
+        <section id="contact" style="text-align: center; padding: 60px 20px; background-color: #f9f9f9;">
+            <img src="image/heart7.png" alt="Contact Icon" style="width: 100px; height: auto; margin-bottom: 20px;">
+        </section>
+    <div id="music-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+        <span id="music-icon" style="font-size: 24px;">🔇</span>
     </div>
 
-</section>
-
-    <!-- Contact Section -->
-    <section id="contact" style="text-align: center; padding: 60px 20px; background-color: #f9f9f9;">
-        <img src="image/heart7.png" alt="Contact Icon" style="width: 100px; height: auto; margin-bottom: 20px;">
-    </section>
-<div id="music-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-    <span id="music-icon" style="font-size: 24px;">🔇</span>
-</div>
-
-<div id="player" style="display:none;"></div>
+    <div id="player" style="display:none;"></div>
 
 
-    <!-- Footer -->
-    <footer>
-        <p>You are the reason I believe in love (earn)</p>
-    </footer>
-<script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
-    const navbar = document.querySelector('.navbar');
+        <!-- Footer -->
+        <footer>
+            <p>You are the reason I believe in love (earn)</p>
+        </footer>
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        const navbar = document.querySelector('.navbar');
 
-    hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        // สลับสี Navbar จาก ใส เป็น ขาวทึบ
-        navbar.classList.toggle('active-bg'); 
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            // สลับสี Navbar จาก ใส เป็น ขาวทึบ
+            navbar.classList.toggle('active-bg'); 
+        });
+
+        // คลิกเมนูแล้วให้หุบและกลับเป็นแถบใส
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                navbar.classList.remove('active-bg');
+            });
+        }); 
+    // 1. โหลด YouTube IFrame API
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var isPlaying = false;
+        const control = document.getElementById('music-control');
+        const icon = document.getElementById('music-icon');
+
+        // 2. ฟังก์ชันสร้างเครื่องเล่น (ใช้ ID: lqWP-nJF0kA)
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0',
+                width: '0',
+                videoId: 'OYPiXBIgvJ8', 
+                playerVars: {
+                    'autoplay': 0,
+                    'loop': 1,
+                    'playlist': 'OYPiXBIgvJ8' // เพื่อให้เล่นวนซ้ำ
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // เมื่อกดที่ปุ่มลำโพง
+            control.addEventListener('click', function() {
+                if (isPlaying) {
+                    player.pauseVideo();
+                    icon.innerText = '🔇';
+                } else {
+                    player.playVideo();
+                    icon.innerText = '🎵';
+                }
+                isPlaying = !isPlaying;
+            });
+            
+            // ทริค: คลิกครั้งแรกที่หน้าจอเพื่อให้เริ่มเล่นทันที (ตามกฎเบราว์เซอร์)
+            document.addEventListener('click', function() {
+                if(!isPlaying) {
+                    player.playVideo();
+                    icon.innerText = '🎵';
+                    isPlaying = true;
+                }
+            }, { once: true });
+    // --- ระบบกดขยายรูปในมือถือ ---
+    const featuredItems = document.querySelectorAll('.featured-item');
+
+    featuredItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // ถ้าคลิกอันที่ขยายอยู่แล้ว ให้ย่อกลับ
+            if (this.classList.contains('expanded')) {
+                this.classList.remove('expanded');
+            } else {
+                // ย่ออันอื่นก่อน แล้วค่อยขยายอันที่กด
+                featuredItems.forEach(i => i.classList.remove('expanded'));
+                this.classList.add('expanded');
+            }
+        });
     });
 
-    // คลิกเมนูแล้วให้หุบและกลับเป็นแถบใส
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
+    // --- ปรับสี Navbar เมื่อเลื่อนจอ (Scroll) ---
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.add('active-bg');
+        } else {
             navbar.classList.remove('active-bg');
-        });
-    }); 
-// 1. โหลด YouTube IFrame API
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    var player;
-    var isPlaying = false;
-    const control = document.getElementById('music-control');
-    const icon = document.getElementById('music-icon');
-
-    // 2. ฟังก์ชันสร้างเครื่องเล่น (ใช้ ID: lqWP-nJF0kA)
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-            height: '0',
-            width: '0',
-            videoId: 'OYPiXBIgvJ8', 
-            playerVars: {
-                'autoplay': 0,
-                'loop': 1,
-                'playlist': 'OYPiXBIgvJ8' // เพื่อให้เล่นวนซ้ำ
-            },
-            events: {
-                'onReady': onPlayerReady
-            }
-        });
-    }
-
-    function onPlayerReady(event) {
-        // เมื่อกดที่ปุ่มลำโพง
-        control.addEventListener('click', function() {
-            if (isPlaying) {
-                player.pauseVideo();
-                icon.innerText = '🔇';
-            } else {
-                player.playVideo();
-                icon.innerText = '🎵';
-            }
-            isPlaying = !isPlaying;
-        });
-        
-        // ทริค: คลิกครั้งแรกที่หน้าจอเพื่อให้เริ่มเล่นทันที (ตามกฎเบราว์เซอร์)
-        document.addEventListener('click', function() {
-            if(!isPlaying) {
-                player.playVideo();
-                icon.innerText = '🎵';
-                isPlaying = true;
-            }
-        }, { once: true });
-    }  
-</script>
-</body>
-</html>
+        }
+    });         
+        }  
+    </script>
+    </body>
+    </html>
