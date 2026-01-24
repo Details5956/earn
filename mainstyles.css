@@ -1,0 +1,263 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background-color: #ffffff;
+    color: #333;
+}
+
+/* Navigation Bar */
+.navbar {
+    background-color: #ffffff;
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    flex: 1;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.nav-menu a:hover {
+    border-bottom: 2px solid #333;
+}
+
+.logo {
+    flex: 1;
+    text-align: center;
+}
+
+.logo img {
+    height: 60px;
+}
+
+.nav-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+}
+
+.social-icon {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.view-menu-btn {
+    background-color: #ff0000;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.view-menu-btn:hover {
+    background-color: #ff8181;
+}
+
+/* Hero Section */
+.hero {
+    background-color: #ffffff;
+    padding: 60px 20px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.hero h1 {
+    font-size: 48px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+/* Main Content Section */
+.main-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    gap: 40px;
+}
+
+.content-left {
+    flex: 1;
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+.content-left p {
+    margin-bottom: 30px;
+}
+
+.highlight {
+    color: #e63946;
+    text-decoration: underline;
+}
+
+.content-right {
+    flex: 1;
+}
+
+.hero-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Contact Section */
+#contact {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+#contact h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+#contact p {
+    margin: 10px 0;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .main-content {
+        flex-direction: column;
+        padding: 40px 20px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .content-left {
+        font-size: 16px;
+    }
+/* Location Section */
+.location-section {
+    padding: 60px 20px;
+    background-color: #f9f9f9;
+}
+
+.location-section h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+
+.location-container {
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.map-container {
+    flex: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    height: 500px;
+}
+
+.map-container iframe {
+    border-radius: 8px;
+}
+
+.location-info {
+    flex: 1;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.location-info h3 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.location-info p {
+    margin: 10px 0;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.location-info ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.location-info li {
+    margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+    .location-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .map-container {
+        height: 300px;
+    }
+
+    .location-section h2 {
+        font-size: 28px;
+    }
+} 
+}

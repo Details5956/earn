@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="mainstyles.css">  
+  <title>Document</title>
+  <style>
+    .gallery-container {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.gallery-title {
+    font-size: 36px;
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+}
+
+/* การจัดวางแบบ Grid */
+.gallery-grid {
+    display: grid;
+    /* แบ่งเป็น 3 คอลัมน์เท่าๆ กัน */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; /* ระยะห่างระหว่างรูป */
+}
+
+.gallery-item {
+    overflow: hidden;
+    border-radius: 8px;
+    height: 300px; /* กำหนดความสูงมาตรฐาน */
+    background-color: #eee;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ให้รูปเต็มกรอบโดยไม่เบี้ยว */
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+/* เอฟเฟกต์เวลาเอาเมาส์วาง */
+.gallery-item:hover img {
+    transform: scale(1.05); /* รูปขยายขึ้นนิดนึง */
+}
+
+/* ปรับสำหรับมือถือ */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr); /* เหลือ 2 คอลัมน์ */
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr; /* เหลือ 1 คอลัมน์ */
+    }
+}
+  </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <a href="index.html">
+                <img src="image/heart.png" alt="earn">
+            </a>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <ul class="nav-menu" id="nav-menu"> 
+            <li><a href="#">Home</a></li>
+            <li><a href="gallery.html" target="_blank">Gallery</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <a href="#contact" class="view-menu-btn">Go down</a>
+        </div>
+    </div>
+</nav>    
+  <section class="gallery-container">
+    <h1 class="gallery-title">Our Gallery</h1>
+    
+    <div class="gallery-grid">
+        <div class="gallery-item"><img src="image/earn.png" alt="Coffee 1"></div>
+        <div class="gallery-item"><img src="image/earn2.jpg" alt="Coffee 2"></div>
+        <div class="gallery-item"><img src="image/earn3.jpg" alt="Atmosphere"></div>
+        <div class="gallery-item"><img src="image/earn4.jpg" alt="Dessert"></div>
+        <div class="gallery-item"><video controls><source src="image/earn.mp4" type="video/mp4"></video></div>
+        <div class="gallery-item"><video controls><source src="image/earn2.mp4" type="video/mp4"></video></div>
+</section>
+    <!-- Footer -->
+    <footer>
+        <p></p>
+    </footer>    
+</body>
+</html>
