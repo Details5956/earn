@@ -275,7 +275,7 @@
 
     <footer><p>You are the reason I believe in love (earn)</p></footer>
 
- <script>
+<script>
     const bgMusic = document.getElementById('bg-music');
     const introVideo = document.getElementById('intro-video');
     const introOverlay = document.getElementById('intro-overlay');
@@ -283,7 +283,7 @@
     const musicIcon = document.getElementById('music-icon');
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
-    const bgVideo = document.getElementById('main-bg-video'); 
+    const bgVideo = document.getElementById('bg-video-loop'); 
     let hasStarted = false;
 
     hamburger.addEventListener('click', () => {
@@ -291,30 +291,37 @@
         hamburger.classList.toggle('open');
     });
 
+
+    function unlockAudio() {
+        bgMusic.muted = false;
+        bgMusic.play().then(() => {
+            console.log("Audio Unlocked");
+        }).catch(e => console.log("Unlock failed", e));
+    }
+
     introOverlay.addEventListener('click', () => {
         if (hasStarted) return;
         hasStarted = true;
 
-        bgMusic.muted = false; 
+        unlockAudio();
         
+        introVideo.muted = false; 
         introVideo.play().catch(e => console.log("Video Intro Blocked"));
         
+        bgMusic.volume = 0.8;
+        setTimeout(() => {
+            bgMusic.play().then(() => {
+                musicIcon.innerText = '🎵';
+            }).catch(e => console.log("Audio Final Play Blocked"));
+        }, 100);
+
         if(bgVideo) {
             bgVideo.muted = true; 
             bgVideo.play().catch(e => console.log("BG Video Blocked"));
         }
-        
-        bgMusic.volume = 0.8; 
-        bgMusic.play().then(() => {
-            musicIcon.innerText = '🎵';
-        }).catch(e => {
-            console.log("Audio Play Blocked by Mobile Browser");
-
-        });
 
         document.getElementById('play-hint').style.opacity = '0';
     });
-
 
     introVideo.onended = function() {
         introOverlay.style.transition = 'opacity 1s ease';
@@ -367,7 +374,6 @@
             musicIcon.innerText = '🔇';
         }
     });
-
 
     function createHeart() {
         const heart = document.createElement('div');
