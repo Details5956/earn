@@ -18,163 +18,116 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Arial', sans-serif; overflow-x: hidden; }
 
-.nav-container {
-        display: flex;
-        justify-content: space-between; /* ดันซ้าย-ขวา */
-        align-items: center;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        height: 60px; /* กำหนดความสูงที่แน่นอน */
-    }
-
-    /* เมนูสำหรับ Desktop */
-    .nav-menu { 
-        display: flex; 
-        list-style: none; 
-        gap: 30px; 
-    }
-
-    .nav-menu a { 
-        text-decoration: none; 
-        color: #333; 
-        font-weight: bold; 
-        font-size: 16px;
-        transition: 0.3s;
-    }
-
-    .nav-menu a:hover { color: var(--primary-red); }
-
-    /* Hamburger (ปุ่ม 3 ขีด) */
-    .hamburger { 
-        display: none; /* ซ่อนในจอคอม */
-        flex-direction: column; 
-        gap: 5px; 
-        cursor: pointer;
-        padding: 10px;
-        z-index: 3000;
-    }
-
-    /* --- ส่วนที่เพิ่มใหม่: รองรับมือถือ (Mobile Responsive) --- */
-    @media (max-width: 768px) {
-        .hamburger { 
-            display: flex; /* โชว์ 3 ขีดในมือถือ */
-        }
-
-        .nav-menu {
-            display: none; /* ซ่อนเมนูแนวนอนปกติ */
-            flex-direction: column;
-            position: absolute;
-            top: 100%; /* ให้ลงมาต่อจาก navbar */
-            left: 0;
+        /* --- แก้ไข Navbar ให้ หัวใจอยู่ซ้าย - 3 ขีดอยู่ขวา --- */
+        .navbar {
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.98);
-            padding: 20px 0;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            text-align: center;
-            gap: 15px;
-        }
-
-        /* เมื่อกดปุ่ม active ให้แสดงเมนู */
-        .nav-menu.active {
-            display: flex;
-            animation: fadeInDown 0.3s ease-in-out;
-        }
-    }
-
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-        /* 3. Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('image/earn.png');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
+            background-color: var(--glass-bg);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            height: 65px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
+            transition: 0.3s;
         }
 
-        /* 4. Animations */
+        .navbar.active-bg { background-color: rgba(255, 255, 255, 0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between; /* ดันหัวใจไปซ้ายสุด และกลุ่มขวาไปขวาสุด */
+            align-items: center;
+        }
+
+        .nav-right-wrapper { display: flex; align-items: center; }
+
+        .nav-menu { 
+            display: flex; 
+            list-style: none; 
+            gap: 25px; 
+        }
+
+        .nav-menu a { 
+            text-decoration: none; 
+            color: #333; 
+            font-weight: bold; 
+        }
+
+        /* ปุ่ม 3 ขีด */
+        .hamburger { 
+            display: none; 
+            flex-direction: column; 
+            gap: 5px; 
+            cursor: pointer;
+        }
+        .hamburger span { 
+            width: 25px; 
+            height: 3px; 
+            background-color: #333; 
+            border-radius: 2px;
+        }
+
+        /* --- สไตล์มือถือ --- */
+        @media (max-width: 768px) {
+            .hamburger { display: flex; } /* โชว์ 3 ขีดขวาสุด */
+
+            .nav-menu {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 65px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 20px 0;
+                gap: 20px;
+                text-align: center;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.active { display: flex; }
+        }
+
+        /* --- CSS เดิมของคุณคงไว้ทั้งหมด --- */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('image/earn.png');
+            background-size: cover; background-position: center; height: 100vh;
+            display: flex; align-items: center; justify-content: center; text-align: center; color: white;
+        }
         .valentine-animated {
-            font-size: 60px;
-            font-weight: bold;
+            font-size: 60px; font-weight: bold;
             background: linear-gradient(90deg, #ff0000, #ff69b4, #ff1493, #ff0000);
-            background-size: 300% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: flow 3s linear infinite, beat 1.2s infinite ease-in-out;
+            background-size: 300% auto; -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent; animation: flow 3s linear infinite, beat 1.2s infinite ease-in-out;
             display: inline-block;
         }
-
         @keyframes flow { 0% { background-position: 0% center; } 100% { background-position: 100% center; } }
         @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        /* 5. Featured Section (Grid) */
-        .featured-section {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-            padding: 80px 5%;
-            background-color: #fff;
-        }
-
-        .featured-item {
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            aspect-ratio: 3/4;
-            cursor: pointer;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
+        .featured-section { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 80px 5%; background-color: #fff; }
+        .featured-item { position: relative; overflow: hidden; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); aspect-ratio: 3/4; cursor: pointer; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .featured-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
         .featured-item:hover img { transform: scale(1.1); }
+        .featured-item-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; }
 
-        .featured-item-content {
-            position: absolute;
-            bottom: 0; left: 0; right: 0;
-            padding: 20px;
-            background: linear-gradient(transparent, rgba(0,0,0,0.8));
-            color: white;
-        }
-
-        /* 6. Responsive Sections (Flex) */
-        .responsive-section, .mobile-friendly-section {
-            display: flex;
-            width: 100%;
-            overflow: hidden;
-            background-color: #f9f9f9;
-        }
-
+        .responsive-section, .mobile-friendly-section { display: flex; width: 100%; overflow: hidden; background-color: #f9f9f9; }
         .row-reverse { flex-direction: row-reverse; }
 
-        /* 7. Mobile Adjustments */
         @media (max-width: 768px) {
-            .navbar .nav-menu { display: none; } /* ซ่อนเมนูจริงไว้ก่อนถ้ายังไม่ได้ทำ JS toggle */
-            .hamburger { display: flex; }
-            
             .featured-section { grid-template-columns: 1fr; padding: 40px 10%; }
-            .featured-item.expanded { transform: scale(1.05); z-index: 10; }
-
             .responsive-section, .mobile-friendly-section { flex-direction: column !important; }
             .video-container, .text-container, .video-side, .text-side, .video-part, .text-part {
-                width: 100% !important;
-                flex: none;
-                padding: 40px 20px !important;
-                text-align: center;
+                width: 100% !important; flex: none; padding: 40px 20px !important; text-align: center;
             }
-            
             .valentine-animated { font-size: 40px; }
         }
-
         footer { padding: 40px; text-align: center; background: #333; color: white; }
     </style>
 </head>
@@ -183,13 +136,13 @@
         <div class="nav-container">
             <div class="logo">
                 <a href="index.html">
-                    <img src="image/heart2.png" alt="earn12" style="width: 35px; height: auto; display: block;">
+                    <img src="image/heart2.png" alt="earn12" style="width: 50px; height: auto; display: block;">
                 </a>
             </div>
             <div class="nav-right-wrapper">
                 <ul class="nav-menu" id="nav-menu"> 
-                    <li><a href="#">Home</a></li>
-                    <li><a href="gallery.html" target="_blank">Gallery</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
                 </ul>
                 <div class="hamburger" id="hamburger">
                     <span></span><span></span><span></span>
@@ -273,13 +226,12 @@
     </section>
 
     <section id="contact" style="text-align: center; padding: 60px 20px;">
-        <img src="image/heart7.png" alt="Contact Icon" style="width: 300px; height: auto; margin-bottom: 20px;">
+        <img src="image/heart7.png" alt="Contact Icon" style="width: 500px; height: auto; margin-bottom: 20px;">
     </section>
 
     <div id="music-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
         <span id="music-icon" style="font-size: 24px;">🔇</span>
     </div>
-
     <div id="player" style="display:none;"></div>
 
     <footer>
@@ -287,23 +239,24 @@
     </footer>
 
     <script>
-        // JavaScript เดิมของคุณทั้งหมด (คงไว้เพื่อการทำงานที่ถูกต้อง)
+        // Hamburger Toggle
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         const navbar = document.querySelector('.navbar');
 
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            navbar.classList.toggle('active-bg'); 
+            navbar.classList.add('active-bg'); 
         });
 
+        // Close menu when clicking links
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
-                navbar.classList.remove('active-bg');
             });
-        }); 
+        });
 
+        // Music & YouTube Logic (เดิมของคุณ)
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -341,45 +294,19 @@
                     isPlaying = true;
                 }
             }, { once: true });
+        }
 
-            const featuredItems = document.querySelectorAll('.featured-item');
-            featuredItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    if (this.classList.contains('expanded')) {
-                        this.classList.remove('expanded');
-                    } else {
-                        featuredItems.forEach(i => i.classList.remove('expanded'));
-                        this.classList.add('expanded');
-                    }
-                });
-            });
-
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('active-bg');
-                } else {
-                    navbar.classList.remove('active-bg');
-                }
-            });
-    // ส่วนควบคุมการเปิด-ปิดเมนู
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
-
-    hamburger.addEventListener('click', () => {
-        // สลับ Class 'active' เพื่อโชว์/ซ่อนเมนู
-        navMenu.classList.toggle('active');
-        
-        // ถ้าต้องการเปลี่ยนสีพื้นหลัง Navbar ตอนเปิดเมนูก็ใช้บรรทัดนี้
-        document.querySelector('.navbar').classList.toggle('active-bg');
-    });
-
-    // ปิดเมนูอัตโนมัติเมื่อมีการคลิกลิงก์
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('active-bg');
+            } else if (!navMenu.classList.contains('active')) {
+                navbar.classList.remove('active-bg');
+            }
         });
-    });                
-        }   
+
+        function toggleExpand(element) {
+            element.classList.toggle('expanded');
+        }
     </script>
 </body>
 </html>
