@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery - Earn kub lak na</title>
     <style>
-
         :root {
             --primary-red: #ff4d4d;
             --glass-bg: rgba(255, 255, 255, 0.1);
@@ -14,9 +13,10 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Arial', sans-serif; background-color: #fdfdfd; overflow-x: hidden; position: relative; }
-        html {
-        scroll-behavior: auto !important;
-            }
+        html { scroll-behavior: auto !important; }
+
+        /* ล็อคหน้าจอจนกว่าจะเริ่ม */
+        body.locked { overflow: hidden; height: 100vh; }
 
         .heart-fall {
             position: fixed;
@@ -30,30 +30,21 @@
         }
 
         @keyframes fall {
-            to {
-                transform: translateY(110vh) rotate(360deg);
-            }
+            to { transform: translateY(110vh) rotate(360deg); }
         }
 
         /* --- Navbar --- */
         .navbar {
             width: 100%;
             height: 70px;
-            background-color: var(--glass-bg);
+            background-color: rgba(255, 255, 255, 0.8);
             backdrop-filter: var(--blur-effect);
-            -webkit-backdrop-filter: var(--blur-effect);
             position: fixed;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             z-index: 9999;
             display: flex;
             align-items: center;
             transition: all 0.4s ease;
-        }
-
-        .navbar.active-bg { 
-            background-color: rgba(255, 255, 255, 0.95); 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
         }
 
         .nav-container {
@@ -76,7 +67,6 @@
             text-decoration: none;
             color: #333;
             font-weight: 600;
-            letter-spacing: 1px;
             font-size: 15px;
         }
 
@@ -91,7 +81,6 @@
             width: 28px;
             height: 3px;
             background-color: #333;
-            border-radius: 10px;
             transition: 0.4s;
         }
 
@@ -101,35 +90,24 @@
                 display: flex;
                 flex-direction: column;
                 position: absolute;
-                top: 70px;
-                left: 0;
+                top: 70px; left: 0;
                 width: 100%;
                 background: rgba(255, 255, 255, 0.98);
                 height: 0;
                 overflow: hidden;
                 transition: height 0.3s ease-in-out;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
                 text-align: center;
             }
-            .nav-menu.active { height: 120px; padding: 8px 0; }
-            .nav-menu a { display: block; padding: 8px 0; font-size: 14px; }
-            .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-            .hamburger.open span:nth-child(2) { opacity: 0; }
-            .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+            .nav-menu.active { height: 120px; padding: 10px 0; }
+            .nav-menu a { padding: 10px 0; display: block; }
         }
 
+        /* --- Gallery --- */
         .gallery-container {
             max-width: 1200px;
             margin: 100px auto 60px;
             padding: 0 15px;
             text-align: center;
-        }
-
-        .gallery-title {
-            font-size: 32px;
-            margin-bottom: 30px;
-            color: #333;
-            font-weight: bold;
         }
 
         .gallery-grid {
@@ -147,124 +125,93 @@
         }
 
         .gallery-item img, .gallery-item video {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
             display: block;
             transition: transform 0.4s ease;
         }
 
         @media (max-width: 768px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 10px;
-            }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .gallery-item { height: 200px; }
-            .gallery-title { font-size: 26px; }
         }
 
-        .gallery-item:hover img { transform: scale(1.05); }
+        /* --- Intro Overlay --- */
+        #intro-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff; z-index: 10001;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+        }
 
+        .intro-video-container {
+            position: relative;
+            width: 85%; max-width: 400px;
+            height: 70vh;
+            border-radius: 20px; overflow: hidden;
+            box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+            background: #000;
+        }
+
+        #intro-video { width: 100%; height: 100%; object-fit: cover; }
+
+        #play-hint {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 77, 109, 0.9);
+            color: white; padding: 15px 25px;
+            border-radius: 50px; font-weight: bold;
+            pointer-events: none;
+        }
+
+        /* --- Love Letter Overlay --- */
+        #love-letter-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            display: none; align-items: center; justify-content: center;
+            z-index: 10005; opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .letter-content {
+            background: white; padding: 40px 30px;
+            border-radius: 30px; max-width: 85%; width: 450px;
+            text-align: center; box-shadow: 0 15px 45px rgba(255, 77, 109, 0.2);
+            border: 2px solid #ffccd5;
+        }
+
+        .letter-content p { color: #ff4d6d; font-size: 1.1rem; line-height: 1.8; margin: 20px 0; }
+        
         footer { padding: 40px; text-align: center; background: #333; color: white; margin-top: 40px; }
-body.locked { overflow: hidden; }
-
-#intro-overlay {
+        #bg-video-loop {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: #fff; z-index: 10001;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1; /* ให้อยู่หลังสุด */
+    object-fit: cover;
+    filter: brightness(0.7); /* ปรับให้วิดีโอมืดลงนิดหน่อยเพื่อให้รูป Gallery เด่นขึ้น */
 }
 
-.intro-video-container {
-    position: relative;
-    width: 85%; max-width: 400px;
-    height: 70vh;
-    border-radius: 20px; overflow: hidden;
-    box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
-    background: #000;
+/* ปรับพื้นหลังของ container ให้โปร่งใสเพื่อให้เห็นวิดีโอ */
+.gallery-container {
+    background: transparent;
 }
 
-#intro-video { width: 100%; height: 100%; object-fit: cover; }
-
-#play-hint {
-    position: absolute; top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 77, 109, 0.9);
-    color: white; padding: 15px 25px;
-    border-radius: 50px; pointer-events: none;
-    font-weight: bold; transition: 0.5s;
+.gallery-item {
+    background-color: rgba(255, 255, 255, 0.2); /* ให้ขอบรูปมีความใสๆ แบบ Glassmorphism */
+    backdrop-filter: blur(5px);
 }
-
-#final-message {
-    display: none; position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(10px); z-index: 10002;
-    align-items: center; justify-content: center;
-    opacity: 0; transition: opacity 0.8s ease;
-}
-
-.message-content {
-    width: 85%; max-width: 500px;
-    background: white; padding: 40px 30px;
-    border-radius: 30px; border: 2px solid #ffccd5;
-    text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-}
-
-.message-content p {
-    color: #ff4d6d; font-size: 1.1rem;
-    line-height: 1.8; margin-bottom: 30px;
-    font-weight: 500;
-}
-
-.start-btn {
-    background: #ff4d6d; color: white;
-    border: none; padding: 12px 35px;
-    border-radius: 50px; font-weight: bold;
-    cursor: pointer; transition: 0.3s;
-}
-/* ล็อคการเลื่อนในช่วงที่ระบบกำลังเลื่อนให้เอง */
-body.locked { overflow: hidden; }
-
-/* สไตล์กล่องข้อความ Overlay */
-#love-letter-overlay {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(255, 255, 255, 0.9); /* พื้นหลังขาวนวล */
-    backdrop-filter: blur(10px);
-    display: none; /* ซ่อนไว้ก่อน */
-    align-items: center; justify-content: center;
-    z-index: 10005;
-    opacity: 0;
-    transition: opacity 2s ease;
-}
-
-.letter-content {
-    background: white;
-    padding: 40px 30px;
-    border-radius: 30px;
-    max-width: 85%;
-    width: 450px;
-    text-align: center;
-    box-shadow: 0 15px 45px rgba(255, 77, 109, 0.2);
-    border: 2px solid #ffccd5;
-}
-
-.letter-content p {
-    color: #ff4d6d;
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin: 20px 0;
-}
-
-.heart-divider { font-size: 30px; animation: pulse 1.5s infinite; }
-@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
     </style>
 </head>
-<body>
-
+<body class="locked">
+<video autoplay muted loop id="bg-video-loop">
+    <source src="image/earn4.mp4" type="video/mp4">
+</video>
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
@@ -280,190 +227,170 @@ body.locked { overflow: hidden; }
         </div>
     </nav>
 
+    <div id="intro-overlay">
+        <h2 style="margin-bottom: 20px; color: #ff4d6d;">For You, Earn ❤️</h2>
+        <div class="intro-video-container">
+            <video id="intro-video" playsinline>
+                <source src="image/earn.mp4" type="video/mp4">
+            </video>
+            <div id="play-hint">แตะเพื่อรับชมนะค๊าบ 🎁</div>
+        </div>
+    </div>
+
     <section class="gallery-container">
         <h1 class="gallery-title">Our Gallery</h1>
         <div class="gallery-grid">
-            <div class="gallery-item"><img src="image/earn.png" alt="earn"></div>
-            <div class="gallery-item"><img src="image/earn2.jpg" alt="earn2"></div>
-            <div class="gallery-item"><img src="image/earn3.jpg" alt="earn3"></div>
-            <div class="gallery-item"><img src="image/earn4.jpg" alt="earn4"></div>
-            <div class="gallery-item"><img src="image/earn5.jpg" alt="earn5"></div>
-            <div class="gallery-item"><img src="image/earn6.jpg" alt="earn6"></div>
-            <div class="gallery-item"><img src="image/earn7.jpg" alt="earn7"></div>
-            <div class="gallery-item"><img src="image/earn8.jpg" alt="earn8"></div>
-            <div class="gallery-item"><img src="image/earn6.png" alt="earn8"></div>
-            <div class="gallery-item">
-                <video controls style="width:100%; height:100%; object-fit: cover;">
-                    <source src="image/earn.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="gallery-item">
-                <video controls style="width:100%; height:100%; object-fit: cover;">
-                    <source src="image/earn2.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="gallery-item">
-                <video controls style="width:100%; height:100%; object-fit: cover;">
-                    <source src="image/earn3.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="gallery-item">
-                <video controls style="width:100%; height:100%; object-fit: cover;">
-                    <source src="image/earn4.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="gallery-item">
-                <video controls style="width:100%; height:100%; object-fit: cover;">
-                    <source src="image/earn5.mp4" type="video/mp4">
-                </video>
-            </div>
-            <div class="gallery-item">
-                <video controls style="width:100%; height:100%; object-fit: cover;">
-                    <source src="image/earn6.mp4" type="video/mp4">
-                </video>
-            </div>
+            <div class="gallery-item"><img src="image/earn.png"></div>
+            <div class="gallery-item"><img src="image/earn2.jpg"></div>
+            <div class="gallery-item"><img src="image/earn3.jpg"></div>
+            <div class="gallery-item"><img src="image/earn4.jpg"></div>
+            <div class="gallery-item"><img src="image/earn5.jpg"></div>
+            <div class="gallery-item"><img src="image/earn6.jpg"></div>
+            <div class="gallery-item"><img src="image/earn7.jpg"></div>
+            <div class="gallery-item"><img src="image/earn8.jpg"></div>
+            <div class="gallery-item"><img src="image/earn6.png"></div>
+            <div class="gallery-item"><video controls><source src="image/earn.mp4" type="video/mp4"></video></div>
+            <div class="gallery-item"><video controls><source src="image/earn2.mp4" type="video/mp4"></video></div>
+            <div class="gallery-item"><video controls><source src="image/earn3.mp4" type="video/mp4"></video></div>
+            <div class="gallery-item"><video controls><source src="image/earn4.mp4" type="video/mp4"></video></div>
+            <div class="gallery-item"><video controls><source src="image/earn5.mp4" type="video/mp4"></video></div>
+            <div class="gallery-item"><video controls><source src="image/earn6.mp4" type="video/mp4"></video></div>
         </div>
     </section>
 
-<div id="intro-overlay">
-    <h2 style="margin-bottom: 20px; color: #ff4d6d; font-family: 'Arial', sans-serif;">For You, Earn ❤️</h2>
-    <div class="intro-video-container">
-        <video id="intro-video" playsinline>
-            <source src="image/earn.mp4" type="video/mp4">
-        </video>
-        <div id="play-hint">แตะเพื่อรับชมนะค๊าบ 🎁</div>
+    <div id="love-letter-overlay">
+        <div class="letter-content">
+            <div style="font-size: 30px;">❤️</div>
+            <p>"ขอบคุณที่อยู่ด้วยกันมานาน ไม่ทิ้งเค้าไปไหน อดทนไปด้วยกัน เค้าอยากโตไปกับเธออยากให้เราสองได้คู่กันตลอดไป ในอนาคตเค้าจะพยายามให้เธอมีความสุขมากๆเลยนะ จะได้พาไปเที่ยวที่สวยๆ ไปกินของอร่อยๆ เค้าไม่อยากให้เราสองคนลำบากในอนาคต เค้าจะพยายามตั้งใจมากกว่านี้นะครับ"</p>
+            <div style="color: #999;">จาก... เค้านะ</div>
+        </div>
     </div>
-</div>
 
-<div id="love-letter-overlay">
-    <div class="letter-content">
-        <div class="heart-divider">❤️</div>
-        <p>
-            "ขอบคุณที่อยู่ด้วยกันมานาน ไม่ทิ้งเค้าไปไหน อดทนไปด้วยกัน เค้าอยากโตไปกับเธออยากให้เราสองได้คู่กันตลอดไป ในอนาคตเค้าจะพยายามให้เธอมีความสุขมากๆเลยนะ จะได้พาไปเที่ยวที่สวยๆ ไปกินของอร่อยๆ เค้าไม่อยากให้เราสองคนลำบากในอนาคต เค้าจะพยายามตั้งใจมากกว่านี้นะครับ"
-        </p>
-        <div class="letter-footer">จาก... เค้านะ</div>
-    </div>
-</div>
 
-    <section style="text-align: center; padding: 40px 20px;">
-        <img src="image/heart7.png" alt="Big Heart" style="width: 250px; max-width: 80%; height: auto;">
-    </section>
+    <audio id="bg-music" loop preload="auto">
+        <source src="image/music.mp3" type="audio/mpeg">
+    </audio>
 
-    <div id="music-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+    <div id="music-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; background: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
         <span id="music-icon" style="font-size: 24px;">🔇</span>
     </div>
-<audio id="bg-music" loop preload="auto">
-    <source src="music.mp3" type="audio/mpeg">
-</audio>
-
 
     <footer><p>You are the reason I believe in love (earn)</p></footer>
 
-<script>
-    // --- 1. ระบบหัวใจตก (คงเดิม) ---
-    function createHeart() {
-        const heart = document.createElement('div');
-        heart.classList.add('heart-fall');
-        const heartIcons = ['❤️', '💖', '💗', '💓', '💕'];
-        heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
-        heart.style.left = Math.random() * 100 + "vw";
-        const duration = Math.random() * 4 + 3;
-        heart.style.animationDuration = duration + "s";
-        heart.style.fontSize = Math.random() * 15 + 15 + "px";
-        document.body.appendChild(heart);
-        setTimeout(() => { heart.remove(); }, duration * 1000);
-    }
-    setInterval(createHeart, 500);
+    <script>
+        const bgMusic = document.getElementById('bg-music');
+        const introVideo = document.getElementById('intro-video');
+        const introOverlay = document.getElementById('intro-overlay');
+        const letterOverlay = document.getElementById('love-letter-overlay');
+        const musicIcon = document.getElementById('music-icon');
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        let hasStarted = false;
 
-    // --- 2. ตั้งค่าตัวแปรหลัก ---
-    const bgMusic = document.getElementById('bg-music');
-    const introVideo = document.getElementById('intro-video');
-    const introOverlay = document.getElementById('intro-overlay');
-    const letterOverlay = document.getElementById('love-letter-overlay');
-    const musicIcon = document.getElementById('music-icon');
-    let hasStarted = false;
+        // 1. Hamburger Menu
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('open');
+        });
 
-    // --- 3. ฟังก์ชันเริ่มทุกอย่างเมื่อ "แตะ" ---
-    function startExperience() {
+        // 2. แตะหน้าจอเพื่อเริ่มวิดีโอ + เพลง
+        introOverlay.addEventListener('click', () => {
+            if (hasStarted) return;
+            hasStarted = true;
+
+            introVideo.play();
+            bgMusic.volume = 0.6;
+            bgMusic.play().then(() => {
+                musicIcon.innerText = '🎵';
+            }).catch(e => console.log("Audio Play Blocked"));
+
+            document.getElementById('play-hint').style.opacity = '0';
+        });
+
+        // 3. วิดีโอจบ -> เลื่อนหน้าจอลงข้างล่างอัตโนมัติ
+        introVideo.onended = function() {
+            introOverlay.style.transition = 'opacity 1s ease';
+            introOverlay.style.opacity = '0';
+            
+            setTimeout(() => {
+                introOverlay.style.display = 'none';
+                document.body.classList.remove('locked'); 
+
+                let currentPos = window.scrollY; 
+                const targetPos = document.documentElement.scrollHeight - window.innerHeight;
+
+                function cinematicScroll() {
+                    if (currentPos < targetPos) {
+                        currentPos += 0.3; 
+                        window.scrollTo(0, currentPos);
+                        requestAnimationFrame(cinematicScroll);
+                    } else {
+                        showLoveLetter();
+                    }
+                }
+                setTimeout(cinematicScroll, 500);
+            }, 1000);
+        };
+        const bgVideo = document.getElementById('main-bg-video'); // เพิ่มตัวแปรนี้
+
+    // 2. แตะหน้าจอเพื่อเริ่มวิดีโอ + เพลง
+    introOverlay.addEventListener('click', () => {
         if (hasStarted) return;
         hasStarted = true;
 
-        // เริ่มวิดีโอ
         introVideo.play();
-
-        // เริ่มเพลง mp3 (บังคับให้ดังทันที)
-        bgMusic.volume = 0.6; // ปรับความดัง 60%
+        bgVideo.play(); // สั่งให้วิดีโอพื้นหลังเล่นด้วยเมื่อแตะครั้งแรก
+        
+        bgMusic.volume = 0.6;
         bgMusic.play().then(() => {
             musicIcon.innerText = '🎵';
-        }).catch(err => {
-            console.log("Music play blocked by browser:", err);
-        });
+        }).catch(e => console.log("Audio Play Blocked"));
 
         document.getElementById('play-hint').style.opacity = '0';
-    }
-
-    // แตะที่หน้า Intro เพื่อเริ่ม
-    introOverlay.addEventListener('click', startExperience);
-    introOverlay.addEventListener('touchstart', startExperience);
-
-    // --- 4. เมื่อวิดีโอจบ -> เริ่มเลื่อนหน้าจออัตโนมัติ ---
-    introVideo.onended = function() {
-        introOverlay.style.transition = 'opacity 1.5s ease';
-        introOverlay.style.opacity = '0';
-        
-        setTimeout(() => {
-            introOverlay.style.display = 'none';
-            document.body.classList.remove('locked'); 
-
-            let currentPos = window.scrollY; 
-            const targetPos = document.documentElement.scrollHeight - window.innerHeight;
-
-            function cinematicScroll() {
-                if (currentPos < targetPos) {
-                    currentPos += 0.8; // ความเร็วไหลช้าๆ นุ่มนวล
-                    window.scrollTo(0, currentPos);
-                    requestAnimationFrame(cinematicScroll);
-                } else {
-                    showLoveLetter(); // ถึงล่างสุดแล้วโชว์ข้อความ
-                }
-            }
-            setTimeout(cinematicScroll, 500);
-        }, 1000);
-    };
-
-    // --- 5. ฟังก์ชันโชว์จดหมายค้างไว้ 15 วินาที ---
-    function showLoveLetter() {
-        letterOverlay.style.display = 'flex';
-        document.body.classList.add('locked'); // ล็อคหน้าจอให้นิ่งเพื่ออ่าน
-        
-        setTimeout(() => {
-            letterOverlay.style.opacity = '1';
-            
-            // ครบ 15 วินาทีแล้วค่อยจางหายไป
-            setTimeout(() => {
-                letterOverlay.style.opacity = '0';
-                
-                setTimeout(() => {
-                    letterOverlay.style.display = 'none';
-                    document.body.classList.remove('locked'); // ปลดล็อคให้เลื่อนได้ปกติ
-                    window.scrollTo({ top: 0, behavior: 'smooth' }); // เลื่อนกลับบนสุด
-                }, 2000); 
-            }, 15000); // 15 วินาที
-        }, 100);
-    }
-
-    // ปุ่มกดคุมเพลง (Manual Control)
-    document.getElementById('music-control').addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (bgMusic.paused) {
-            bgMusic.play();
-            musicIcon.innerText = '🎵';
-        } else {
-            bgMusic.pause();
-            musicIcon.innerText = '🔇';
-        }
     });
-</script>
-</script>
+
+        // 4. แสดงจดหมายค้างไว้ 15 วินาที
+        function showLoveLetter() {
+            letterOverlay.style.display = 'flex';
+            document.body.classList.add('locked');
+            setTimeout(() => {
+                letterOverlay.style.opacity = '1';
+                setTimeout(() => {
+                    letterOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        letterOverlay.style.display = 'none';
+                        document.body.classList.remove('locked'); 
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }, 2000); 
+                }, 15000); 
+            }, 100);
+        }
+
+        // 5. ปุ่มเปิด-ปิดเพลง
+        document.getElementById('music-control').addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (bgMusic.paused) {
+                bgMusic.play();
+                musicIcon.innerText = '🎵';
+            } else {
+                bgMusic.pause();
+                musicIcon.innerText = '🔇';
+            }
+        });
+
+        // 6. หัวใจตก
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-fall');
+            const icons = ['❤️', '💖', '💗', '💓', '💕'];
+            heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+            heart.style.left = Math.random() * 100 + "vw";
+            const duration = Math.random() * 3 + 2;
+            heart.style.animationDuration = duration + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), duration * 1000);
+        }
+        setInterval(createHeart, 500);
+    </script>
 </body>
 </html>
