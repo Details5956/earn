@@ -10,59 +10,93 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Arial', sans-serif; background-color: #fff; overflow-x: hidden; }
 
-        /* --- 2. Navbar Setup --- */
+         /* --- Navbar --- */
         .navbar {
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 12px 0;
+            height: 70px;
+            background-color: var(--glass-bg);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
             position: fixed;
             top: 0;
-            z-index: 2000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            left: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        .navbar.active-bg { 
+            background-color: rgba(255, 255, 255, 0.95); 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
         }
 
         .nav-container {
+            width: 100%;
             display: flex;
-            justify-content: space-between; /* หัวใจซ้าย - 3 ขีดขวา */
+            justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 25px;
         }
 
-        /* เมนูสำหรับหน้าจอคอม */
-        .nav-menu { 
-            display: flex; 
-            list-style: none; 
-            gap: 25px; 
+        .logo img { width: 50px; height: auto; transition: 0.3s; }
+
+        /* --- Desktop Menu --- */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
         }
-        
-        .nav-menu a { 
-            text-decoration: none; 
-            color: #333; 
-            font-weight: bold; 
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            letter-spacing: 1px;
             transition: 0.3s;
         }
 
-        .nav-menu a:hover { color: #d32f2f; }
-
-        /* ปุ่ม 3 ขีด */
-        .hamburger { 
-            display: none; /* ซ่อนในคอม */
-            flex-direction: column; 
-            gap: 5px; 
+        /* --- Hamburger (3 ขีด) --- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
             cursor: pointer;
         }
-        
-        .hamburger span { 
-            width: 25px; 
-            height: 2px; 
-            background-color: #333; 
-            transition: 0.3s;
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background-color: #333;
+            border-radius: 10px;
+            transition: 0.4s;
         }
 
+        /* --- Mobile Menu (ปรับใหม่ให้ไม่แปลก) --- */
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            
+            .nav-menu {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                height: 0;
+                overflow: hidden;
+                transition: height 0.3s ease-in-out;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                text-align: center;
+            }
+
+            .nav-menu.active { height: 120px; padding: 8px 0; }
+            .nav-menu a { display: block; padding: 8px 0; font-size: 14px; }
+            
+            .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .hamburger.open span:nth-child(2) { opacity: 0; }
+            .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+        }
         /* --- 3. Gallery Section --- */
         .gallery-container {
             max-width: 1200px;
@@ -101,38 +135,7 @@
         }
 
         .gallery-item:hover img { transform: scale(1.08); }
-
-        /* --- 4. Responsive (มือถือ) --- */
-        @media (max-width: 768px) {
-            .hamburger { display: flex; } /* โชว์ 3 ขีด */
-
-            .nav-menu {
-                display: none; /* ซ่อนเมนูแนวนอน */
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: white;
-                padding: 20px 0;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-                text-align: center;
-            }
-
-            /* เมื่อกดปุ่มแล้วให้เมนูแสดงออกมา */
-            .nav-menu.active {
-                display: flex;
-            }
-
-            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media (max-width: 480px) {
-            .gallery-grid { grid-template-columns: 1fr; }
-            .gallery-item { height: 300px; }
-        }
-
-        footer { padding: 40px; text-align: center; color: #888; }
+        .gallery-item:hover video { transform: scale(1.05); }
     </style>
 </head>
 <body>
@@ -140,22 +143,19 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <a href="index.html">
-                    <img src="image/heart2.png" alt="heart" style="width: 35px; height: auto; display: block;">
-                </a>
+                <a href="index.html"><img src="image/heart2.png" alt="heart"></a>
             </div>
-
-            <div class="nav-right-wrapper">
-                <ul class="nav-menu" id="nav-menu"> 
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                </ul>
-                
-                <div class="hamburger" id="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+            <ul class="nav-menu" id="nav-menu"> 
+            <li><a href="#" style="scroll-behavior: smooth;">Home</a></li>
+        <style>
+            html {
+             scroll-behavior: smooth;
+                }
+        </style>
+                <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
@@ -181,23 +181,63 @@
         </div>
     </section>
 
+    <section style="text-align: center; padding: 60px 20px;">
+        <img src="image/heart7.png" alt="Big Heart" style="width: 380px; max-width: 90%; height: auto;">
+    </section>
+
+    <div id="music-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
+        <span id="music-icon" style="font-size: 24px;">🔇</span>
+    </div>
+    <div id="player" style="display:none;"></div>
+
     <footer>
         <p>You are the reason I believe in love (earn)</p>
     </footer>    
 
     <script>
-        // สคริปต์เปิด/ปิดเมนู 3 ขีด
+      // Hamburger & Navbar Script
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
+        const navbar = document.querySelector('.navbar');
 
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
+            hamburger.classList.toggle('open');
+            if(navMenu.classList.contains('active')) { navbar.classList.add('active-bg'); }
+            else if (window.scrollY <= 50) { navbar.classList.remove('active-bg'); }
         });
 
-        // คลิกที่เมนูแล้วให้ปิดอัตโนมัติ (เผื่อกรณีเป็น One Page)
-        document.querySelectorAll('.nav-menu a').forEach(n => n.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-        }));
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) { navbar.classList.add('active-bg'); }
+            else if (!navMenu.classList.contains('active')) { navbar.classList.remove('active-bg'); }
+        });
+
+        // Music System Script
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        var isPlaying = false;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('player', {
+                height: '0', width: '0', videoId: 'Hc4OrO4LRWw',
+                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'Hc4OrO4LRWw' },
+                events: { 'onReady': function() {
+                    const control = document.getElementById('music-control');
+                    const icon = document.getElementById('music-icon');
+                    control.addEventListener('click', function() {
+                        if (isPlaying) { player.pauseVideo(); icon.innerText = '🔇'; }
+                        else { player.playVideo(); icon.innerText = '🎵'; }
+                        isPlaying = !isPlaying;
+                    });
+                    document.addEventListener('click', () => { 
+                        if(!isPlaying) { player.playVideo(); icon.innerText = '🎵'; isPlaying = true; }
+                    }, { once: true });
+                }}
+            });
+        }
     </script>
 </body>
 </html>
