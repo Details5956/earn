@@ -18,77 +18,111 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Arial', sans-serif; overflow-x: hidden; }
 
- .navbar {
-        width: 100%;
-        background-color: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 9999;
-        height: 65px;
-        display: flex;
-        align-items: center;
-    }
-
-    .nav-container {
-        width: 100%; /* ต้องกว้างเต็ม */
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-        display: flex;
-        justify-content: space-between; /* ดันหัวใจไปซ้ายสุด - ดัน 3 ขีดไปขวาสุด */
-        align-items: center;
-    }
-
-    .nav-right-wrapper {
-        display: flex;
-        align-items: center;
-    }
-
-    /* เมนูสำหรับหน้าจอคอม */
-    .nav-menu {
-        display: flex;
-        list-style: none;
-        gap: 20px;
-    }
-
-    /* 3 ขีด (Hamburger) */
-    .hamburger {
-        display: none; /* ซ่อนในคอม */
-        flex-direction: column;
-        gap: 5px;
-        cursor: pointer;
-    }
-    .hamburger span {
-        width: 25px;
-        height: 3px;
-        background-color: #333;
-        border-radius: 2px;
-    }
-
-    /* สำหรับมือถือ */
-    @media (max-width: 768px) {
-        .nav-menu {
-            display: none; /* ซ่อนเมนูแนวนอน */
-            position: absolute;
-            top: 65px;
-            left: 0;
+        /* --- แก้ไข Navbar ให้เห็นชัดเจน --- */
+        .navbar {
             width: 100%;
-            background: white;
-            flex-direction: column;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            background-color: var(--glass-bg);
+            backdrop-filter: var(--blur-effect);
+            -webkit-backdrop-filter: var(--blur-effect);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            height: 70px; /* เพิ่มความสูงเล็กน้อยเพื่อให้กดง่าย */
+            display: flex;
+            align-items: center;
+            transition: 0.3s;
         }
-        .nav-menu.active {
-            display: flex; /* โชว์เมื่อกด 3 ขีด */
+
+        /* เมื่อ Scroll หรือเปิดเมนู ให้พื้นหลังเข้มขึ้นเพื่อให้เห็นตัวหนังสือ */
+        .navbar.active-bg { 
+            background-color: rgba(255, 255, 255, 0.95) !important; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
         }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between; /* หัวใจซ้ายสุด - 3 ขีดขวาสุด */
+            align-items: center;
+        }
+
+        /* โลโก้หัวใจฝั่งซ้าย */
+        .logo a {
+            display: flex;
+            align-items: center;
+        }
+
+        /* กลุ่มเมนูและ Hamburger ฝั่งขวา */
+        .nav-right-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        /* ปุ่ม 3 ขีด (Hamburger) */
         .hamburger {
-            display: flex; /* โชว์ 3 ขีดที่ฝั่งขวา */
+            display: none; /* ซ่อนในคอม */
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            z-index: 10000;
         }
-    }
+
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background-color: #333; /* สีขีด */
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        /* --- ปรับแต่งสำหรับหน้าจอโทรศัพท์ --- */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none; /* ซ่อนเมนูแนวนอน */
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white; /* พื้นหลังเมนูในมือถือ */
+                flex-direction: column;
+                padding: 30px 0;
+                text-align: center;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+
+            .nav-menu.active {
+                display: flex; /* แสดงเมื่อกด 3 ขีด */
+            }
+
+            .nav-menu li {
+                margin: 15px 0;
+            }
+
+            .hamburger {
+                display: flex; /* แสดง 3 ขีดทางขวาสุด */
+            }
+        }
+
         /* --- CSS เดิมของคุณคงไว้ทั้งหมด --- */
         .hero {
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('image/earn.png');
@@ -126,28 +160,28 @@
     </style>
 </head>
 <body>
-<nav class="navbar">
-    <div class="nav-container">
-        <div class="logo">
-            <a href="index.html">
-                <img src="image/heart2.png" alt="heart" style="width: 60px; height: auto; display: block;">
-            </a>
-        </div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">
+                    <img src="image/heart2.png" alt="heart" style="width: 50px; height: auto; display: block;">
+                </a>
+            </div>
 
-        <div class="nav-right-wrapper">
-            <ul class="nav-menu" id="nav-menu"> 
-                <li><a href="index.html">Home</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-            </ul>
-            
-            <div class="hamburger" id="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
+            <div class="nav-right-wrapper">
+                <ul class="nav-menu" id="nav-menu"> 
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                </ul>
+                
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
 
     <section class="hero">
         <div class="hero-content">
@@ -224,7 +258,7 @@
     </section>
 
     <section id="contact" style="text-align: center; padding: 60px 20px;">
-        <img src="image/heart7.png" alt="Contact Icon" style="width: 350px; height: auto; margin-bottom: 20px;">
+        <img src="image/heart7.png" alt="Contact Icon" style="width: 250px; height: auto; margin-bottom: 20px;">
     </section>
 
     <div id="music-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
@@ -237,20 +271,21 @@
     </footer>
 
     <script>
-        // Hamburger Toggle
+        // แก้ไข Hamburger Toggle ให้ทำงานร่วมกับการเปลี่ยนสี Navbar
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         const navbar = document.querySelector('.navbar');
 
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            navbar.classList.add('active-bg'); 
+            navbar.classList.toggle('active-bg'); // เปลี่ยนสีพื้นหลัง Navbar เมื่อเปิดเมนู
         });
 
-        // Close menu when clicking links
+        // ปิดเมนูเมื่อคลิกลิงก์
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('active');
+                navbar.classList.remove('active-bg');
             });
         });
 
@@ -294,6 +329,7 @@
             }, { once: true });
         }
 
+        // เอฟเฟกต์ Scroll
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 navbar.classList.add('active-bg');
