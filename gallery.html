@@ -58,6 +58,21 @@
     .gallery-grid {
         grid-template-columns: 1fr; /* เหลือ 1 คอลัมน์ */
     }
+.nav-container {
+    display: flex;
+    justify-content: space-between; /* ดันโลโก้ไปซ้ายสุด และดัน wrapper ขวาไปขวาสุด */
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.nav-right-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* ระยะห่างระหว่างเมนูกับปุ่ม 3 ขีด */
+}
 }
   </style>
 </head>
@@ -66,26 +81,24 @@
     <div class="nav-container">
         <div class="logo">
             <a href="index.html">
-                <img src="image/heart.png" alt="earn">
+                <img src="image/heart.png" alt="earn" style="width: 40px;">
             </a>
         </div>
 
-        <div class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-
-        <ul class="nav-menu" id="nav-menu"> 
-            <li><a href="#">Home</a></li>
-            <li><a href="gallery.html" target="_blank">Gallery</a></li>
-        </ul>
-
-        <div class="nav-right">
-            <a href="#contact" class="view-menu-btn">Go down</a>
+        <div class="nav-right-wrapper">
+            <ul class="nav-menu" id="nav-menu"> 
+                <li><a href="#">Home</a></li>
+                <li><a href="gallery.html" target="_blank">Gallery</a></li>
+            </ul>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
     </div>
-</nav>    
+</nav>   
   <section class="gallery-container">
     <h1 class="gallery-title">Our Gallery</h1>
     
