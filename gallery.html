@@ -14,7 +14,9 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Arial', sans-serif; background-color: #fdfdfd; overflow-x: hidden; position: relative; }
-        html { scroll-behavior: smooth; }
+        html {
+        scroll-behavior: auto !important;
+            }
 
         .heart-fall {
             position: fixed;
@@ -164,6 +166,101 @@
         .gallery-item:hover img { transform: scale(1.05); }
 
         footer { padding: 40px; text-align: center; background: #333; color: white; margin-top: 40px; }
+body.locked { overflow: hidden; }
+
+#intro-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #fff; z-index: 10001;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+}
+
+.intro-video-container {
+    position: relative;
+    width: 85%; max-width: 400px;
+    height: 70vh;
+    border-radius: 20px; overflow: hidden;
+    box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2);
+    background: #000;
+}
+
+#intro-video { width: 100%; height: 100%; object-fit: cover; }
+
+#play-hint {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 77, 109, 0.9);
+    color: white; padding: 15px 25px;
+    border-radius: 50px; pointer-events: none;
+    font-weight: bold; transition: 0.5s;
+}
+
+#final-message {
+    display: none; position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px); z-index: 10002;
+    align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.8s ease;
+}
+
+.message-content {
+    width: 85%; max-width: 500px;
+    background: white; padding: 40px 30px;
+    border-radius: 30px; border: 2px solid #ffccd5;
+    text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.message-content p {
+    color: #ff4d6d; font-size: 1.1rem;
+    line-height: 1.8; margin-bottom: 30px;
+    font-weight: 500;
+}
+
+.start-btn {
+    background: #ff4d6d; color: white;
+    border: none; padding: 12px 35px;
+    border-radius: 50px; font-weight: bold;
+    cursor: pointer; transition: 0.3s;
+}
+/* ล็อคการเลื่อนในช่วงที่ระบบกำลังเลื่อนให้เอง */
+body.locked { overflow: hidden; }
+
+/* สไตล์กล่องข้อความ Overlay */
+#love-letter-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.9); /* พื้นหลังขาวนวล */
+    backdrop-filter: blur(10px);
+    display: none; /* ซ่อนไว้ก่อน */
+    align-items: center; justify-content: center;
+    z-index: 10005;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.letter-content {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 30px;
+    max-width: 85%;
+    width: 450px;
+    text-align: center;
+    box-shadow: 0 15px 45px rgba(255, 77, 109, 0.2);
+    border: 2px solid #ffccd5;
+}
+
+.letter-content p {
+    color: #ff4d6d;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin: 20px 0;
+}
+
+.heart-divider { font-size: 30px; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
     </style>
 </head>
 <body>
@@ -228,6 +325,26 @@
         </div>
     </section>
 
+<div id="intro-overlay">
+    <h2 style="margin-bottom: 20px; color: #ff4d6d; font-family: 'Arial', sans-serif;">For You, Earn ❤️</h2>
+    <div class="intro-video-container">
+        <video id="intro-video" playsinline>
+            <source src="image/earn.mp4" type="video/mp4">
+        </video>
+        <div id="play-hint">แตะเพื่อรับชมนะค๊าบ 🎁</div>
+    </div>
+</div>
+
+<div id="love-letter-overlay">
+    <div class="letter-content">
+        <div class="heart-divider">❤️</div>
+        <p>
+            "ขอบคุณที่อยู่ด้วยกันมานาน ไม่ทิ้งเค้าไปไหน อดทนไปด้วยกัน เค้าอยากโตไปกับเธออยากให้เราสองได้คู่กันตลอดไป ในอนาคตเค้าจะพยายามให้เธอมีความสุขมากๆเลยนะ จะได้พาไปเที่ยวที่สวยๆ ไปกินของอร่อยๆ เค้าไม่อยากให้เราสองคนลำบากในอนาคต เค้าจะพยายามตั้งใจมากกว่านี้นะครับ"
+        </p>
+        <div class="letter-footer">จาก... เค้านะ</div>
+    </div>
+</div>
+
     <section style="text-align: center; padding: 40px 20px;">
         <img src="image/heart7.png" alt="Big Heart" style="width: 250px; max-width: 80%; height: auto;">
     </section>
@@ -236,6 +353,7 @@
         <span id="music-icon" style="font-size: 24px;">🔇</span>
     </div>
     <div id="player" style="display:none;"></div>
+
 
     <footer><p>You are the reason I believe in love (earn)</p></footer>
 
@@ -310,6 +428,79 @@
                 }}
             });
         }
+
+// 1. ล็อคหน้าจอไว้ก่อน
+document.body.classList.add('locked');
+
+const introVideo = document.getElementById('intro-video');
+const introOverlay = document.getElementById('intro-overlay');
+const letterOverlay = document.getElementById('love-letter-overlay');
+
+// เริ่มเล่นเมื่อคลิก
+introOverlay.addEventListener('click', () => {
+    introVideo.play();
+    document.getElementById('play-hint').style.opacity = '0';
+});
+
+introVideo.onended = function() {
+    introOverlay.style.transition = 'opacity 1s ease';
+    introOverlay.style.opacity = '0';
+    
+    setTimeout(() => {
+        introOverlay.style.display = 'none';
+        document.body.classList.remove('locked'); 
+
+        // เริ่มต้นที่ตำแหน่งปัจจุบัน
+        let currentPos = window.scrollY; 
+        
+        // ฟังก์ชันคำนวณเป้าหมาย (ล่างสุดของหน้าจอ)
+        const getTarget = () => document.documentElement.scrollHeight - window.innerHeight;
+        const targetPos = getTarget();
+
+        function cinematicScroll() {
+            // เช็คว่ายังไม่ถึงเป้าหมาย
+            if (currentPos < targetPos) {
+                // ความเร็ว: 0.8 คือช้ามากและเนียน, 1.2 คือปานกลาง
+                // ลองปรับเป็น 0.5 ถ้าอยากให้ช้าสุดๆ ครับ
+                currentPos += 0.8; 
+                
+                window.scrollTo(0, currentPos);
+                
+                // ใช้ requestAnimationFrame เพื่อความนุ่มนวลระดับ 60fps
+                requestAnimationFrame(cinematicScroll);
+            } else {
+                // เมื่อถึงจุดหมายแล้ว
+                showLoveLetter();
+            }
+        }
+
+        // เริ่มเลื่อนหลังจากวิดีโอหายไป 0.5 วินาที
+        setTimeout(cinematicScroll, 500);
+
+    }, 1000);
+};
+
+function showLoveLetter() {
+    letterOverlay.style.display = 'flex';
+    document.body.classList.add('locked'); // ล็อคหน้าจอนิ่งเพื่อให้อ่าน
+
+    setTimeout(() => {
+        letterOverlay.style.opacity = '1';
+        
+        // ค้างไว้ 15 วินาที
+        setTimeout(() => {
+            letterOverlay.style.opacity = '0';
+            
+            setTimeout(() => {
+                letterOverlay.style.display = 'none';
+                document.body.classList.remove('locked'); 
+                
+                // เลื่อนกลับขึ้นบนสุดแบบ Smooth
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 2000); 
+        }, 15000); 
+    }, 100);
+}
     </script>
 </body>
 </html>
