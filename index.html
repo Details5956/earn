@@ -136,6 +136,186 @@
             .valentine-animated { font-size: 40px; }
         }
         footer { padding: 40px; text-align: center; background: #333; color: white; }
+    .quote-container {
+    text-align: center;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.quote-bubble {
+    background: #fff0f3;
+    border: 2px dashed #ff4d6d;
+    padding: 20px;
+    border-radius: 20px;
+    display: inline-block;
+    max-width: 80%;
+    margin-bottom: 15px;
+    color: #ff4d6d;
+    font-weight: bold;
+    min-height: 60px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 77, 109, 0.1);
+}
+
+.quote-btn {
+    display: block;
+    margin: 0 auto;
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.quote-btn:hover {
+    transform: scale(1.1);
+    background: #ff758f;
+}    
+/* --- Typewriter Effect CSS --- */
+.special-message {
+    text-align: center;
+    margin: 50px auto;
+    min-height: 200px;
+}
+
+.type-text {
+    font-size: 24px;
+    color: #ff4d6d;
+    min-height: 1.5em;
+    margin-bottom: 20px;
+    display: inline-block;
+    border-right: 3px solid #ff4d6d; /* เส้นกระพริบเหมือน Cursor */
+    padding-right: 5px;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* --- Style สำหรับ Random Quote (ปรับจากอันเดิมให้สวยขึ้น) --- */
+.quote-bubble {
+    background: #fff;
+    border: 2px solid #ffccd5;
+    padding: 25px;
+    border-radius: 20px;
+    display: inline-block;
+    max-width: 85%;
+    color: #ff4d6d;
+    font-weight: bold;
+    box-shadow: 0 10px 20px rgba(255, 77, 109, 0.1);
+    margin-bottom: 20px;
+    transition: opacity 0.3s ease;
+}
+
+.quote-btn {
+    background: linear-gradient(45deg, #ff4d6d, #ff758f);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+    transition: 0.3s;
+}
+
+.quote-btn:hover { transform: scale(1.1); }
+/* --- Countdown & Valentine Effects --- */
+.countdown-section {
+    background: rgba(255, 77, 109, 0.05);
+    padding: 40px 20px;
+    border-radius: 30px;
+    margin: 40px auto;
+    max-width: 90%;
+    text-align: center;
+}
+
+#timer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.time-box {
+    background: white;
+    padding: 15px;
+    border-radius: 15px;
+    min-width: 70px;
+    box-shadow: 0 8px 20px rgba(255, 77, 109, 0.15);
+}
+
+.time-box span {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff4d6d;
+    display: block;
+}
+
+.type-text {
+    font-size: 24px;
+    color: #ff4d6d;
+    min-height: 1.5em;
+    margin: 30px 0;
+    text-align: center;
+    border-right: 3px solid #ff4d6d;
+    animation: blink 0.7s infinite;
+}
+
+@keyframes blink { 50% { border-color: transparent; } }
+
+/* เอฟเฟกต์หัวใจลอย (ถ้ายังไม่มีใน index) */
+.heart-fall {
+    position: fixed;
+    top: -10%;
+    z-index: 9998;
+    user-select: none;
+    pointer-events: none;
+    animation: fall linear forwards;
+}
+
+@keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+/* ตกแต่งกล่องเวลานับถอยหลังให้ดู Minimal */
+.countdown-container {
+    margin-top: 25px;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(5px);
+    display: inline-block;
+}
+
+.t-box {
+    background: #fff;
+    padding: 10px;
+    border-radius: 12px;
+    min-width: 60px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.t-box span {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff4d6d;
+}
+
+.t-box small {
+    font-size: 0.7rem;
+    color: #888;
+    text-transform: uppercase;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
     </style>
 </head>
 <body>
@@ -159,12 +339,28 @@
         </div>
     </nav>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="valentine-animated">Valentine Day</h1>   
-            <p>You are the best thing that ever happened to me..</p>
+<section class="hero">
+    <div class="hero-content">
+        <h1 class="valentine-animated">Valentine Day</h1>   
+        
+        <p id="typewriter" style="font-size: 1.2rem; color: #ffffff; min-height: 1.5em; margin-bottom: 20px; font-weight: 500;"></p>
+
+        <div class="countdown-container">
+            <p style="font-size: 0.9rem; margin-bottom: 12px; color: #ff4d6d; font-weight: 600;">
+                Countdown to our 10th Month Anniversary ❤️
+            </p>
+            <div id="timer" style="display: flex; justify-content: center; gap: 8px;">
+                <div class="t-box"><span id="days">00</span><small>Days</small></div>
+                <div class="t-box"><span id="hours">00</span><small>Hrs</small></div>
+                <div class="t-box"><span id="minutes">00</span><small>Min</small></div>
+                <div class="t-box"><span id="seconds">00</span><small>Sec</small></div>
+            </div>
+            <div id="anniversary-message" style="display: none; font-size: 1.4rem; color: #ff4d6d; font-weight: bold;">
+                Happy 10th Anniversary, Earn! ❤️
+            </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section class="featured-section">
         <div class="featured-item"><img src="image/earn3.jpg" alt="1"><div class="featured-item-content"><h3>13 / 9 / 68</h3><p>Cinema at terminal 21</p></div></div>
@@ -220,6 +416,20 @@
     </div>
     <div id="player" style="display:none;"></div>
 
+    <div class="quote-container">
+    <div id="quote-box" class="quote-bubble">กดตรงนี้เพื่อดูข้อความจากเค้านะ...</div>
+    <button onclick="generateQuote()" class="quote-btn">💌 เปิดจดหมาย</button>
+</div>
+
+<section class="special-message">
+    <h2 id="typewriter" class="type-text"></h2>
+    
+    <div class="quote-container">
+        <div id="quote-box" class="quote-bubble">อยากบอกอะไรเอิร์นบางอย่าง...</div>
+        <button onclick="generateQuote()" class="quote-btn">💌 เปิดจดหมายลับ</button>
+    </div>
+</section>
+
     <footer><p>You are the reason I believe in love (earn)</p></footer>
 
     <script>
@@ -266,6 +476,134 @@
                 }}
             });
         }
+    document.addEventListener('mousemove', function(e) {
+        const trail = document.createElement('div');
+        trail.innerHTML = '❤️'; // หรือใช้ตัวอื่นๆ เช่น ✨
+        trail.style.position = 'fixed';
+        trail.style.left = e.clientX + 'px';
+        trail.style.top = e.clientY + 'px';
+        trail.style.fontSize = '10px';
+        trail.style.pointerEvents = 'none';
+        trail.style.zIndex = '10000';
+        trail.style.transition = 'all 0.8s ease-out';
+        trail.style.opacity = '1';
+        
+        document.body.appendChild(trail);
+        
+        // ทำให้หัวใจลอยขึ้นและค่อยๆ จางไป
+        setTimeout(() => {
+            trail.style.transform = `translate(${(Math.random() - 0.5) * 40}px, -50px) scale(1.5)`;
+            trail.style.opacity = '0';
+        }, 10);
+        
+        // ลบออกเมื่อทำงานเสร็จ
+        setTimeout(() => {
+            trail.remove();
+        }, 800);
+    });    
+    function generateQuote() {
+    const quotes = [
+        "รักเอิร์นที่สุดในโลกเลยนะ ❤️",
+        "ขอบคุณที่เข้ามาเป็นเรื่องราวดีๆ ในชีวิตเค้านะ",
+        "วันนี้เหนื่อยไหม? สู้ๆ นะคะคนเก่งของเค้า ✌️",
+        "อยากอยู่ข้างๆ เอิร์นแบบนี้ไปนานๆ เลย",
+        "รอยยิ้มของเอิร์นคือความสุขของเค้านะ 😊",
+        "กินข้าวเยอะๆ นะ เป็นห่วงนะค๊าบ",
+        "ถึงจะดื้อบ้างแต่ก็รักเอิร์นคนเดียวนะ",
+        "วันนี้เอิร์นสวยที่สุดเลย! (จริงๆ ก็สวยทุกวันแหละ)",
+        "เค้าโชคดีมากที่มีเอิร์นอยู่ตรงนี้ 💖"
+    ];
+
+    const quoteBox = document.getElementById('quote-box');
+    
+    // ใส่ Effect เล็กน้อยตอนเปลี่ยนข้อความ
+    quoteBox.style.opacity = 0;
+    
+    setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        quoteBox.innerText = quotes[randomIndex];
+        quoteBox.style.opacity = 1;
+    }, 200);
+}
+// --- Typewriter Logic ---
+const textElement = document.getElementById('typewriter');
+const message = "You are the best thing that ever happened to me..."; // แก้ข้อความตรงนี้ได้เลย
+let index = 0;
+
+function typeWriter() {
+    if (index < message.length) {
+        textElement.innerHTML += message.charAt(index);
+        index++;
+        setTimeout(typeWriter, 100); // ความเร็วในการพิมพ์ (ms)
+    }
+}
+
+// เริ่มพิมพ์เมื่อโหลดหน้าเว็บ
+window.addEventListener('load', typeWriter);
+
+// --- Random Quote Logic ---
+function generateQuote() {
+    const quotes = [
+        "รักเอิร์นที่สุดในโลกเลยนะ ❤️",
+        "วันนี้เหนื่อยไหม? สู้ๆ นะคะคนเก่งของเค้า ✌️",
+        "รอยยิ้มของเอิร์นคือความสุขของเค้านะ 😊",
+        "เค้าโชคดีมากที่มีเอิร์นอยู่ตรงนี้ 💖",
+        "ถึงจะดื้อบ้างแต่ก็รักเอิร์นคนเดียวนะ",
+        "อยากอยู่ข้างๆ เอิร์นแบบนี้ไปนานๆ เลย",
+        "วันนี้เอิร์นสวยจัง! (จริงๆ ก็สวยทุกวันแหละ)",
+        "ขอบคุณที่เข้ามาเป็นเรื่องราวดีๆ ในชีวิตเค้านะ"
+    ];
+
+    const quoteBox = document.getElementById('quote-box');
+    quoteBox.style.opacity = 0;
+    
+    setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        quoteBox.innerText = quotes[randomIndex];
+        quoteBox.style.opacity = 1;
+    }, 200);
+}
+    // ข้อความที่ต้องการให้พิมพ์ (แก้ตรงนี้ได้เลย)
+    const messageText = "You are the best thing that ever happened to me..."; 
+    let charIndex = 0;
+    const typewriterElement = document.getElementById('typewriter');
+
+    function typeWriter() {
+        if (charIndex < messageText.length) {
+            // ใช้ appendChild หรือ += เพื่อเพิ่มทีละตัว
+            typewriterElement.textContent += messageText.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeWriter, 100); // ปรับความเร็วตรงนี้ (100ms)
+        }
+    }
+
+    function startCountdown() {
+        const target = new Date("February 14, 2026 00:00:00").getTime();
+        
+        setInterval(() => {
+            const now = new Date().getTime();
+            const diff = target - now;
+
+            if (diff <= 0) {
+                document.getElementById("timer").style.display = "none";
+                document.getElementById("anniversary-message").style.display = "block";
+                return;
+            }
+
+            document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000);
+        }, 1000);
+    }
+
+    // ใช้การเช็คเพื่อให้มั่นใจว่าฟังก์ชันรันแค่ครั้งเดียว
+    document.addEventListener('DOMContentLoaded', () => {
+        typewriterElement.textContent = ""; // เคลียร์ข้อความก่อนเริ่ม
+        typeWriter();
+        startCountdown();
+    });
     </script>
+    
 </body>
 </html>
