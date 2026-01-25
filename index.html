@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="mainstyles.css">
     <title>Earn kub lak na</title>
     <style>
         /* 1. Global Setup */
@@ -14,9 +13,9 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Arial', sans-serif; overflow-x: hidden; }
+        body { font-family: 'Arial', sans-serif; overflow-x: hidden; background-color: #fdfdfd; }
 
-        /* --- Navbar & Layout --- */
+        /* --- Navbar --- */
         .navbar {
             width: 100%;
             height: 70px;
@@ -39,31 +38,13 @@
 
         .nav-container {
             width: 100%;
-            height: 100%;
-            position: relative;
             display: flex;
+            justify-content: space-between;
             align-items: center;
             padding: 0 25px;
         }
 
-        .logo {
-            position: absolute;
-            left: 25px;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: 0.3s;
-            z-index: 10001;
-        }
-        .logo:hover { transform: translateY(-50%) scale(1.1); }
-
-        .nav-right-wrapper {
-            position: absolute;
-            right: 25px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            align-items: center;
-        }
+        .logo img { width: 50px; height: auto; transition: 0.3s; }
 
         /* --- Desktop Menu --- */
         .nav-menu {
@@ -78,27 +59,14 @@
             font-weight: 600;
             letter-spacing: 1px;
             transition: 0.3s;
-            position: relative;
         }
 
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            width: 0; height: 2px;
-            bottom: -5px; left: 0;
-            background-color: var(--primary-red);
-            transition: 0.3s;
-        }
-        .nav-menu a:hover::after { width: 100%; }
-
-        /* Hamburger Button */
+        /* --- Hamburger (3 ขีด) --- */
         .hamburger {
             display: none;
             flex-direction: column;
             gap: 6px;
             cursor: pointer;
-            padding: 5px;
-            z-index: 10001;
         }
         .hamburger span {
             width: 28px;
@@ -108,49 +76,34 @@
             transition: 0.4s;
         }
 
-        .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-        .hamburger.open span:nth-child(2) { opacity: 0; }
-        .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-
-        /* --- แก้ไขส่วนนี้: เมนูมือถือแบบ "แถบเล็ก" และ "ข้อความตรงกลาง" --- */
+        /* --- Mobile Menu (ปรับใหม่ให้ไม่แปลก) --- */
         @media (max-width: 768px) {
             .hamburger { display: flex; }
             
             .nav-menu {
-                position: fixed;
-                top: -250px; /* ซ่อนไว้เหนือจอ */
-                left: 0;
-                width: 100%;
-                height: 160px; /* ปรับขนาดแถบให้เล็กลงกะทัดรัด */
-                background: rgba(255, 255, 255, 0.98);
-                backdrop-filter: blur(15px);
                 display: flex;
                 flex-direction: column;
-                justify-content: center; /* ข้อความอยู่กลางแนวตั้ง */
-                align-items: center;    /* ข้อความอยู่กลางแนวนอน */
-                gap: 20px;              /* ระยะห่างของแต่ละเมนู */
-                transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-                border-radius: 0 0 25px 25px; /* ขอบล่างมนนิดๆ ให้ดูนุ่มนวล */
-                padding-top: 20px; /* เผื่อพื้นที่จาก Navbar */
-                z-index: 9998;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                height: 0;
+                overflow: hidden;
+                transition: height 0.3s ease-in-out;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                text-align: center;
             }
 
-            .nav-menu.active {
-                top: 70px; /* เลื่อนลงมาต่อจากความสูง Navbar พอดี */
-            }
-
-            .nav-menu li { list-style: none; }
-
-            .nav-menu a {
-                font-size: 20px;
-                font-weight: 600;
-                color: #333;
-                text-decoration: none;
-            }
+            .nav-menu.active { height: 120px; padding: 10px 0; }
+            .nav-menu a { display: block; padding: 15px 0; font-size: 18px; }
+            
+            .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+            .hamburger.open span:nth-child(2) { opacity: 0; }
+            .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
         }
 
-        /* --- Content Sections --- */
+        /* --- Content Sections (ส่วนที่เคยหายไป) --- */
         .hero {
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('image/earn.png');
             background-size: cover; background-position: center; height: 100vh;
@@ -167,9 +120,8 @@
         @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
         .featured-section { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 80px 5%; background-color: #fff; }
-        .featured-item { position: relative; overflow: hidden; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); aspect-ratio: 3/4; cursor: pointer; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .featured-item { position: relative; overflow: hidden; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); aspect-ratio: 3/4; cursor: pointer; }
         .featured-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .featured-item:hover img { transform: scale(1.1); }
         .featured-item-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; }
 
         .responsive-section, .mobile-friendly-section { display: flex; width: 100%; overflow: hidden; background-color: #f9f9f9; }
@@ -179,7 +131,7 @@
             .featured-section { grid-template-columns: 1fr; padding: 40px 10%; }
             .responsive-section, .mobile-friendly-section { flex-direction: column !important; }
             .video-container, .text-container, .video-side, .text-side, .video-part, .text-part {
-                width: 100% !important; flex: none; padding: 40px 20px !important; text-align: center;
+                width: 100% !important; padding: 40px 20px !important; text-align: center;
             }
             .valentine-animated { font-size: 40px; }
         }
@@ -190,19 +142,14 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <a href="index.html">
-                    <img src="image/heart2.png" alt="heart" style="width: 50px; height: auto; display: block;">
-                </a>
+                <a href="index.html"><img src="image/heart2.png" alt="heart"></a>
             </div>
-
-            <div class="nav-right-wrapper">
-                <ul class="nav-menu" id="nav-menu"> 
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="gallery.html">Gallery</a></li>
-                </ul>
-                <div class="hamburger" id="hamburger">
-                    <span></span><span></span><span></span>
-                </div>
+            <ul class="nav-menu" id="nav-menu"> 
+                <li><a href="index.html">Home</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
             </div>
         </div>
     </nav>
@@ -215,74 +162,52 @@
     </section>
 
     <section class="featured-section">
-        <div class="featured-item" onclick="toggleExpand(this)">
-            <img src="image/earn3.jpg" alt="earn3">
-            <div class="featured-item-content">
-                <h3>13 / 9 / 68</h3>
-                <p>Cinema at terminal 21</p>
-            </div>
-        </div>
-        <div class="featured-item" onclick="toggleExpand(this)">
-            <img src="image/earn2.jpg" alt="earn2">
-            <div class="featured-item-content">
-                <h3>21 / 11 / 68</h3>
-                <p>สถานีขนส่งผู้โดยสาร หมอชิต2</p>
-            </div>
-        </div>
-        <div class="featured-item" onclick="toggleExpand(this)">
-            <img src="image/earn4.jpg" alt="earn4">
-            <div class="featured-item-content">
-                <h3>10 / 12 / 68</h3>
-                <p>Central marina</p>
-            </div>
-        </div>
+        <div class="featured-item"><img src="image/earn3.jpg" alt="1"><div class="featured-item-content"><h3>13 / 9 / 68</h3><p>Cinema at terminal 21</p></div></div>
+        <div class="featured-item"><img src="image/earn2.jpg" alt="2"><div class="featured-item-content"><h3>21 / 11 / 68</h3><p>สถานีขนส่งผู้โดยสาร หมอชิต2</p></div></div>
+        <div class="featured-item"><img src="image/earn4.jpg" alt="3"><div class="featured-item-content"><h3>10 / 12 / 68</h3><p>Central marina</p></div></div>
     </section>
 
     <section class="responsive-section">
-        <div class="video-container" style="flex: 1; display: flex; align-items: center; justify-content: center; background: #000;">
+        <div class="video-container" style="flex: 1; background: #000;">
             <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;">
                 <source src="image/earn.mp4" type="video/mp4">
             </video>
         </div>
-        <div class="text-container" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 5%;">
-            <h2 class="valentine-animated" style="font-size: 32px; margin-bottom: 20px; font-weight: 400; letter-spacing: 2px;">เราเจอกันที่ไหนครั้งแรก?</h2>
-            <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 30px;">ตอนนั้นเดินมาขอ IG ตรงใต้ตึกกำลังจะเดินกลับตึกเรียนเลย จากนั้นก็ทักมาจีบเลยน้าา</p>
-            <div style="width: 100%;">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3888.5590241617497!2d100.91427162487737!3d12.936039656959467!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3102958d7edd01b9%3A0x608348d619abd694!2z4LmC4Lij4LiH4LmA4Lij4Li14Lii4LiZ4Liq4Lin4LmI4Liy4LiH4Lia4Lij4Li04Lia4Li54Lij4LiT4LmM4Lin4Li04LiX4Lii4Liy!5e0!3m2!1sth!2sth!4v1769266951526!5m2!1sth!2sth" width="100%" height="300" style="border:0; border-radius: 15px;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
+        <div class="text-container" style="flex: 1; padding: 60px 5%;">
+            <h2 class="valentine-animated" style="font-size: 32px; margin-bottom: 20px;">เราเจอกันที่ไหนครั้งแรก?</h2>
+            <p style="margin-bottom: 30px;">ตอนนั้นเดินมาขอ IG ตรงใต้ตึกกำลังจะเดินกลับตึกเรียนเลย จากนั้นก็ทักมาจีบเลยน้าา</p>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.55!2d100.5!3d13.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQyJzAwLjAiTiAxMDDCsDMwJzAwLjAiRQ!5e0!3m2!1sth!2sth!4v1620000000000" width="100%" height="300" style="border:0; border-radius: 15px;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </section>
 
     <section class="responsive-section row-reverse" style="background-color: #ffffff;">
-        <div class="video-side" style="flex: 1; display: flex; align-items: center; justify-content: center;">
-            <video autoplay loop muted playsinline style="width: 80%; height: 80%; object-fit: cover; display: block; border-radius: 20px;">
+        <div class="video-side" style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;">
+            <video autoplay loop muted playsinline style="width: 80%; border-radius: 20px;">
                 <source src="image/earn2.mp4" type="video/mp4">
             </video>
         </div>
-        <div class="text-side" style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 5%;">
-            <h2 style="font-size: 42px; margin-bottom: 20px; font-weight: 400; letter-spacing: 2px; color: #d32f2f;">รักใครที่สุดในโลกนี่?</h2>
-            <p style="font-size: 18px; line-height: 1.8; color: #555; margin-bottom: 30px;">รักเอิร์นที่สุดในโลกเลยยย ยอมทุกอย่างจริงๆ รักมากอยากดูแลเอิร์นไปตลอดชีวิตเลย</p>
-            <div><img src="image/heart.png" alt="Heart Icon" style="width: 100px; height: auto;"></div>
+        <div class="text-side" style="flex: 1; padding: 60px 5%;">
+            <h2 style="font-size: 42px; color: #d32f2f; margin-bottom: 20px;">รักใครที่สุดในโลกนี่?</h2>
+            <p style="font-size: 18px; margin-bottom: 30px;">รักเอิร์นที่สุดในโลกเลยยย ยอมทุกอย่างจริงๆ รักมากอยากดูแลเอิร์นไปตลอดชีวิตเลย</p>
+            <img src="image/heart.png" alt="Heart" style="width: 100px;">
         </div>
     </section>
 
     <section class="mobile-friendly-section" style="padding: 40px 0; text-align: center;">
         <div class="video-part" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
-            <video autoplay loop muted playsinline style="width: 100%; height: auto; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15); display: block;">
+            <video autoplay loop muted playsinline style="width: 100%; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
                 <source src="image/earn3.mp4" type="video/mp4">
             </video>
         </div>
-        <div class="text-part" style="max-width: 600px; margin: 30px auto 0; padding: 0 20px;">
-            <h3 style="font-family: 'Courier New', monospace; font-size: 28px; font-weight: bold; margin-bottom: 15px; color: #333;">รูปของเรา</h3>
-            <p style="font-family: 'Courier New', monospace; font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 30px;">
-                ความทรงจำดีดีทำให้เราคิดถึงกัน <br> บรรยากาศที่สร้างมาเพื่อความสบายและการพูดคุยที่แสนพิเศษ
-            </p>
-            <a href="gallery.html" style="display: inline-block; background-color: #d32f2f; color: white; padding: 14px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);">View Gallery</a>
+        <div class="text-part" style="max-width: 600px; margin: 30px auto;">
+            <h3 style="font-size: 28px; margin-bottom: 15px;">รูปของเรา</h3>
+            <p style="margin-bottom: 30px;">ความทรงจำดีดีทำให้เราคิดถึงกัน</p>
+            <a href="gallery.html" style="display: inline-block; background-color: #d32f2f; color: white; padding: 14px 40px; text-decoration: none; border-radius: 50px; font-weight: bold;">View Gallery</a>
         </div>
     </section>
 
-    <section id="contact" style="text-align: center; padding: 60px 20px;">
-        <img src="image/heart7.png" alt="Contact Icon" style="width: 400px; height: auto; margin-bottom: 20px;">
+    <section style="text-align: center; padding: 60px 20px;">
+        <img src="image/heart7.png" alt="Big Heart" style="width: 380px; max-width: 90%; height: auto;">
     </section>
 
     <div id="music-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
@@ -290,11 +215,10 @@
     </div>
     <div id="player" style="display:none;"></div>
 
-    <footer>
-        <p>You are the reason I believe in love (earn)</p>
-    </footer>
+    <footer><p>You are the reason I believe in love (earn)</p></footer>
 
     <script>
+        // Hamburger & Navbar Script
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         const navbar = document.querySelector('.navbar');
@@ -302,20 +226,16 @@
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             hamburger.classList.toggle('open');
-            if(navMenu.classList.contains('active')) {
-                navbar.classList.add('active-bg');
-            } else if (window.scrollY <= 50) {
-                navbar.classList.remove('active-bg');
-            }
+            if(navMenu.classList.contains('active')) { navbar.classList.add('active-bg'); }
+            else if (window.scrollY <= 50) { navbar.classList.remove('active-bg'); }
         });
 
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-                hamburger.classList.remove('open');
-            });
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) { navbar.classList.add('active-bg'); }
+            else if (!navMenu.classList.contains('active')) { navbar.classList.remove('active-bg'); }
         });
 
+        // Music System Script
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -323,48 +243,23 @@
 
         var player;
         var isPlaying = false;
-        const control = document.getElementById('music-control');
-        const icon = document.getElementById('music-icon');
-
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
-                height: '0', width: '0', videoId: 'OYPiXBIgvJ8', 
+                height: '0', width: '0', videoId: 'OYPiXBIgvJ8',
                 playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'OYPiXBIgvJ8' },
-                events: { 'onReady': onPlayerReady }
+                events: { 'onReady': function() {
+                    const control = document.getElementById('music-control');
+                    const icon = document.getElementById('music-icon');
+                    control.addEventListener('click', function() {
+                        if (isPlaying) { player.pauseVideo(); icon.innerText = '🔇'; }
+                        else { player.playVideo(); icon.innerText = '🎵'; }
+                        isPlaying = !isPlaying;
+                    });
+                    document.addEventListener('click', () => { 
+                        if(!isPlaying) { player.playVideo(); icon.innerText = '🎵'; isPlaying = true; }
+                    }, { once: true });
+                }}
             });
-        }
-
-        function onPlayerReady(event) {
-            control.addEventListener('click', function() {
-                if (isPlaying) {
-                    player.pauseVideo();
-                    icon.innerText = '🔇';
-                } else {
-                    player.playVideo();
-                    icon.innerText = '🎵';
-                }
-                isPlaying = !isPlaying;
-            });
-            
-            document.addEventListener('click', function() {
-                if(!isPlaying) {
-                    player.playVideo();
-                    icon.innerText = '🎵';
-                    isPlaying = true;
-                }
-            }, { once: true });
-        }
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('active-bg');
-            } else if (!navMenu.classList.contains('active')) {
-                navbar.classList.remove('active-bg');
-            }
-        });
-
-        function toggleExpand(element) {
-            element.classList.toggle('expanded');
         }
     </script>
 </body>
