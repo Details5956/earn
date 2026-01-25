@@ -352,13 +352,15 @@ body.locked { overflow: hidden; }
     <div id="music-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
         <span id="music-icon" style="font-size: 24px;">🔇</span>
     </div>
-    <div id="player" style="display:none;"></div>
+<audio id="bg-music" loop preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
 
 
     <footer><p>You are the reason I believe in love (earn)</p></footer>
 
 <script>
-    // --- 1. ระบบหัวใจ (คงเดิม) ---
+    // --- 1. ระบบหัวใจตก (คงเดิม) ---
     function createHeart() {
         const heart = document.createElement('div');
         heart.classList.add('heart-fall');
@@ -373,56 +375,38 @@ body.locked { overflow: hidden; }
     }
     setInterval(createHeart, 500);
 
-    // --- 2. ระบบเพลง YouTube API ---
-    var tag = document.createElement('script');
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    var player;
-    var isPlayerReady = false;
-
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-            height: '0', width: '0', videoId: 'Hc4OrO4LRWw',
-            playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'Hc4OrO4LRWw', 'controls': 0 },
-            events: {
-                'onReady': function() { isPlayerReady = true; }
-            }
-        });
-    }
-
-    // --- 3. ส่วนควบคุมการเริ่มเล่น (หัวใจสำคัญ) ---
+    // --- 2. ตั้งค่าตัวแปรหลัก ---
+    const bgMusic = document.getElementById('bg-music');
     const introVideo = document.getElementById('intro-video');
     const introOverlay = document.getElementById('intro-overlay');
+    const letterOverlay = document.getElementById('love-letter-overlay');
     const musicIcon = document.getElementById('music-icon');
     let hasStarted = false;
 
-    // ฟังก์ชันเริ่มทุกอย่าง
-    function startEverything() {
-        if (hasStarted) return; // ป้องกันการเริ่มซ้ำ
+    // --- 3. ฟังก์ชันเริ่มทุกอย่างเมื่อ "แตะ" ---
+    function startExperience() {
+        if (hasStarted) return;
         hasStarted = true;
 
-        // เริ่มวิดีโอ Intro
-        introVideo.play().catch(e => console.log("Video wait for interaction"));
+        // เริ่มวิดีโอ
+        introVideo.play();
 
-        // เริ่มเพลง YouTube
-        if (isPlayerReady && player) {
-            player.unMute();
-            player.setVolume(70);
-            player.playVideo();
+        // เริ่มเพลง mp3 (บังคับให้ดังทันที)
+        bgMusic.volume = 0.6; // ปรับความดัง 60%
+        bgMusic.play().then(() => {
             musicIcon.innerText = '🎵';
-        }
+        }).catch(err => {
+            console.log("Music play blocked by browser:", err);
+        });
 
-        // จางคำแนะนำออก
         document.getElementById('play-hint').style.opacity = '0';
     }
 
-    // ** แก้ให้ "คลิกตรงไหนก็ได้" ในหน้าจอเพื่อเริ่ม **
-    document.addEventListener('click', startEverything);
-    document.addEventListener('touchstart', startEverything); // สำหรับมือถือ
+    // แตะที่หน้า Intro เพื่อเริ่ม
+    introOverlay.addEventListener('click', startExperience);
+    introOverlay.addEventListener('touchstart', startExperience);
 
-    // เมื่อวิดีโอจบ -> เริ่มเลื่อนหน้าจอ
+    // --- 4. เมื่อวิดีโอจบ -> เริ่มเลื่อนหน้าจออัตโนมัติ ---
     introVideo.onended = function() {
         introOverlay.style.transition = 'opacity 1.5s ease';
         introOverlay.style.opacity = '0';
@@ -436,33 +420,50 @@ body.locked { overflow: hidden; }
 
             function cinematicScroll() {
                 if (currentPos < targetPos) {
-                    currentPos += 0.8; 
+                    currentPos += 0.8; // ความเร็วไหลช้าๆ นุ่มนวล
                     window.scrollTo(0, currentPos);
                     requestAnimationFrame(cinematicScroll);
                 } else {
-                    showLoveLetter();
+                    showLoveLetter(); // ถึงล่างสุดแล้วโชว์ข้อความ
                 }
             }
             setTimeout(cinematicScroll, 500);
         }, 1000);
     };
 
+    // --- 5. ฟังก์ชันโชว์จดหมายค้างไว้ 15 วินาที ---
     function showLoveLetter() {
-        const letterOverlay = document.getElementById('love-letter-overlay');
         letterOverlay.style.display = 'flex';
-        document.body.classList.add('locked');
+        document.body.classList.add('locked'); // ล็อคหน้าจอให้นิ่งเพื่ออ่าน
+        
         setTimeout(() => {
             letterOverlay.style.opacity = '1';
+            
+            // ครบ 15 วินาทีแล้วค่อยจางหายไป
             setTimeout(() => {
                 letterOverlay.style.opacity = '0';
+                
                 setTimeout(() => {
                     letterOverlay.style.display = 'none';
-                    document.body.classList.remove('locked'); 
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    document.body.classList.remove('locked'); // ปลดล็อคให้เลื่อนได้ปกติ
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); // เลื่อนกลับบนสุด
                 }, 2000); 
-            }, 15000);
+            }, 15000); // 15 วินาที
         }, 100);
     }
+
+    // ปุ่มกดคุมเพลง (Manual Control)
+    document.getElementById('music-control').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (bgMusic.paused) {
+            bgMusic.play();
+            musicIcon.innerText = '🎵';
+        } else {
+            bgMusic.pause();
+            musicIcon.innerText = '🔇';
+        }
+    });
+</script>
 </script>
 </body>
 </html>
