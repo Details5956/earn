@@ -220,7 +220,7 @@
     <div id="intro-overlay">
         <h2 style="margin-bottom: 20px; color: #ff4d6d;">For You, Earn ❤️</h2>
         <div class="intro-video-container">
-            <video id="intro-video" playsinline webkit-playsinline>
+            <video id="intro-video" muted playsinline webkit-playsinline>
                 <source src="image/earn.mp4" type="video/mp4">
             </video>
             <div id="play-hint">แตะเพื่อรับชมนะค๊าบ 🎁</div>
@@ -238,12 +238,12 @@
             <div class="gallery-item"><img src="image/earn7.jpg"></div>
             <div class="gallery-item"><img src="image/earn8.jpg"></div>
             <div class="gallery-item"><img src="image/earn6.png"></div>
-            <div class="gallery-item"><video controls playsinline webkit-playsinline><source src="image/earn.mp4" type="video/mp4"></video></div>
-            <div class="gallery-item"><video controls playsinline webkit-playsinline><source src="image/earn2.mp4" type="video/mp4"></video></div>
-            <div class="gallery-item"><video controls playsinline webkit-playsinline><source src="image/earn3.mp4" type="video/mp4"></video></div>
-            <div class="gallery-item"><video controls playsinline webkit-playsinline><source src="image/earn4.mp4" type="video/mp4"></video></div>
-            <div class="gallery-item"><video controls playsinline webkit-playsinline><source src="image/earn5.mp4" type="video/mp4"></video></div>
-            <div class="gallery-item"><video controls playsinline webkit-playsinline><source src="image/earn6.mp4" type="video/mp4"></video></div>
+            <div class="gallery-item"><video controls playsinline><source src="image/earn.mp4" type="video/mp4"></video></div>
+            <div class="gallery-item"><video controls playsinline><source src="image/earn2.mp4" type="video/mp4"></video></div>
+            <div class="gallery-item"><video controls playsinline><source src="image/earn3.mp4" type="video/mp4"></video></div>
+            <div class="gallery-item"><video controls playsinline><source src="image/earn4.mp4" type="video/mp4"></video></div>
+            <div class="gallery-item"><video controls playsinline><source src="image/earn5.mp4" type="video/mp4"></video></div>
+            <div class="gallery-item"><video controls playsinline><source src="image/earn6.mp4" type="video/mp4"></video></div>
         </div>
     </section>
 
@@ -276,37 +276,40 @@
     const bgVideo = document.getElementById('bg-video-loop'); 
     let hasStarted = false;
 
-    // Menu Toggle
     hamburger.addEventListener('click', () => {
         navMenu.classList.toggle('active');
         hamburger.classList.toggle('open');
     });
 
-    // เริ่มการทำงานเมื่อคลิก Overlay (แก้ปัญหา iPhone ไม่มีเสียง)
+    // ส่วนแก้ไขหลักสำหรับเล่นวิดีโอเสียงเบากว่าเพลง
     introOverlay.addEventListener('click', () => {
         if (hasStarted) return;
         hasStarted = true;
 
-        // 1. ปลดล็อกและเล่นเพลง MP3 ก่อน (สำคัญที่สุดสำหรับ iOS)
+        // 1. ตั้งค่าเสียงเพลง (ดังสุด 100%)
         bgMusic.muted = false;
-        bgMusic.volume = 0.8;
+        bgMusic.volume = 1.0;
+        const playMusic = bgMusic.play();
+
+        // 2. ตั้งค่าเสียงวิดีโอ (เบาเพียง 30%)
+        introVideo.volume = 0.3; 
         
-        // ลองสั่งเล่นเพลง
-        const musicPlay = bgMusic.play();
-        
-        if (musicPlay !== undefined) {
-            musicPlay.then(() => {
+        if (playMusic !== undefined) {
+            playMusic.then(() => {
                 musicIcon.innerText = '🎵';
-                // 2. เมื่อเพลงเริ่มได้ ค่อยเล่น Video Intro
-                introVideo.play();
-            }).catch(error => {
-                // กรณีฉุกเฉินถ้าเพลงยังโดนบล็อก ให้เล่นวิดีโอไปก่อน
-                console.log("Audio waiting...");
+                // เมื่อเพลงเล่นได้แล้ว ค่อยเริ่มวิดีโอ
+                introVideo.play().then(() => {
+                    // ปลดล็อก Muted วิดีโอหลังจากเล่นไปนิดนึงเพื่อหลอกระบบ iPhone
+                    setTimeout(() => {
+                        introVideo.muted = false;
+                    }, 100);
+                });
+            }).catch(e => {
+                // ถ้าเพลงมีปัญหา ให้วิดีโอเล่นไปก่อนแบบ Muted
                 introVideo.play();
             });
         }
 
-        // เล่นวิดีโอพื้นหลังแบบไม่มีเสียง
         if(bgVideo) {
             bgVideo.muted = true; 
             bgVideo.play().catch(e => {});
@@ -315,7 +318,6 @@
         document.getElementById('play-hint').style.opacity = '0';
     });
 
-    // เมื่อวิดีโอ Intro จบ
     introVideo.onended = function() {
         introOverlay.style.transition = 'opacity 1s ease';
         introOverlay.style.opacity = '0';
@@ -356,7 +358,6 @@
         }, 100);
     }
 
-    // ปุ่มควบคุมเพลง เปิด/ปิด
     document.getElementById('music-control').addEventListener('click', (e) => {
         e.stopPropagation();
         if (bgMusic.paused) {
@@ -368,7 +369,6 @@
         }
     });
 
-    // เอฟเฟกต์หัวใจร่วง
     function createHeart() {
         const heart = document.createElement('div');
         heart.classList.add('heart-fall');
