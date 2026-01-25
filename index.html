@@ -8,15 +8,15 @@
     <style>
         /* 1. Global Setup */
         :root {
-            --primary-red: #d32f2f;
+            --primary-red: #ff4d4d;
             --glass-bg: rgba(255, 255, 255, 0.1);
-            --blur-effect: blur(10px);
+            --blur-effect: blur(15px);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Arial', sans-serif; overflow-x: hidden; }
 
-        /* --- ส่วนที่แก้ไข: Navbar บังคับซ้าย-ขวา --- */
+        /* --- Navbar & Layout --- */
         .navbar {
             width: 100%;
             height: 70px;
@@ -29,80 +29,125 @@
             z-index: 9999;
             display: flex;
             align-items: center;
-            transition: 0.3s;
+            transition: all 0.4s ease;
         }
 
-        .navbar.active-bg { background-color: rgba(255, 255, 255, 0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .navbar.active-bg { 
+            background-color: rgba(255, 255, 255, 0.9); 
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
+        }
 
         .nav-container {
             width: 100%;
             height: 100%;
-            position: relative; /* เพื่อให้ลูกใช้ absolute ได้ */
+            position: relative;
             display: flex;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 25px;
         }
 
-        /* บังคับหัวใจอยู่ซ้าย */
         .logo {
             position: absolute;
-            left: 20px;
+            left: 25px;
             top: 50%;
             transform: translateY(-50%);
+            transition: 0.3s;
         }
+        .logo:hover { transform: translateY(-50%) scale(1.1); }
 
-        /* บังคับกลุ่มขวา (เมนู/3 ขีด) อยู่ขวา */
         .nav-right-wrapper {
             position: absolute;
-            right: 20px;
+            right: 25px;
             top: 50%;
             transform: translateY(-50%);
             display: flex;
             align-items: center;
         }
 
-        /* เมนูคอม */
+        /* --- ปรับแต่งเมนูให้สวยขึ้น --- */
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 30px;
         }
-        .nav-menu a { text-decoration: none; color: #333; font-weight: bold; }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        /* ขีดเส้นใต้เวลา Hover */
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-red);
+            transition: 0.3s;
+        }
+        .nav-menu a:hover::after { width: 100%; }
 
         /* 3 ขีด (Hamburger) */
         .hamburger {
             display: none;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
             cursor: pointer;
+            padding: 5px;
         }
         .hamburger span {
-            width: 25px;
+            width: 28px;
             height: 3px;
             background-color: #333;
-            border-radius: 2px;
+            border-radius: 10px;
+            transition: 0.4s;
         }
 
-        /* --- มือถือ --- */
+        /* แอนิเมชันตอนกด 3 ขีดให้เปลี่ยนเป็นกากบาท */
+        .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+        /* --- มือถือ: ปรับให้สวยแบบ Modern --- */
         @media (max-width: 768px) {
-            .hamburger { display: flex; } /* โชว์ 3 ขีดขวาสุด */
+            .hamburger { display: flex; }
             
             .nav-menu {
-                display: none;
+                display: flex;
                 flex-direction: column;
-                position: fixed; /* ใช้ fixed เพื่อไม่ให้พัง */
-                top: 70px;
+                position: fixed;
+                top: -100vh; /* ซ่อนไว้ด้านบนสุด */
                 left: 0;
                 width: 100%;
-                background: white;
-                padding: 20px 0;
+                height: auto;
+                background: rgba(255, 255, 255, 0.98);
+                padding: 40px 0;
                 text-align: center;
-                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                gap: 30px;
+                transition: 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                border-radius: 0 0 30px 30px; /* ขอบล่างมนๆ */
             }
-            .nav-menu.active { display: flex; }
+
+            .nav-menu.active {
+                top: 70px; /* เลื่อนลงมาแสดง */
+            }
+
+            .nav-menu a {
+                font-size: 22px; /* ตัวใหญ่กดง่าย */
+                color: #333;
+                display: block;
+                width: 100%;
+            }
         }
 
-        /* --- CSS เดิมของคุณทั้งหมด --- */
+        /* --- เนื้อหาเดิมของคุณคงไว้ทั้งหมด --- */
         .hero {
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('image/earn.png');
             background-size: cover; background-position: center; height: 100vh;
@@ -234,7 +279,7 @@
     </section>
 
     <section id="contact" style="text-align: center; padding: 60px 20px;">
-        <img src="image/heart7.png" alt="Contact Icon" style="width: 250px; height: auto; margin-bottom: 20px;">
+        <img src="image/heart7.png" alt="Contact Icon" style="width: 320px; height: auto; margin-bottom: 20px;">
     </section>
 
     <div id="music-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
@@ -253,10 +298,19 @@
 
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
-            navbar.classList.add('active-bg');
+            hamburger.classList.toggle('open');
+            navbar.classList.toggle('active-bg');
         });
 
-        // ส่วน YouTube และอื่นๆ คงเดิม
+        // Close menu when clicking links
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+                hamburger.classList.remove('open');
+            });
+        });
+
+        // Music Logic (คงเดิม)
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
