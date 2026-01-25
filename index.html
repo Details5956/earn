@@ -18,39 +18,74 @@
         html { scroll-behavior: smooth; }
         body { font-family: 'Arial', sans-serif; overflow-x: hidden; }
 
-        /* 2. Navigation Bar */
-        .navbar {
+.nav-container {
+        display: flex;
+        justify-content: space-between; /* ดันซ้าย-ขวา */
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        height: 60px; /* กำหนดความสูงที่แน่นอน */
+    }
+
+    /* เมนูสำหรับ Desktop */
+    .nav-menu { 
+        display: flex; 
+        list-style: none; 
+        gap: 30px; 
+    }
+
+    .nav-menu a { 
+        text-decoration: none; 
+        color: #333; 
+        font-weight: bold; 
+        font-size: 16px;
+        transition: 0.3s;
+    }
+
+    .nav-menu a:hover { color: var(--primary-red); }
+
+    /* Hamburger (ปุ่ม 3 ขีด) */
+    .hamburger { 
+        display: none; /* ซ่อนในจอคอม */
+        flex-direction: column; 
+        gap: 5px; 
+        cursor: pointer;
+        padding: 10px;
+        z-index: 3000;
+    }
+
+    /* --- ส่วนที่เพิ่มใหม่: รองรับมือถือ (Mobile Responsive) --- */
+    @media (max-width: 768px) {
+        .hamburger { 
+            display: flex; /* โชว์ 3 ขีดในมือถือ */
+        }
+
+        .nav-menu {
+            display: none; /* ซ่อนเมนูแนวนอนปกติ */
+            flex-direction: column;
+            position: absolute;
+            top: 100%; /* ให้ลงมาต่อจาก navbar */
+            left: 0;
             width: 100%;
-            background-color: var(--glass-bg);
-            backdrop-filter: var(--blur-effect);
-            -webkit-backdrop-filter: var(--blur-effect);
-            padding: 15px 0;
-            position: fixed;
-            top: 0;
-            z-index: 2000;
-            transition: 0.3s;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            background-color: rgba(255, 255, 255, 0.98);
+            padding: 20px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            gap: 15px;
         }
 
-        .navbar.active-bg { background-color: rgba(255, 255, 255, 0.95); }
-
-        .nav-container {
+        /* เมื่อกดปุ่ม active ให้แสดงเมนู */
+        .nav-menu.active {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+            animation: fadeInDown 0.3s ease-in-out;
         }
+    }
 
-        .nav-right-wrapper { display: flex; align-items: center; gap: 20px; }
-
-        .nav-menu { display: flex; list-style: none; gap: 20px; }
-        .nav-menu a { text-decoration: none; color: #333; font-weight: bold; }
-
-        /* Hamburger (Hidden on Desktop) */
-        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-        .hamburger span { width: 25px; height: 2px; background-color: #333; }
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
         /* 3. Hero Section */
         .hero {
@@ -325,7 +360,25 @@
                 } else {
                     navbar.classList.remove('active-bg');
                 }
-            });         
+            });
+    // ส่วนควบคุมการเปิด-ปิดเมนู
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburger.addEventListener('click', () => {
+        // สลับ Class 'active' เพื่อโชว์/ซ่อนเมนู
+        navMenu.classList.toggle('active');
+        
+        // ถ้าต้องการเปลี่ยนสีพื้นหลัง Navbar ตอนเปิดเมนูก็ใช้บรรทัดนี้
+        document.querySelector('.navbar').classList.toggle('active-bg');
+    });
+
+    // ปิดเมนูอัตโนมัติเมื่อมีการคลิกลิงก์
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        });
+    });                
         }   
     </script>
 </body>
