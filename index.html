@@ -195,24 +195,47 @@
     /* สไตล์พื้นฐาน */
     html { scroll-behavior: smooth; }
 
-    /* ปุ่ม 3 ขีด (Hamburger) */
-    .hamburger {
-        display: none; /* ซ่อนในคอม */
-        flex-direction: column;
-        gap: 5px;
-        cursor: pointer;
-        padding: 8px 10px;
-        border: 1px solid rgba(0, 0, 0, 0.2); /* กรอบสี่เหลี่ยมมน */
-        border-radius: 8px;
-        z-index: 2001;
-    }
+.navbar {
+    width: 100%;
+    /* ปรับเป็นแถบใสและบางลง */
+    background-color: rgba(255, 255, 255, 0.1); 
+    backdrop-filter: blur(10px); /* เอฟเฟกต์กระจกฝ้า */
+    -webkit-backdrop-filter: blur(10px);
+    padding: 5px 0; /* ลด padding ให้แถบเล็กลง */
+    position: fixed;
+    top: 0;
+    z-index: 2000;
+    transition: 0.3s;
+}
 
-    .hamburger span {
-        display: block;
-        width: 22px;
-        height: 1px;
-        background-color: #333; /* สีของขีด 3 ขีด */
-    }
+.nav-container {
+    display: flex;
+    justify-content: space-between; /* หัวใจชิดซ้าย - 3 ขีดชิดขวา */
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.nav-right-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+/* ปรับ 3 ขีดให้ดูสะอาดตา */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 2px;
+    background-color: #333; /* สีของ 3 ขีด */
+}
 
         /* ตั้งค่าสำหรับหน้าจอปกติ (คอมพิวเตอร์) */
         .responsive-section {
@@ -312,31 +335,7 @@
                 text-align: center; /* จัดตัวหนังสือไว้ตรงกลางในมือถือ */
             }
         }
-    .navbar {
-        width: 100%;
-        background-color: #fff;
-        padding: 10px 0;
-        position: fixed;
-        top: 0;
-        z-index: 2000;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    }
 
-.nav-container {
-    display: flex;
-    justify-content: space-between; /* ดันโลโก้ไปซ้ายสุด และดัน wrapper ขวาไปขวาสุด */
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.nav-right-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* ระยะห่างระหว่างเมนูกับปุ่ม 3 ขีด */
-}
 
     /* ตั้งค่าปุ่ม 3 ขีดในมือถือ */
     @media (max-width: 768px) {
@@ -439,12 +438,12 @@
     <div class="nav-container">
         <div class="logo">
             <a href="index.html">
-                <img src="image/heart.png" alt="earn" style="width: 40px;">
+            <img src="image/heart2.png" alt="earn" style="width: 45px; height: auto; mix-blend-mode: multiply;">
             </a>
         </div>
 
         <div class="nav-right-wrapper">
-            <ul class="nav-menu" id="nav-menu"> 
+            <ul class="nav-menu" id="nav-menu" style="display: none;"> 
                 <li><a href="#">Home</a></li>
                 <li><a href="gallery.html" target="_blank">Gallery</a></li>
             </ul>
@@ -535,7 +534,7 @@
                 รักเอิร์นที่สุดในโลกเลยยย ยอมทุกอย่างจริงๆ รักมากอยากดูแลเอิร์นไปตลอดชีวิตเลย 
             </p>
             <div>
-                <img src="image/heart.png" alt="Heart Icon" style="width: 100px; height: auto;">
+                <img src="image/heart1.png" alt="Heart Icon" style="width: 100px; height: auto;">
             </div>
         </div>
 
