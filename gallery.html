@@ -358,149 +358,127 @@ body.locked { overflow: hidden; }
     <footer><p>You are the reason I believe in love (earn)</p></footer>
 
     <script>
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart-fall');
-            
-            const heartIcons = ['❤️', '💖', '💗', '💓', '💕'];
-            heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
-            
-            heart.style.left = Math.random() * 100 + "vw";
+// --- 1. ระบบหัวใจตก (คงเดิม) ---
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart-fall');
+        const heartIcons = ['❤️', '💖', '💗', '💓', '💕'];
+        heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        const duration = Math.random() * 4 + 3;
+        heart.style.animationDuration = duration + "s";
+        heart.style.fontSize = Math.random() * 15 + 15 + "px";
+        document.body.appendChild(heart);
+        setTimeout(() => { heart.remove(); }, duration * 1000);
+    }
+    setInterval(createHeart, 500);
 
-            const duration = Math.random() * 4 + 3;
-            heart.style.animationDuration = duration + "s";
-            
-            heart.style.fontSize = Math.random() * 15 + 15 + "px";
+    // --- 2. ระบบ Navbar (คงเดิม) ---
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    const navbar = document.querySelector('.navbar');
 
-            document.body.appendChild(heart);
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('open');
+        if(navMenu.classList.contains('active')) { navbar.classList.add('active-bg'); } 
+        else if (window.scrollY <= 50) { navbar.classList.remove('active-bg'); }
+    });
 
-            setTimeout(() => {
-                heart.remove();
-            }, duration * 1000);
-        }
+    // --- 3. ระบบเพลง YouTube API (ปรับแต่งให้เริ่มพร้อม Intro) ---
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-        setInterval(createHeart, 500);
-
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        const navbar = document.querySelector('.navbar');
-
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            hamburger.classList.toggle('open');
-            if(navMenu.classList.contains('active')) { 
-                navbar.classList.add('active-bg'); 
-            } else if (window.scrollY <= 50) {  
-                navbar.classList.remove('active-bg'); 
+    var player;
+    var isPlaying = false;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '0', width: '0', videoId: 'Hc4OrO4LRWw',
+            playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'Hc4OrO4LRWw' },
+            events: { 
+                'onReady': onPlayerReady 
             }
         });
+    }
 
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) { 
-                navbar.classList.add('active-bg'); 
-            } else if (!navMenu.classList.contains('active')) { 
-                navbar.classList.remove('active-bg'); 
+    function onPlayerReady() {
+        const icon = document.getElementById('music-icon');
+        const control = document.getElementById('music-control');
+
+        // ฟังก์ชันเริ่มเพลง
+        window.startGlobalMusic = function() {
+            if (!isPlaying && player) {
+                player.playVideo();
+                player.setVolume(50); // ตั้งความดัง 50%
+                icon.innerText = '🎵';
+                isPlaying = true;
             }
+        };
+
+        // ปุ่มควบคุมเพลงกดเปิด-ปิดได้เอง
+        control.addEventListener('click', function(e) {
+            e.stopPropagation(); // ไม่ให้ไปกระทบการกดเริ่ม Intro
+            if (isPlaying) { player.pauseVideo(); icon.innerText = '🔇'; }
+            else { player.playVideo(); icon.innerText = '🎵'; }
+            isPlaying = !isPlaying;
         });
+    }
 
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    // --- 4. ระบบ Intro + Auto Scroll (เชื่อมโยงกับเพลง) ---
+    document.body.classList.add('locked');
+    const introVideo = document.getElementById('intro-video');
+    const introOverlay = document.getElementById('intro-overlay');
+    const letterOverlay = document.getElementById('love-letter-overlay');
 
-        var player;
-        var isPlaying = false;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '0', width: '0', videoId: 'Hc4OrO4LRWw',
-                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'Hc4OrO4LRWw' },
-                events: { 'onReady': function() {
-                    const control = document.getElementById('music-control');
-                    const icon = document.getElementById('music-icon');
-                    control.addEventListener('click', function() {
-                        if (isPlaying) { player.pauseVideo(); icon.innerText = '🔇'; }
-                        else { player.playVideo(); icon.innerText = '🎵'; }
-                        isPlaying = !isPlaying;
-                    });
-                    document.addEventListener('click', () => { 
-                        if(!isPlaying) { player.playVideo(); icon.innerText = '🎵'; isPlaying = true; }
-                    }, { once: true });
-                }}
-            });
-        }
+    // เมื่อแตะเพื่อเริ่มดู
+    introOverlay.addEventListener('click', () => {
+        introVideo.play(); // เล่นวิดีโอ
+        if (window.startGlobalMusic) window.startGlobalMusic(); // เล่นเพลงทันที!
+        document.getElementById('play-hint').style.opacity = '0';
+    });
 
-// 1. ล็อคหน้าจอไว้ก่อน
-document.body.classList.add('locked');
-
-const introVideo = document.getElementById('intro-video');
-const introOverlay = document.getElementById('intro-overlay');
-const letterOverlay = document.getElementById('love-letter-overlay');
-
-// เริ่มเล่นเมื่อคลิก
-introOverlay.addEventListener('click', () => {
-    introVideo.play();
-    document.getElementById('play-hint').style.opacity = '0';
-});
-
-introVideo.onended = function() {
-    introOverlay.style.transition = 'opacity 1s ease';
-    introOverlay.style.opacity = '0';
-    
-    setTimeout(() => {
-        introOverlay.style.display = 'none';
-        document.body.classList.remove('locked'); 
-
-        // เริ่มต้นที่ตำแหน่งปัจจุบัน
-        let currentPos = window.scrollY; 
+    introVideo.onended = function() {
+        introOverlay.style.transition = 'opacity 1s ease';
+        introOverlay.style.opacity = '0';
         
-        // ฟังก์ชันคำนวณเป้าหมาย (ล่างสุดของหน้าจอ)
-        const getTarget = () => document.documentElement.scrollHeight - window.innerHeight;
-        const targetPos = getTarget();
-
-        function cinematicScroll() {
-            // เช็คว่ายังไม่ถึงเป้าหมาย
-            if (currentPos < targetPos) {
-                // ความเร็ว: 0.8 คือช้ามากและเนียน, 1.2 คือปานกลาง
-                // ลองปรับเป็น 0.5 ถ้าอยากให้ช้าสุดๆ ครับ
-                currentPos += 0.8; 
-                
-                window.scrollTo(0, currentPos);
-                
-                // ใช้ requestAnimationFrame เพื่อความนุ่มนวลระดับ 60fps
-                requestAnimationFrame(cinematicScroll);
-            } else {
-                // เมื่อถึงจุดหมายแล้ว
-                showLoveLetter();
-            }
-        }
-
-        // เริ่มเลื่อนหลังจากวิดีโอหายไป 0.5 วินาที
-        setTimeout(cinematicScroll, 500);
-
-    }, 1000);
-};
-
-function showLoveLetter() {
-    letterOverlay.style.display = 'flex';
-    document.body.classList.add('locked'); // ล็อคหน้าจอนิ่งเพื่อให้อ่าน
-
-    setTimeout(() => {
-        letterOverlay.style.opacity = '1';
-        
-        // ค้างไว้ 15 วินาที
         setTimeout(() => {
-            letterOverlay.style.opacity = '0';
-            
+            introOverlay.style.display = 'none';
+            document.body.classList.remove('locked'); 
+
+            let currentPos = window.scrollY; 
+            const getTarget = () => document.documentElement.scrollHeight - window.innerHeight;
+            const targetPos = getTarget();
+
+            function cinematicScroll() {
+                if (currentPos < targetPos) {
+                    currentPos += 0.8; 
+                    window.scrollTo(0, currentPos);
+                    requestAnimationFrame(cinematicScroll);
+                } else {
+                    showLoveLetter();
+                }
+            }
+            setTimeout(cinematicScroll, 500);
+        }, 1000);
+    };
+
+    function showLoveLetter() {
+        letterOverlay.style.display = 'flex';
+        document.body.classList.add('locked');
+        setTimeout(() => {
+            letterOverlay.style.opacity = '1';
             setTimeout(() => {
-                letterOverlay.style.display = 'none';
-                document.body.classList.remove('locked'); 
-                
-                // เลื่อนกลับขึ้นบนสุดแบบ Smooth
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }, 2000); 
-        }, 15000); 
-    }, 100);
-}
-    </script>
+                letterOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    letterOverlay.style.display = 'none';
+                    document.body.classList.remove('locked'); 
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 2000); 
+            }, 15000); 
+        }, 100);
+    }
+</script>
 </body>
 </html>
