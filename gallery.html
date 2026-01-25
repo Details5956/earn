@@ -3,14 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="mainstyles.css">  
     <title>Gallery - Earn kub lak na</title>
     <style>
         /* --- 1. Global Setup --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Arial', sans-serif; background-color: #fff; overflow-x: hidden; }
+        :root {
+            --primary-red: #ff4d4d;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --blur-effect: blur(15px);
+        }
 
-         /* --- Navbar --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Arial', sans-serif; background-color: #fdfdfd; overflow-x: hidden; }
+        html { scroll-behavior: smooth; }
+
+        /* --- Navbar (แก้ไขตำแหน่ง Logo ซ้าย / 3 ขีดขวา) --- */
         .navbar {
             width: 100%;
             height: 70px;
@@ -34,14 +40,14 @@
         .nav-container {
             width: 100%;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* ดันซ้าย-ขวา */
             align-items: center;
             padding: 0 25px;
         }
 
-        .logo img { width: 50px; height: auto; transition: 0.3s; }
+        .logo img { width: 45px; height: auto; display: block; }
 
-        /* --- Desktop Menu --- */
+        /* --- Menu Setup --- */
         .nav-menu {
             display: flex;
             list-style: none;
@@ -53,16 +59,16 @@
             color: #333;
             font-weight: 600;
             letter-spacing: 1px;
-            transition: 0.3s;
+            font-size: 15px;
         }
 
-        /* --- Hamburger (3 ขีด) --- */
         .hamburger {
             display: none;
             flex-direction: column;
             gap: 6px;
             cursor: pointer;
         }
+
         .hamburger span {
             width: 28px;
             height: 3px;
@@ -71,9 +77,9 @@
             transition: 0.4s;
         }
 
-        /* --- Mobile Menu (ปรับใหม่ให้ไม่แปลก) --- */
+        /* --- Mobile Responsive Menu --- */
         @media (max-width: 768px) {
-            .hamburger { display: flex; }
+            .hamburger { display: flex; } /* โชว์ 3 ขีดทางขวา */
             
             .nav-menu {
                 display: flex;
@@ -90,52 +96,67 @@
                 text-align: center;
             }
 
-            .nav-menu.active { height: 120px; padding: 8px 0; }
-            .nav-menu a { display: block; padding: 8px 0; font-size: 14px; }
+            .nav-menu.active { height: 100px; padding: 5px 0; }
+            .nav-menu a { display: block; padding: 12px 0; font-size: 15px; }
             
+            /* อนิเมชั่น 3 ขีดเปลี่ยนเป็น X */
             .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
             .hamburger.open span:nth-child(2) { opacity: 0; }
             .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
         }
+
         /* --- 3. Gallery Section --- */
         .gallery-container {
             max-width: 1200px;
             margin: 100px auto 60px;
-            padding: 0 20px;
+            padding: 0 15px;
             text-align: center;
         }
 
         .gallery-title {
-            font-size: 36px;
-            margin-bottom: 40px;
-            letter-spacing: 2px;
+            font-size: 32px;
+            margin-bottom: 30px;
             color: #333;
+            font-weight: bold;
         }
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr); 
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr); /* คอมพิวเตอร์ 3 คอลัมน์ */
+            gap: 15px;
         }
 
         .gallery-item {
             overflow: hidden;
             border-radius: 12px;
-            height: 350px;
+            height: 300px; /* ปรับความสูงให้พอดีๆ */
             background-color: #eee;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
         .gallery-item img, .gallery-item video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
             display: block;
+            transition: transform 0.4s ease;
         }
 
-        .gallery-item:hover img { transform: scale(1.08); }
-        .gallery-item:hover video { transform: scale(1.05); }
+        /* ปรับแต่งสำหรับมือถือ */
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr); /* มือถือแสดง 2 รูปต่อแถว สวยกว่า */
+                gap: 10px;
+            }
+            .gallery-item {
+                height: 200px; /* ลดความสูงบนมือถือเพื่อให้เห็นรูปเยอะขึ้น */
+            }
+            .gallery-title { font-size: 26px; }
+        }
+
+        .gallery-item:hover img { transform: scale(1.05); }
+
+        footer { padding: 40px; text-align: center; background: #333; color: white; margin-top: 40px; }
     </style>
 </head>
 <body>
@@ -145,15 +166,12 @@
             <div class="logo">
                 <a href="index.html"><img src="image/heart2.png" alt="heart"></a>
             </div>
+            
             <ul class="nav-menu" id="nav-menu"> 
-            <li><a href="#" style="scroll-behavior: smooth;">Home</a></li>
-        <style>
-            html {
-             scroll-behavior: smooth;
-                }
-        </style>
+                <li><a href="index.html">Home</a></li>
                 <li><a href="gallery.html">Gallery</a></li>
             </ul>
+
             <div class="hamburger" id="hamburger">
                 <span></span><span></span><span></span>
             </div>
@@ -168,6 +186,11 @@
             <div class="gallery-item"><img src="image/earn2.jpg" alt="earn2"></div>
             <div class="gallery-item"><img src="image/earn3.jpg" alt="earn3"></div>
             <div class="gallery-item"><img src="image/earn4.jpg" alt="earn4"></div>
+            <div class="gallery-item"><img src="image/earn5.jpg" alt="earn5"></div>
+            <div class="gallery-item"><img src="image/earn6.jpg" alt="earn6"></div>
+            <div class="gallery-item"><img src="image/earn7.jpg" alt="earn7"></div>
+            <div class="gallery-item"><img src="image/earn8.jpg" alt="earn8"></div>
+            <div class="gallery-item"><img src="image/earn6.png" alt="earn8"></div>            
             <div class="gallery-item">
                 <video controls style="width:100%; height:100%; object-fit: cover;">
                     <source src="image/earn.mp4" type="video/mp4">
@@ -178,11 +201,36 @@
                     <source src="image/earn2.mp4" type="video/mp4">
                 </video>
             </div>
+            <div class="gallery-item">
+                <video controls style="width:100%; height:100%; object-fit: cover;">
+                    <source src="image/earn3.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="gallery-item">
+                <video controls style="width:100%; height:100%; object-fit: cover;">
+                    <source src="image/earn4.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="gallery-item">
+                <video controls style="width:100%; height:100%; object-fit: cover;">
+                    <source src="image/earn5.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="gallery-item">
+                <video controls style="width:100%; height:100%; object-fit: cover;">
+                    <source src="image/earn6.mp4" type="video/mp4">
+                </video>
+            </div>            
+                            <div class="gallery-item">
+                <video controls style="width:100%; height:100%; object-fit: cover;">
+                    <source src="image/earn6.mp4" type="video/mp4">
+                </video>
+            </div>
         </div>
     </section>
 
-    <section style="text-align: center; padding: 60px 20px;">
-        <img src="image/heart7.png" alt="Big Heart" style="width: 380px; max-width: 90%; height: auto;">
+    <section style="text-align: center; padding: 40px 20px;">
+        <img src="image/heart7.png" alt="Big Heart" style="width: 250px; max-width: 80%; height: auto;">
     </section>
 
     <div id="music-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
@@ -195,7 +243,7 @@
     </footer>    
 
     <script>
-      // Hamburger & Navbar Script
+        // Hamburger & Navbar Script
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         const navbar = document.querySelector('.navbar');
@@ -203,13 +251,19 @@
         hamburger.addEventListener('click', () => {
             navMenu.classList.toggle('active');
             hamburger.classList.toggle('open');
-            if(navMenu.classList.contains('active')) { navbar.classList.add('active-bg'); }
-            else if (window.scrollY <= 50) { navbar.classList.remove('active-bg'); }
+            if(navMenu.classList.contains('active')) { 
+                navbar.classList.add('active-bg'); 
+            } else if (window.scrollY <= 50) { 
+                navbar.classList.remove('active-bg'); 
+            }
         });
 
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) { navbar.classList.add('active-bg'); }
-            else if (!navMenu.classList.contains('active')) { navbar.classList.remove('active-bg'); }
+            if (window.scrollY > 50) { 
+                navbar.classList.add('active-bg'); 
+            } else if (!navMenu.classList.contains('active')) { 
+                navbar.classList.remove('active-bg'); 
+            }
         });
 
         // Music System Script
