@@ -277,120 +277,112 @@
 
     <footer><p>You are the reason I believe in love (earn)</p></footer>
 
-    <script>
-        const bgMusic = document.getElementById('bg-music');
-        const introVideo = document.getElementById('intro-video');
-        const introOverlay = document.getElementById('intro-overlay');
-        const letterOverlay = document.getElementById('love-letter-overlay');
-        const musicIcon = document.getElementById('music-icon');
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        let hasStarted = false;
+ <script>
+    const bgMusic = document.getElementById('bg-music');
+    const introVideo = document.getElementById('intro-video');
+    const introOverlay = document.getElementById('intro-overlay');
+    const letterOverlay = document.getElementById('love-letter-overlay');
+    const musicIcon = document.getElementById('music-icon');
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    const bgVideo = document.getElementById('main-bg-video'); 
+    let hasStarted = false;
 
-        // 1. Hamburger Menu
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            hamburger.classList.toggle('open');
-        });
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('open');
+    });
 
-        // 2. แตะหน้าจอเพื่อเริ่มวิดีโอ + เพลง
-        introOverlay.addEventListener('click', () => {
-            if (hasStarted) return;
-            hasStarted = true;
-
-            introVideo.play();
-            bgMusic.volume = 0.6;
-            bgMusic.play().then(() => {
-                musicIcon.innerText = '🎵';
-            }).catch(e => console.log("Audio Play Blocked"));
-
-            document.getElementById('play-hint').style.opacity = '0';
-        });
-
-        // 3. วิดีโอจบ -> เลื่อนหน้าจอลงข้างล่างอัตโนมัติ
-        introVideo.onended = function() {
-            introOverlay.style.transition = 'opacity 1s ease';
-            introOverlay.style.opacity = '0';
-            
-            setTimeout(() => {
-                introOverlay.style.display = 'none';
-                document.body.classList.remove('locked'); 
-
-                let currentPos = window.scrollY; 
-                const targetPos = document.documentElement.scrollHeight - window.innerHeight;
-
-                function cinematicScroll() {
-                    if (currentPos < targetPos) {
-                        currentPos += 0.3; 
-                        window.scrollTo(0, currentPos);
-                        requestAnimationFrame(cinematicScroll);
-                    } else {
-                        showLoveLetter();
-                    }
-                }
-                setTimeout(cinematicScroll, 500);
-            }, 1000);
-        };
-        const bgVideo = document.getElementById('main-bg-video'); // เพิ่มตัวแปรนี้
-
-    // 2. แตะหน้าจอเพื่อเริ่มวิดีโอ + เพลง
     introOverlay.addEventListener('click', () => {
         if (hasStarted) return;
         hasStarted = true;
 
-        introVideo.play();
-        bgVideo.play(); // สั่งให้วิดีโอพื้นหลังเล่นด้วยเมื่อแตะครั้งแรก
+        bgMusic.muted = false; 
         
-        bgMusic.volume = 0.6;
+        introVideo.play().catch(e => console.log("Video Intro Blocked"));
+        
+        if(bgVideo) {
+            bgVideo.muted = true; 
+            bgVideo.play().catch(e => console.log("BG Video Blocked"));
+        }
+        
+        bgMusic.volume = 0.8; 
         bgMusic.play().then(() => {
             musicIcon.innerText = '🎵';
-        }).catch(e => console.log("Audio Play Blocked"));
+        }).catch(e => {
+            console.log("Audio Play Blocked by Mobile Browser");
+
+        });
 
         document.getElementById('play-hint').style.opacity = '0';
     });
 
-        // 4. แสดงจดหมายค้างไว้ 15 วินาที
-        function showLoveLetter() {
-            letterOverlay.style.display = 'flex';
-            document.body.classList.add('locked');
-            setTimeout(() => {
-                letterOverlay.style.opacity = '1';
-                setTimeout(() => {
-                    letterOverlay.style.opacity = '0';
-                    setTimeout(() => {
-                        letterOverlay.style.display = 'none';
-                        document.body.classList.remove('locked'); 
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }, 2000); 
-                }, 15000); 
-            }, 100);
-        }
 
-        // 5. ปุ่มเปิด-ปิดเพลง
-        document.getElementById('music-control').addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (bgMusic.paused) {
-                bgMusic.play();
-                musicIcon.innerText = '🎵';
-            } else {
-                bgMusic.pause();
-                musicIcon.innerText = '🔇';
+    introVideo.onended = function() {
+        introOverlay.style.transition = 'opacity 1s ease';
+        introOverlay.style.opacity = '0';
+        
+        setTimeout(() => {
+            introOverlay.style.display = 'none';
+            document.body.classList.remove('locked'); 
+
+            let currentPos = window.scrollY; 
+            const targetPos = document.documentElement.scrollHeight - window.innerHeight;
+
+            function cinematicScroll() {
+                if (currentPos < targetPos) {
+                    currentPos += 0.3; 
+                    window.scrollTo(0, currentPos);
+                    requestAnimationFrame(cinematicScroll);
+                } else {
+                    showLoveLetter();
+                }
             }
-        });
+            setTimeout(cinematicScroll, 500);
+        }, 1000);
+    };
 
-        // 6. หัวใจตก
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart-fall');
-            const icons = ['❤️', '💖', '💗', '💓', '💕'];
-            heart.innerText = icons[Math.floor(Math.random() * icons.length)];
-            heart.style.left = Math.random() * 100 + "vw";
-            const duration = Math.random() * 3 + 2;
-            heart.style.animationDuration = duration + "s";
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), duration * 1000);
+    function showLoveLetter() {
+        letterOverlay.style.display = 'flex';
+        document.body.classList.add('locked');
+        setTimeout(() => {
+            letterOverlay.style.opacity = '1';
+            setTimeout(() => {
+                letterOverlay.style.opacity = '0';
+                setTimeout(() => {
+                    letterOverlay.style.display = 'none';
+                    document.body.classList.remove('locked'); 
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }, 2000); 
+            }, 15000); 
+        }, 100);
+    }
+
+    document.getElementById('music-control').addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (bgMusic.paused) {
+            bgMusic.muted = false;
+            bgMusic.play();
+            musicIcon.innerText = '🎵';
+        } else {
+            bgMusic.pause();
+            musicIcon.innerText = '🔇';
         }
-        setInterval(createHeart, 500);
-    </script>
+    });
+
+
+    function createHeart() {
+        const heart = document.createElement('div');
+        heart.classList.add('heart-fall');
+        const icons = ['❤️', '💖', '💗', '💓', '💕'];
+        heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+        heart.style.left = Math.random() * 100 + "vw";
+        const duration = Math.random() * 3 + 2;
+        heart.style.animationDuration = duration + "s";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), duration * 1000);
+    }
+    setInterval(createHeart, 500);
+</script>
 </body>
 </html>
