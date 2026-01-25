@@ -195,46 +195,48 @@
     /* สไตล์พื้นฐาน */
     html { scroll-behavior: smooth; }
 
+/* แถบบนสุด: โปร่งใสและเล็กลง */
 .navbar {
     width: 100%;
-    /* ปรับเป็นแถบใสและบางลง */
-    background-color: rgba(255, 255, 255, 0.1); 
-    backdrop-filter: blur(10px); /* เอฟเฟกต์กระจกฝ้า */
+    background-color: rgba(255, 255, 255, 0.1); /* ใส 90% */
+    backdrop-filter: blur(10px); /* เอฟเฟกต์เบลอหลังแถบ */
     -webkit-backdrop-filter: blur(10px);
-    padding: 5px 0; /* ลด padding ให้แถบเล็กลง */
+    padding: 8px 0; /* ลดความหนาของแถบลง */
     position: fixed;
     top: 0;
     z-index: 2000;
-    transition: 0.3s;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
+/* จัดตำแหน่ง ซ้าย-ขวา */
 .nav-container {
     display: flex;
-    justify-content: space-between; /* หัวใจชิดซ้าย - 3 ขีดชิดขวา */
+    justify-content: space-between; /* ดันหัวใจไปซ้าย ดันกลุ่มเมนูไปขวา */
     align-items: center;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 20px;
 }
 
+/* กลุ่มเมนูและ 3 ขีด */
 .nav-right-wrapper {
     display: flex;
     align-items: center;
+    gap: 15px; /* เว้นระยะห่างระหว่างเมนูกับ 3 ขีด */
 }
 
-/* ปรับ 3 ขีดให้ดูสะอาดตา */
+/* ปุ่ม 3 ขีด */
 .hamburger {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
     cursor: pointer;
-    padding: 10px;
 }
 
 .hamburger span {
     width: 25px;
-    height: 2px;
-    background-color: #333; /* สีของ 3 ขีด */
+    height: 1px; /* เส้นบางลงให้ดูคลีน */
+    background-color: #333;
 }
 
         /* ตั้งค่าสำหรับหน้าจอปกติ (คอมพิวเตอร์) */
@@ -336,43 +338,6 @@
             }
         }
 
-
-    /* ตั้งค่าปุ่ม 3 ขีดในมือถือ */
-    @media (max-width: 768px) {
-        .desktop-only {
-            display: none; /* ซ่อนปุ่ม Go down ในมือถือเพื่อให้คลีน */
-        }
-
-        .hamburger {
-            display: flex !important; /* แสดงปุ่ม 3 ขีด */
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 2px;
-            background-color: #333;
-        }
-
-        /* จัดการเมนูที่ซ่อนอยู่ */
-        .nav-menu {
-            display: none;
-            position: absolute;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            background: white;
-            flex-direction: column;
-            padding: 20px 0;
-            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-        }
-
-        .nav-menu.active {
-            display: flex;
-        }
-    }
 /* --- ปรับปรุง Navbar ให้ใสและจัดวางใหม่ --- */
 .navbar {
     width: 100%;
@@ -438,12 +403,12 @@
     <div class="nav-container">
         <div class="logo">
             <a href="index.html">
-            <img src="image/heart2.png" alt="earn" style="width: 40px; height: auto;">
+                <img src="image/heart2.png" alt="earn" style="width: 35px; height: auto; display: block;">
             </a>
         </div>
 
         <div class="nav-right-wrapper">
-            <ul class="nav-menu" id="nav-menu" style="display: none;"> 
+            <ul class="nav-menu" id="nav-menu"> 
                 <li><a href="#">Home</a></li>
                 <li><a href="gallery.html" target="_blank">Gallery</a></li>
             </ul>
