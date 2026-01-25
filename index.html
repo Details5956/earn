@@ -3,264 +3,400 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Earn kub lak na</title>
+    <link rel="stylesheet" href="mainstyles.css">
+    <title>96 Timeless Coffee</title>
     <style>
-        /* 1. Global Setup */
-        :root {
-            --primary-red: #ff4d4d;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --blur-effect: blur(15px);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Arial', sans-serif; overflow-x: hidden; background-color: #fdfdfd; }
-
-        /* --- Navbar --- */
-        .navbar {
-            width: 100%;
-            height: 70px;
-            background-color: var(--glass-bg);
-            backdrop-filter: var(--blur-effect);
-            -webkit-backdrop-filter: var(--blur-effect);
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            transition: all 0.4s ease;
-        }
-
-        .navbar.active-bg { 
-            background-color: rgba(255, 255, 255, 0.95); 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1); 
-        }
-
-        .nav-container {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 25px;
-        }
-
-        .logo img { width: 50px; height: auto; transition: 0.3s; }
-
-        /* --- Desktop Menu --- */
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        .nav-menu a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 600;
-            letter-spacing: 1px;
-            transition: 0.3s;
-        }
-
-        /* --- Hamburger (3 ขีด) --- */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-        }
-        .hamburger span {
-            width: 28px;
-            height: 3px;
-            background-color: #333;
-            border-radius: 10px;
-            transition: 0.4s;
-        }
-
-        /* --- Mobile Menu (ปรับใหม่ให้ไม่แปลก) --- */
-        @media (max-width: 768px) {
-            .hamburger { display: flex; }
-            
-            .nav-menu {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: rgba(255, 255, 255, 0.98);
-                height: 0;
-                overflow: hidden;
-                transition: height 0.3s ease-in-out;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-                text-align: center;
-            }
-
-            .nav-menu.active { height: 120px; padding: 8px 0; }
-            .nav-menu a { display: block; padding: 8px 0; font-size: 14px; }
-            
-            .hamburger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-            .hamburger.open span:nth-child(2) { opacity: 0; }
-            .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-        }
-
-        /* --- Content Sections (ส่วนที่เคยหายไป) --- */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('image/earn.png');
-            background-size: cover; background-position: center; height: 100vh;
-            display: flex; align-items: center; justify-content: center; text-align: center; color: white;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('image/inside.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 1000px;
+            display: flex;  
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
         }
-        .valentine-animated {
-            font-size: 60px; font-weight: bold;
-            background: linear-gradient(90deg, #ff0000, #ff69b4, #ff1493, #ff0000);
-            background-size: 300% auto; -webkit-background-clip: text; background-clip: text;
-            -webkit-text-fill-color: transparent; animation: flow 3s linear infinite, beat 1.2s infinite ease-in-out;
+
+        .hero-content h1 {
+            font-size: 64px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            font-weight: 300;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+            margin-bottom: 30px;
+        }
+
+        .featured-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .featured-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .featured-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .featured-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .featured-item-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 40px 20px 20px;
+            text-align: center;
+        }
+
+        .featured-item-content h3 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .featured-item-content p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .about-section {
+            background-color: #f9f9f9;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .about-section h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            font-weight: 400;
+            letter-spacing: 2px;
+        }
+
+        .about-section p {
+            font-size: 16px;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .cta-button {
             display: inline-block;
+            background-color: #d32f2f;
+            color: white;
+            padding: 15px 40px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            margin: 10px;
         }
-        @keyframes flow { 0% { background-position: 0% center; } 100% { background-position: 100% center; } }
-        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        .featured-section { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 80px 5%; background-color: #fff; }
-        .featured-item { position: relative; overflow: hidden; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); aspect-ratio: 3/4; cursor: pointer; }
-        .featured-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .featured-item-content { position: absolute; bottom: 0; left: 0; right: 0; padding: 20px; background: linear-gradient(transparent, rgba(0,0,0,0.8)); color: white; }
-
-        .responsive-section, .mobile-friendly-section { display: flex; width: 100%; overflow: hidden; background-color: #f9f9f9; }
-        .row-reverse { flex-direction: row-reverse; }
-
-        @media (max-width: 768px) {
-            .featured-section { grid-template-columns: 1fr; padding: 40px 10%; }
-            .responsive-section, .mobile-friendly-section { flex-direction: column !important; }
-            .video-container, .text-container, .video-side, .text-side, .video-part, .text-part {
-                width: 100% !important; padding: 40px 20px !important; text-align: center;
-            }
-            .valentine-animated { font-size: 40px; }
+        .cta-button:hover {
+            background-color: #b71c1c;
+            transform: translateY(-3px); 
+            box-shadow: 0 10px 20px rgba(211, 47, 47, 0.3);
         }
-        footer { padding: 40px; text-align: center; background: #333; color: white; }
-    </style>
+    
+    .featured-section {
+        display: grid;
+        /* ทำให้เรียง 3 คอลัมน์ในหน้าจอคอม */
+        grid-template-columns: repeat(3, 1fr); 
+        gap: 20px;
+        padding: 40px 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .featured-item img {
+        width: 100%;
+        height: 300px; /* ปรับความสูงให้พอดีกับ 3 คอลัมน์ */
+        object-fit: cover;
+        display: block;
+    }
+
+/* ปุ่ม 3 ขีด (Hamburger) */
+.hamburger {
+    display: none; /* ซ่อนในคอม */
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 8px 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2); /* กรอบสี่เหลี่ยมมน */
+    border-radius: 8px;
+    z-index: 2001;
+}
+
+.hamburger span {
+    display: block;
+    width: 22px;
+    height: 1px;
+    background-color: #333; /* สีของขีด 3 ขีด */
+}
+
+/* --- แก้ไขส่วนสำหรับหน้าจอโทรศัพท์ --- */
+@media (max-width: 768px) {
+    .navbar {
+        background-color: transparent !important; 
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 2000;
+        transition: 0.3s ease;
+        padding: 5px 0; /* ลด padding ลงเพื่อให้กระชับ */
+    }
+
+    /* เมื่อกดเปิดเมนู */
+    .navbar.active-bg {
+        background-color: white !important;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+        display: flex !important;
+        flex-direction: row !important;
+        /* บังคับให้วัตถุชิดขอบซ้าย-ขวาที่สุด */
+        justify-content: space-between !important; 
+        align-items: center !important;
+        padding: 0 15px !important; /* ปรับระยะห่างจากขอบจอเล็กน้อย */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .logo {
+        margin: 0 !important;
+        padding: 0 !important;
+        /* ดันโลโก้ไปซ้ายสุด */
+        display: flex;
+        align-items: center;
+    }
+
+    .logo img {
+        height: 60px; /* ขนาดโลโก้ */
+        width: auto;
+        display: block;
+    }
+
+    .hamburger {
+        display: flex !important; 
+        margin: 0 !important;
+        /* ถ้ายังไม่ชิดขวา ให้ใส่ margin-left: auto; */
+        order: 3; 
+    }
+
+    /* จัดการเมนูที่กางออกมา */
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: white;
+        flex-direction: column;
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    .nav-menu.active {
+        display: flex !important;
+    }
+
+    /* ซ่อนส่วน IG, FB ในมือถือเพื่อไม่ให้ไปแย่งที่ */
+    .nav-right {
+        display: none !important;
+    }
+}   
+</style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <a href="index.html"><img src="image/heart2.png" alt="heart"></a>
-            </div>
-            <ul class="nav-menu" id="nav-menu"> 
-                <li><a href="index.html">Home</a></li>
-                <li><a href="gallery.html">Gallery</a></li>
-            </ul>
-            <div class="hamburger" id="hamburger">
-                <span></span><span></span><span></span>
-            </div>
+    <!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <a href="index.html">
+                <img src="image/96timeless.png" alt="96 Timeless Coffee Logo">
+            </a>
         </div>
-    </nav>
 
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <ul class="nav-menu" id="nav-menu"> 
+            <li><a href="#" style="scroll-behavior: smooth;">Home</a></li>
+        <style>
+            html {
+             scroll-behavior: smooth;
+                }
+        </style>
+            <li><a href="https://online.anyflip.com/rjwyv/mmgx/" target="_blank">Menu</a></li>
+            <li><a href="location.html">Location</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <a href="#instagram" class="social-icon">IG</a>
+            <a href="https://www.facebook.com/96TimelessCoffee" class="social-icon">FB</a>
+            <a href="#contact" class="view-menu-btn">Contact</a>
+        </div>
+    </div>
+</nav>
+
+    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <h1 class="valentine-animated">Valentine Day</h1>   
-            <p>You are the best thing that ever happened to me..</p>
+            <h1>96 Timeless Coffee</h1>
+            <p>Experience Timeless Flavors</p>
         </div>
     </section>
 
+    <!-- Featured Section -->
     <section class="featured-section">
-        <div class="featured-item"><img src="image/earn3.jpg" alt="1"><div class="featured-item-content"><h3>13 / 9 / 68</h3><p>Cinema at terminal 21</p></div></div>
-        <div class="featured-item"><img src="image/earn2.jpg" alt="2"><div class="featured-item-content"><h3>21 / 11 / 68</h3><p>สถานีขนส่งผู้โดยสาร หมอชิต2</p></div></div>
-        <div class="featured-item"><img src="image/earn4.jpg" alt="3"><div class="featured-item-content"><h3>10 / 12 / 68</h3><p>Central marina</p></div></div>
-    </section>
-
-    <section class="responsive-section">
-        <div class="video-container" style="flex: 1; background: #000;">
-            <video autoplay loop muted playsinline style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                <source src="image/earn.mp4" type="video/mp4">
-            </video>
+        <div class="featured-item">
+            <img src="image/coffee.jpg" alt="Premium Coffee">
+            <div class="featured-item-content">
+                <h3>Premium Coffee</h3>
+                <p>Pure Artisanal Coffee</p>
+            </div>
         </div>
-        <div class="text-container" style="flex: 1; padding: 60px 5%;">
-            <h2 class="valentine-animated" style="font-size: 32px; margin-bottom: 20px;">เราเจอกันที่ไหนครั้งแรก?</h2>
-            <p style="margin-bottom: 30px;">ตอนนั้นเดินมาขอ IG ตรงใต้ตึกกำลังจะเดินกลับตึกเรียนเลย จากนั้นก็ทักมาจีบเลยน้าา</p>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3875.55!2d100.5!3d13.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTPCsDQyJzAwLjAiTiAxMDDCsDMwJzAwLjAiRQ!5e0!3m2!1sth!2sth!4v1620000000000" width="100%" height="300" style="border:0; border-radius: 15px;" allowfullscreen="" loading="lazy"></iframe>
+        <div class="featured-item">
+            <img src="image/dessert.jpg" alt="Pastries & Desserts">
+            <div class="featured-item-content">
+                <h3>Pastries & Desserts</h3>
+                <p>Fresh daily selections</p>
+            </div>
         </div>
-    </section>
-
-    <section class="responsive-section row-reverse" style="background-color: #ffffff;">
-        <div class="video-side" style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px;">
-            <video autoplay loop muted playsinline style="width: 80%; border-radius: 20px;">
-                <source src="image/earn2.mp4" type="video/mp4">
-            </video>
-        </div>
-        <div class="text-side" style="flex: 1; padding: 60px 5%;">
-            <h2 style="font-size: 42px; color: #d32f2f; margin-bottom: 20px;">รักใครที่สุดในโลกนี่?</h2>
-            <p style="font-size: 18px; margin-bottom: 30px;">รักเอิร์นที่สุดในโลกเลยยย ยอมทุกอย่างจริงๆ รักมากอยากดูแลเอิร์นไปตลอดชีวิตเลย</p>
-            <img src="image/heart.png" alt="Heart" style="width: 100px;">
+        <div class="featured-item">
+            <img src="image/food1.jpg" alt="Main Course & Starters">
+            <div class="featured-item-content">
+                <h3>Main Course & Starters</h3>
+                <p>Exquisite Flavors, Daily</p>
+            </div>
         </div>
     </section>
 
-    <section class="mobile-friendly-section" style="padding: 40px 0; text-align: center;">
-        <div class="video-part" style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
-            <video autoplay loop muted playsinline style="width: 100%; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
-                <source src="image/earn3.mp4" type="video/mp4">
-            </video>
-        </div>
-        <div class="text-part" style="max-width: 600px; margin: 30px auto;">
-            <h3 style="font-size: 28px; margin-bottom: 15px;">รูปของเรา</h3>
-            <p style="margin-bottom: 30px;">ความทรงจำดีดีทำให้เราคิดถึงกัน</p>
-            <a href="gallery.html" style="display: inline-block; background-color: #d32f2f; color: white; padding: 14px 40px; text-decoration: none; border-radius: 50px; font-weight: bold;">View Gallery</a>
-        </div>
-    </section>
 
-    <section style="text-align: center; padding: 60px 20px;">
-        <img src="image/heart7.png" alt="Big Heart" style="width: 380px; max-width: 90%; height: auto;">
-    </section>
-
-    <div id="music-control" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; cursor: pointer; background: white; padding: 10px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">
-        <span id="music-icon" style="font-size: 24px;">🔇</span>
+    <!-- About Section -->
+ <section style="display: flex; align-items: stretch; width: 100%; min-height: 500px; background-color: #f9f9f9; margin: 40px 0; overflow: hidden;">
+    
+    <div style="flex: 1;">
+        <img src="image/outside1.jpg" alt="96 Timeless Coffee House" 
+             style="width: 100%; height: 100%; object-fit: cover; display: block;">
     </div>
-    <div id="player" style="display:none;"></div>
 
-    <footer><p>You are the reason I believe in love (earn)</p></footer>
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 5%;">
+        <h2 style="font-size: 42px; margin-bottom: 20px; font-weight: 400; letter-spacing: 2px;">
+            Welcome to 96 Timeless Coffee
+        </h2>
+        <p style="font-size: 16px; line-height: 1.8; color: #555; margin-bottom: 30px;">
+            Discover a world of exquisite coffee and delightful pastries. Our passion for quality and craftsmanship brings you the finest coffee experience. Every cup tells a story of dedication and tradition.
+        </p>
+        <div>
+            <a href="location.html" class="cta-button" style="margin: 0;">Visit Us Today</a>
+        </div>
+    </div>
+    
+    
+</section>
+<section style="display: flex; flex-direction: row-reverse; align-items: stretch; width: 100%; min-height: 500px; background-color: #ffffff; margin-top: 80px; margin-bottom: 80px; overflow: hidden; clear: both;">
+    
+    <div style="flex: 1;">
+        <img src="image/outside2.jpg" alt="Our Atmosphere" 
+             style="width: 100%; height: 100%; object-fit: cover; display: block;">
+    </div>
 
-    <script>
-        // Hamburger & Navbar Script
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        const navbar = document.querySelector('.navbar');
+    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 60px 8%;">
+        <h2 style="font-size: 42px; margin-bottom: 20px; font-weight: 400; letter-spacing: 2px; font-family: 'Courier New', monospace;">
+            Our Tradition
+        </h2>
+        <p style="font-size: 18px; line-height: 1.8; color: #555; margin-bottom: 30px; font-family: 'Courier New', monospace;">
+            Experience the art of slow-roasted beans and hand-crafted delicacies. Every detail in our house is designed to provide a timeless escape from the modern rush.
+        </p>
+        <div>
+            <a href="https://online.anyflip.com/rjwyv/mmgx/" target="_blank" class="cta-button" style="margin: 0;">                Explore Menu
+            </a>
+        </div>
+    </div>
+    
+</section>
+<section style="width: 100%; padding: 60px 0; background-color: #f9f9f9; clear: both; text-align: center;">
+    <div style="max-width: 800px; margin: 0 auto; padding: 0 20px;">
+        <img src="image/food1.jpg" alt="Coffee Shop Interior" 
+             style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: block;">
+    </div>
 
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            hamburger.classList.toggle('open');
-            if(navMenu.classList.contains('active')) { navbar.classList.add('active-bg'); }
-            else if (window.scrollY <= 50) { navbar.classList.remove('active-bg'); }
+    <div style="max-width: 600px; margin: 40px auto 0; padding: 0 20px;">
+        <h3 style="font-family: 'Courier New', monospace; font-size: 28px; font-weight: 400; margin-bottom: 15px; color: #333;">
+            Step Inside Our Cozy Corner
+        </h3>
+        <p style="font-family: 'Courier New', monospace; font-size: 16px; line-height: 1.6; color: #555; margin-bottom: 30px;">
+            Where every corner is crafted for comfort and conversation.
+        </p>
+        <a href="gallery.html" 
+           style="display: inline-block; background-color: #d32f2f; color: white; padding: 12px 30px; text-decoration: none; border-radius: 4px; font-weight: bold; font-size: 14px;">
+            View Gallery
+        </a>
+    </div>
+</section>
+
+    <!-- Contact Section -->
+    <section id="contact" style="text-align: center; padding: 60px 20px; background-color: #f9f9f9;">
+        <h2>Contact Us</h2>
+        <p style="font-size: 16px; margin: 15px 0;">Email: info@96timelesscoffee.com</p>
+        <p style="font-size: 16px; margin: 15px 0;">Phone: (081) 982-9383</p>
+    </section>
+
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 96 Timeless Coffee. All rights reserved.</p>
+    </footer>
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    const navbar = document.querySelector('.navbar');
+
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        // สลับสี Navbar จาก ใส เป็น ขาวทึบ
+        navbar.classList.toggle('active-bg'); 
+    });
+
+    // คลิกเมนูแล้วให้หุบและกลับเป็นแถบใส
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            navbar.classList.remove('active-bg');
         });
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) { navbar.classList.add('active-bg'); }
-            else if (!navMenu.classList.contains('active')) { navbar.classList.remove('active-bg'); }
-        });
-
-        // Music System Script
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        var player;
-        var isPlaying = false;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '0', width: '0', videoId: 'OYPiXBIgvJ8',
-                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'OYPiXBIgvJ8' },
-                events: { 'onReady': function() {
-                    const control = document.getElementById('music-control');
-                    const icon = document.getElementById('music-icon');
-                    control.addEventListener('click', function() {
-                        if (isPlaying) { player.pauseVideo(); icon.innerText = '🔇'; }
-                        else { player.playVideo(); icon.innerText = '🎵'; }
-                        isPlaying = !isPlaying;
-                    });
-                    document.addEventListener('click', () => { 
-                        if(!isPlaying) { player.playVideo(); icon.innerText = '🎵'; isPlaying = true; }
-                    }, { once: true });
-                }}
-            });
-        }
-    </script>
+    });
+</script>
+</script>
 </body>
 </html>
