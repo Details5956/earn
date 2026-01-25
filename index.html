@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Earn kub lak na</title>
     <style>
-        /* 1. Global Setup */
+
         :root {
             --primary-red: #ff4d4d;
             --glass-bg: rgba(255, 255, 255, 0.1);
@@ -15,7 +15,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Arial', sans-serif; overflow-x: hidden; background-color: #fdfdfd; }
 
-        /* --- Navbar --- */
         .navbar {
             width: 100%;
             height: 70px;
@@ -46,7 +45,6 @@
 
         .logo img { width: 50px; height: auto; transition: 0.3s; }
 
-        /* --- Desktop Menu --- */
         .nav-menu {
             display: flex;
             list-style: none;
@@ -61,7 +59,6 @@
             transition: 0.3s;
         }
 
-        /* --- Hamburger (3 ขีด) --- */
         .hamburger {
             display: none;
             flex-direction: column;
@@ -76,7 +73,6 @@
             transition: 0.4s;
         }
 
-        /* --- Mobile Menu (ปรับใหม่ให้ไม่แปลก) --- */
         @media (max-width: 768px) {
             .hamburger { display: flex; }
             
@@ -174,7 +170,6 @@
     transform: scale(1.1);
     background: #ff758f;
 }    
-/* --- Typewriter Effect CSS --- */
 .special-message {
     text-align: center;
     margin: 50px auto;
@@ -187,7 +182,7 @@
     min-height: 1.5em;
     margin-bottom: 20px;
     display: inline-block;
-    border-right: 3px solid #ff4d6d; /* เส้นกระพริบเหมือน Cursor */
+    border-right: 3px solid #ff4d6d;
     padding-right: 5px;
     animation: blink 0.7s infinite;
 }
@@ -196,7 +191,6 @@
     50% { border-color: transparent; }
 }
 
-/* --- Style สำหรับ Random Quote (ปรับจากอันเดิมให้สวยขึ้น) --- */
 .quote-bubble {
     background: #fff;
     border: 2px solid #ffccd5;
@@ -225,7 +219,6 @@
 }
 
 .quote-btn:hover { transform: scale(1.1); }
-/* --- Countdown & Valentine Effects --- */
 .countdown-section {
     background: rgba(255, 77, 109, 0.05);
     padding: 40px 20px;
@@ -269,7 +262,6 @@
 
 @keyframes blink { 50% { border-color: transparent; } }
 
-/* เอฟเฟกต์หัวใจลอย (ถ้ายังไม่มีใน index) */
 .heart-fall {
     position: fixed;
     top: -10%;
@@ -280,7 +272,6 @@
 }
 
 @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
-/* ตกแต่งกล่องเวลานับถอยหลังให้ดู Minimal */
 .countdown-container {
     margin-top: 25px;
     background: rgba(255, 255, 255, 0.6);
@@ -315,6 +306,166 @@
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
+}
+#secret-trigger {
+    position: fixed;
+    bottom: 80px; 
+    right: 25px;
+    width: 50px;
+    height: 50px;
+    background: #ff4d6d;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10000;
+    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+    animation: floating 2s infinite ease-in-out;
+}
+
+@keyframes floating {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-10px) scale(1.1); }
+}
+
+.heart-icon { font-size: 24px; }
+
+
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 10001;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 25px;
+    max-width: 90%;
+    width: 350px;
+    text-align: center;
+    position: relative;
+    transform: scale(0.7);
+    transition: 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.secret-img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+}
+
+.secret-text {
+    color: #ff4d6d;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #888;
+}
+.glass-card {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3); 
+    border-radius: 25px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden; 
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px); 
+}
+
+.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent
+    );
+    transform: skewX(-25deg);
+    transition: 0.7s;
+}
+
+.glass-card:hover::before {
+    left: 125%; 
+}
+
+.featured-item.glass-card {
+    background: rgba(255, 255, 255, 0.2); 
+    backdrop-filter: blur(10px); 
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.4); 
+    border-radius: 20px;
+    padding: 15px; 
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.featured-item.glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+        to right, 
+        transparent, 
+        rgba(255, 255, 255, 0.6), 
+        transparent
+    );
+    transform: skewX(-25deg);
+    transition: 0.8s ease;
+    z-index: 1;
+}
+
+.featured-item.glass-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 35px rgba(255, 77, 109, 0.2); 
+}
+
+.featured-item.glass-card:hover::before {
+    left: 150%;
+}
+
+.featured-item img {
+    border-radius: 12px;
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
 }
     </style>
 </head>
@@ -362,11 +513,31 @@
     </div>
 </section>
 
-    <section class="featured-section">
-        <div class="featured-item"><img src="image/earn3.jpg" alt="1"><div class="featured-item-content"><h3>13 / 9 / 68</h3><p>Cinema at terminal 21</p></div></div>
-        <div class="featured-item"><img src="image/earn2.jpg" alt="2"><div class="featured-item-content"><h3>21 / 11 / 68</h3><p>สถานีขนส่งผู้โดยสาร หมอชิต2</p></div></div>
-        <div class="featured-item"><img src="image/earn4.jpg" alt="3"><div class="featured-item-content"><h3>10 / 12 / 68</h3><p>Central marina</p></div></div>
-    </section>
+<section class="featured-section">
+    <div class="featured-item glass-card">
+        <img src="image/earn3.jpg" alt="1">
+        <div class="featured-item-content">
+            <h3>13 / 9 / 68</h3>
+            <p>Cinema at terminal 21</p>
+        </div>
+    </div>
+
+    <div class="featured-item glass-card">
+        <img src="image/earn2.jpg" alt="2">
+        <div class="featured-item-content">
+            <h3>21 / 11 / 68</h3>
+            <p>สถานีขนส่งผู้โดยสาร หมอชิต2</p>
+        </div>
+    </div>
+
+    <div class="featured-item glass-card">
+        <img src="image/earn4.jpg" alt="3">
+        <div class="featured-item-content">
+            <h3>10 / 12 / 68</h3>
+            <p>Central marina</p>
+        </div>
+    </div>
+</section>
 
     <section class="responsive-section">
         <div class="video-container" style="flex: 1; background: #000;">
@@ -420,12 +591,23 @@
     <div id="quote-box" class="quote-bubble">กดตรงนี้เพื่อดูข้อความจากเค้านะ...</div>
     <button onclick="generateQuote()" class="quote-btn">💌 เปิดจดหมาย</button>
 </div>
+<div id="secret-trigger" onclick="openSecret()">
+    <span class="heart-icon">🎁</span>
+</div>
+
+<div id="secret-modal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeSecret()">&times;</span>
+        <img src="image/earn9.jpg" alt="Secret Memory" class="secret-img">
+        <p class="secret-text">แอบเอารูปนี้มาฝาก... รักเอิร์นนะค๊าบ ❤️</p>
+    </div>
+</div>
 
 
     <footer><p>You are the reason I believe in love (earn)</p></footer>
 
     <script>
-        // Hamburger & Navbar Script
+
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         const navbar = document.querySelector('.navbar');
@@ -442,7 +624,6 @@
             else if (!navMenu.classList.contains('active')) { navbar.classList.remove('active-bg'); }
         });
 
-        // Music System Script
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -470,7 +651,7 @@
         }
     document.addEventListener('mousemove', function(e) {
         const trail = document.createElement('div');
-        trail.innerHTML = '❤️'; // หรือใช้ตัวอื่นๆ เช่น ✨
+        trail.innerHTML = '❤️'; 
         trail.style.position = 'fixed';
         trail.style.left = e.clientX + 'px';
         trail.style.top = e.clientY + 'px';
@@ -482,13 +663,11 @@
         
         document.body.appendChild(trail);
         
-        // ทำให้หัวใจลอยขึ้นและค่อยๆ จางไป
         setTimeout(() => {
             trail.style.transform = `translate(${(Math.random() - 0.5) * 40}px, -50px) scale(1.5)`;
             trail.style.opacity = '0';
         }, 10);
         
-        // ลบออกเมื่อทำงานเสร็จ
         setTimeout(() => {
             trail.remove();
         }, 800);
@@ -508,7 +687,6 @@
 
     const quoteBox = document.getElementById('quote-box');
     
-    // ใส่ Effect เล็กน้อยตอนเปลี่ยนข้อความ
     quoteBox.style.opacity = 0;
     
     setTimeout(() => {
@@ -517,23 +695,20 @@
         quoteBox.style.opacity = 1;
     }, 200);
 }
-// --- Typewriter Logic ---
 const textElement = document.getElementById('typewriter');
-const message = "You are the best thing that ever happened to me..."; // แก้ข้อความตรงนี้ได้เลย
+const message = "You are the best thing that ever happened to me..."; 
 let index = 0;
 
 function typeWriter() {
     if (index < message.length) {
         textElement.innerHTML += message.charAt(index);
         index++;
-        setTimeout(typeWriter, 100); // ความเร็วในการพิมพ์ (ms)
+        setTimeout(typeWriter, 100);
     }
 }
 
-// เริ่มพิมพ์เมื่อโหลดหน้าเว็บ
 window.addEventListener('load', typeWriter);
 
-// --- Random Quote Logic ---
 function generateQuote() {
     const quotes = [
         "รักเอิร์นที่สุดในโลกเลยนะ ❤️",
@@ -555,17 +730,16 @@ function generateQuote() {
         quoteBox.style.opacity = 1;
     }, 200);
 }
-    // ข้อความที่ต้องการให้พิมพ์ (แก้ตรงนี้ได้เลย)
     const messageText = "You are the best thing that ever happened to me..."; 
     let charIndex = 0;
     const typewriterElement = document.getElementById('typewriter');
 
     function typeWriter() {
         if (charIndex < messageText.length) {
-            // ใช้ appendChild หรือ += เพื่อเพิ่มทีละตัว
+
             typewriterElement.textContent += messageText.charAt(charIndex);
             charIndex++;
-            setTimeout(typeWriter, 100); // ปรับความเร็วตรงนี้ (100ms)
+            setTimeout(typeWriter, 100); 
         }
     }
 
@@ -589,12 +763,33 @@ function generateQuote() {
         }, 1000);
     }
 
-    // ใช้การเช็คเพื่อให้มั่นใจว่าฟังก์ชันรันแค่ครั้งเดียว
     document.addEventListener('DOMContentLoaded', () => {
-        typewriterElement.textContent = ""; // เคลียร์ข้อความก่อนเริ่ม
+        typewriterElement.textContent = ""; 
         typeWriter();
         startCountdown();
     });
+    function openSecret() {
+    const modal = document.getElementById('secret-modal');
+    modal.style.display = 'flex';
+    setTimeout(() => {
+        modal.classList.add('active');
+    }, 10);
+}
+
+function closeSecret() {
+    const modal = document.getElementById('secret-modal');
+    modal.classList.remove('active');
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+}
+
+window.onclick = function(event) {
+    const modal = document.getElementById('secret-modal');
+    if (event.target == modal) {
+        closeSecret();
+    }
+}
     </script>
     
 </body>

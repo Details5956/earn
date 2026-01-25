@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery - Earn kub lak na</title>
     <style>
-        /* --- 1. Global Setup --- */
+
         :root {
             --primary-red: #ff4d4d;
             --glass-bg: rgba(255, 255, 255, 0.1);
@@ -16,14 +16,13 @@
         body { font-family: 'Arial', sans-serif; background-color: #fdfdfd; overflow-x: hidden; position: relative; }
         html { scroll-behavior: smooth; }
 
-        /* --- Falling Hearts Effect --- */
         .heart-fall {
             position: fixed;
             top: -10%;
             font-size: 20px;
             color: #ff4d6d;
             user-select: none;
-            pointer-events: none; /* ไม่ให้หัวใจบังการกดปุ่มต่างๆ */
+            pointer-events: none; 
             z-index: 9998;
             animation: fall linear forwards;
         }
@@ -117,7 +116,6 @@
             .hamburger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
         }
 
-        /* --- Gallery Section --- */
         .gallery-container {
             max-width: 1200px;
             margin: 100px auto 60px;
@@ -242,37 +240,29 @@
     <footer><p>You are the reason I believe in love (earn)</p></footer>
 
     <script>
-        // --- 1. Falling Hearts Script ---
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart-fall');
             
-            // สุ่มไอคอนหัวใจหลายๆ แบบ
             const heartIcons = ['❤️', '💖', '💗', '💓', '💕'];
             heart.innerText = heartIcons[Math.floor(Math.random() * heartIcons.length)];
             
-            // สุ่มตำแหน่งแนวนอน
             heart.style.left = Math.random() * 100 + "vw";
-            
-            // สุ่มความเร็ว (3-7 วินาที)
+
             const duration = Math.random() * 4 + 3;
             heart.style.animationDuration = duration + "s";
             
-            // สุ่มขนาด (15px - 30px)
             heart.style.fontSize = Math.random() * 15 + 15 + "px";
 
             document.body.appendChild(heart);
 
-            // ลบหัวใจเมื่อจบแอนิเมชั่น
             setTimeout(() => {
                 heart.remove();
             }, duration * 1000);
         }
 
-        // สร้างหัวใจทุกๆ 500ms
         setInterval(createHeart, 500);
 
-        // --- 2. Navbar & Hamburger Script ---
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
         const navbar = document.querySelector('.navbar');
@@ -295,7 +285,6 @@
             }
         });
 
-        // --- 3. Music System Script ---
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
