@@ -467,9 +467,53 @@
     display: block;
     margin-bottom: 10px;
 }
+#welcome-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100000; 
+    transition: opacity 1.5s ease, visibility 1.5s;
+    text-align: center;
+}
+
+.welcome-text {
+    font-size: 3rem;
+    color: #ff4d6d;
+    font-weight: bold;
+    margin-bottom: 10px;
+    animation: fadeInUp 1s ease-out;
+}
+
+.welcome-subtext {
+    font-size: 1.2rem;
+    color: #888;
+    animation: fadeInUp 1.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
     </style>
 </head>
 <body>
+    <div id="welcome-screen">
+    <div class="welcome-content">
+        <h1 class="welcome-text">Happy Valentine's Day</h1>
+        <p class="welcome-subtext">To my special person... Earn ❤️</p>
+    </div>
+</div>
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
@@ -606,49 +650,49 @@
 
     <footer><p>You are the reason I believe in love (earn)</p></footer>
 
-    <script>
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    const navbar = document.querySelector('.navbar');
 
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        const navbar = document.querySelector('.navbar');
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('open');
+        if(navMenu.classList.contains('active')) { navbar.classList.add('active-bg'); }
+        else if (window.scrollY <= 50) { navbar.classList.remove('active-bg'); }
+    });
 
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            hamburger.classList.toggle('open');
-            if(navMenu.classList.contains('active')) { navbar.classList.add('active-bg'); }
-            else if (window.scrollY <= 50) { navbar.classList.remove('active-bg'); }
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) { navbar.classList.add('active-bg'); }
+        else if (!navMenu.classList.contains('active')) { navbar.classList.remove('active-bg'); }
+    });
+
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    var player;
+    var isPlaying = false;
+    function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+            height: '0', width: '0', videoId: 'OYPiXBIgvJ8',
+            playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'OYPiXBIgvJ8' },
+            events: { 'onReady': function() {
+                const control = document.getElementById('music-control');
+                const icon = document.getElementById('music-icon');
+                control.addEventListener('click', function() {
+                    if (isPlaying) { player.pauseVideo(); icon.innerText = '🔇'; }
+                    else { player.playVideo(); icon.innerText = '🎵'; }
+                    isPlaying = !isPlaying;
+                });
+                document.addEventListener('click', () => { 
+                    if(!isPlaying) { player.playVideo(); icon.innerText = '🎵'; isPlaying = true; }
+                }, { once: true });
+            }}
         });
+    }
 
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) { navbar.classList.add('active-bg'); }
-            else if (!navMenu.classList.contains('active')) { navbar.classList.remove('active-bg'); }
-        });
-
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        var player;
-        var isPlaying = false;
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('player', {
-                height: '0', width: '0', videoId: 'OYPiXBIgvJ8',
-                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'OYPiXBIgvJ8' },
-                events: { 'onReady': function() {
-                    const control = document.getElementById('music-control');
-                    const icon = document.getElementById('music-icon');
-                    control.addEventListener('click', function() {
-                        if (isPlaying) { player.pauseVideo(); icon.innerText = '🔇'; }
-                        else { player.playVideo(); icon.innerText = '🎵'; }
-                        isPlaying = !isPlaying;
-                    });
-                    document.addEventListener('click', () => { 
-                        if(!isPlaying) { player.playVideo(); icon.innerText = '🎵'; isPlaying = true; }
-                    }, { once: true });
-                }}
-            });
-        }
     document.addEventListener('mousemove', function(e) {
         const trail = document.createElement('div');
         trail.innerHTML = '❤️'; 
@@ -660,53 +704,30 @@
         trail.style.zIndex = '10000';
         trail.style.transition = 'all 0.8s ease-out';
         trail.style.opacity = '1';
-        
         document.body.appendChild(trail);
-        
         setTimeout(() => {
             trail.style.transform = `translate(${(Math.random() - 0.5) * 40}px, -50px) scale(1.5)`;
             trail.style.opacity = '0';
         }, 10);
-        
-        setTimeout(() => {
-            trail.remove();
-        }, 800);
-    });    
+        setTimeout(() => { trail.remove(); }, 800);
+    });
+
     function generateQuote() {
-    const quotes = [
-        "รักเอิร์นที่สุดในโลกเลยนะ ❤️",
-        "ขอบคุณที่เข้ามาเป็นเรื่องราวดีๆ ในชีวิตเค้านะ",
-        "วันนี้เหนื่อยไหม? สู้ๆ นะคะคนเก่งของเค้า ✌️",
-        "อยากอยู่ข้างๆ เอิร์นแบบนี้ไปนานๆ เลย",
-        "รอยยิ้มของเอิร์นคือความสุขของเค้านะ 😊",
-        "กินข้าวเยอะๆ นะ เป็นห่วงนะค๊าบ",
-        "ถึงจะดื้อบ้างแต่ก็รักเอิร์นคนเดียวนะ",
-        "วันนี้เอิร์นสวยที่สุดเลย! (จริงๆ ก็สวยทุกวันแหละ)",
-        "เค้าโชคดีมากที่มีเอิร์นอยู่ตรงนี้ 💖",
-        "อยากอยู่จนเราสองคนแก่ไปด้วยกันเลย"
-    ];
-
-    const quoteBox = document.getElementById('quote-box');
-    
-    quoteBox.style.opacity = 0;
-    
-    setTimeout(() => {
-        const randomIndex = Math.floor(Math.random() * quotes.length);
-        quoteBox.innerText = quotes[randomIndex];
-        quoteBox.style.opacity = 1;
-    }, 200);
-}
-const textElement = document.getElementById('typewriter');
-const message = "You are the best thing that ever happened to me..."; 
-let index = 0;
-
-function typeWriter() {
-    if (index < message.length) {
-        textElement.innerHTML += message.charAt(index);
-        index++;
-        setTimeout(typeWriter, 100);
+        const quotes = [
+            "รักเอิร์นที่สุดในโลกเลยนะ ❤️", "ขอบคุณที่เข้ามาเป็นเรื่องราวดีๆ ในชีวิตเค้านะ",
+            "วันนี้เหนื่อยไหม? สู้ๆ นะคะคนเก่งของเค้า ✌️", "อยากอยู่ข้างๆ เอิร์นแบบนี้ไปนานๆ เลย",
+            "รอยยิ้มของเอิร์นคือความสุขของเค้านะ 😊", "กินข้าวเยอะๆ นะ เป็นห่วงนะค๊าบ",
+            "ถึงจะดื้อบ้างแต่ก็รักเอิร์นคนเดียวนะ", "วันนี้เอิร์นสวยที่สุดเลย!",
+            "เค้าโชคดีมากที่มีเอิร์นอยู่ตรงนี้ 💖", "อยากอยู่จนเราสองคนแก่ไปด้วยกันเลย"
+        ];
+        const quoteBox = document.getElementById('quote-box');
+        quoteBox.style.opacity = 0;
+        setTimeout(() => {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            quoteBox.innerText = quotes[randomIndex];
+            quoteBox.style.opacity = 1;
+        }, 200);
     }
-}
 
     const messageText = "You are the best thing that ever happened to me..."; 
     let charIndex = 0;
@@ -714,7 +735,6 @@ function typeWriter() {
 
     function typeWriter() {
         if (charIndex < messageText.length) {
-
             typewriterElement.textContent += messageText.charAt(charIndex);
             charIndex++;
             setTimeout(typeWriter, 100); 
@@ -723,17 +743,14 @@ function typeWriter() {
 
     function startCountdown() {
         const target = new Date("February 14, 2026 00:00:00").getTime();
-        
         setInterval(() => {
             const now = new Date().getTime();
             const diff = target - now;
-
             if (diff <= 0) {
                 document.getElementById("timer").style.display = "none";
                 document.getElementById("anniversary-message").style.display = "block";
                 return;
             }
-
             document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
             document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -743,32 +760,36 @@ function typeWriter() {
 
     document.addEventListener('DOMContentLoaded', () => {
         typewriterElement.textContent = ""; 
-        typeWriter();
         startCountdown();
+
+        setTimeout(() => {
+            const welcomeScreen = document.getElementById('welcome-screen');
+            welcomeScreen.classList.add('fade-out');
+
+            setTimeout(() => {
+                typeWriter();
+            }, 1000);
+
+        }, 3000); 
     });
+
     function openSecret() {
-    const modal = document.getElementById('secret-modal');
-    modal.style.display = 'flex';
-    setTimeout(() => {
-        modal.classList.add('active');
-    }, 10);
-}
-
-function closeSecret() {
-    const modal = document.getElementById('secret-modal');
-    modal.classList.remove('active');
-    setTimeout(() => {
-        modal.style.display = 'none';
-    }, 300);
-}
-
-window.onclick = function(event) {
-    const modal = document.getElementById('secret-modal');
-    if (event.target == modal) {
-        closeSecret();
+        const modal = document.getElementById('secret-modal');
+        modal.style.display = 'flex';
+        setTimeout(() => { modal.classList.add('active'); }, 10);
     }
-}
-    </script>
+
+    function closeSecret() {
+        const modal = document.getElementById('secret-modal');
+        modal.classList.remove('active');
+        setTimeout(() => { modal.style.display = 'none'; }, 300);
+    }
+
+    window.onclick = function(event) {
+        const modal = document.getElementById('secret-modal');
+        if (event.target == modal) { closeSecret(); }
+    }
+</script>
     
 </body>
 </html>
