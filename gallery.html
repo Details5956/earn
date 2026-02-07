@@ -352,7 +352,7 @@
 
             function cinematicScroll() {
                 if (currentPos < targetPos) {
-                    currentPos += 1; 
+                    currentPos += 1.1; 
                     window.scrollTo(0, currentPos);
                     requestAnimationFrame(cinematicScroll);
                 } else {
