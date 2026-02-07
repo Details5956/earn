@@ -196,7 +196,7 @@
 <body class="locked">
 
 <video autoplay muted loop playsinline webkit-playsinline id="bg-video-loop">
-    <source src="image/earn4.mp4" type="video/mp4">
+    <source src="image/earnclip.MOV" type="video/mp4">
 </video>
 
     <nav class="navbar">
@@ -221,7 +221,7 @@
         <h2 style="margin-bottom: 20px; color: #ff4d6d;">For You, Earn ❤️</h2>
         <div class="intro-video-container">
             <video id="intro-video" muted playsinline webkit-playsinline>
-                <source src="image/earn.mp4" type="video/mp4">
+                <source src="image/earnclip.MOV" type="video/mp4">
             </video>
             <div id="play-hint">แตะเพื่อรับชมนะค๊าบ 🎁</div>
         </div>
@@ -238,6 +238,33 @@
             <div class="gallery-item"><img src="image/earn7.jpg"></div>
             <div class="gallery-item"><img src="image/earn8.jpg"></div>
             <div class="gallery-item"><img src="image/earn6.png"></div>
+            <div class="gallery-item"><img src="image/earn10.JPG"></div>
+            <div class="gallery-item"><img src="image/earn11.JPG"></div>
+            <div class="gallery-item"><img src="image/earn12.JPG"></div>
+            <div class="gallery-item"><img src="image/earn13.JPG"></div>
+            <div class="gallery-item"><img src="image/earn14.JPG"></div>
+            <div class="gallery-item"><img src="image/earn15.JPG"></div>
+            <div class="gallery-item"><img src="image/earn16.JPG"></div>
+            <div class="gallery-item"><img src="image/earn17.JPG"></div>
+            <div class="gallery-item"><img src="image/earn18.JPG"></div>
+            <div class="gallery-item"><img src="image/earn19.JPG"></div>
+            <div class="gallery-item"><img src="image/earn20.JPG"></div>
+            <div class="gallery-item"><img src="image/earn21.JPG"></div>
+            <div class="gallery-item"><img src="image/earn22.JPG"></div>
+            <div class="gallery-item"><img src="image/earn23.JPG"></div>
+            <div class="gallery-item"><img src="image/earn24.JPG"></div>
+            <div class="gallery-item"><img src="image/earn25.JPG"></div>
+            <div class="gallery-item"><img src="image/earn27.JPG"></div>
+            <div class="gallery-item"><img src="image/earn28.JPG"></div>
+            <div class="gallery-item"><img src="image/earn29.JPG"></div>
+            <div class="gallery-item"><img src="image/earn30.JPG"></div>
+            <div class="gallery-item"><img src="image/earn31.JPG"></div>
+            <div class="gallery-item"><img src="image/earn32.JPG"></div>
+            <div class="gallery-item"><img src="image/earn33.JPG"></div>
+            <div class="gallery-item"><img src="image/earn34.JPG"></div>
+            <div class="gallery-item"><img src="image/earn35.JPG"></div>
+            <div class="gallery-item"><img src="image/earn36.JPG"></div>
+            <div class="gallery-item"><img src="image/earn37.JPG"></div>        
             <div class="gallery-item"><video controls playsinline><source src="image/earn.mp4" type="video/mp4"></video></div>
             <div class="gallery-item"><video controls playsinline><source src="image/earn2.mp4" type="video/mp4"></video></div>
             <div class="gallery-item"><video controls playsinline><source src="image/earn3.mp4" type="video/mp4"></video></div>
@@ -281,31 +308,25 @@
         hamburger.classList.toggle('open');
     });
 
-    // ส่วนแก้ไขหลักสำหรับเล่นวิดีโอเสียงเบากว่าเพลง
     introOverlay.addEventListener('click', () => {
         if (hasStarted) return;
         hasStarted = true;
 
-        // 1. ตั้งค่าเสียงเพลง (ดังสุด 100%)
         bgMusic.muted = false;
         bgMusic.volume = 1.0;
         const playMusic = bgMusic.play();
 
-        // 2. ตั้งค่าเสียงวิดีโอ (เบาเพียง 30%)
         introVideo.volume = 0.3; 
         
         if (playMusic !== undefined) {
             playMusic.then(() => {
                 musicIcon.innerText = '🎵';
-                // เมื่อเพลงเล่นได้แล้ว ค่อยเริ่มวิดีโอ
                 introVideo.play().then(() => {
-                    // ปลดล็อก Muted วิดีโอหลังจากเล่นไปนิดนึงเพื่อหลอกระบบ iPhone
                     setTimeout(() => {
                         introVideo.muted = false;
                     }, 100);
                 });
             }).catch(e => {
-                // ถ้าเพลงมีปัญหา ให้วิดีโอเล่นไปก่อนแบบ Muted
                 introVideo.play();
             });
         }
